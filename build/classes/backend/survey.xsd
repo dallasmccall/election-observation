@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:complexType name="type-question">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded">
+    <xs:element name="caption" type="xs:string" minOccurs="1" maxOccurs="1"/>
+	<xs:choice minOccurs="1" maxOccurs="1">
+		<xs:element name="text" type="type-text"/>
+		<xs:element name="check" type="type-check"/>
+		<xs:element name="radio" type="type-radio"/>
+	</xs:choice>
+  </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="type-text">
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="default-text" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+</xs:complexType>
+  
+
+<xs:complexType name="choicetype">
+  <xs:simpleContent>
+    <xs:extension base="xs:string">
+      <xs:attribute name="value" type="xs:boolean" default="0"/>
+    </xs:extension>
+  </xs:simpleContent>
+</xs:complexType>
+  
+<xs:complexType name="type-radio">
+	<xs:sequence>
+		<xs:element name="choice" type="xs:string" minOccurs="2" maxOccurs="unbounded"/>
+	</xs:sequence>
+  
+	<xs:attribute name="selected" default="0">
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:minInclusive value="0"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:attribute>
+</xs:complexType>
+
+
+<xs:complexType name="type-check">
+	<xs:sequence>	
+		<xs:element name="choice" minOccurs="1" maxOccurs="unbounded">
+			<xs:complexType >
+				<xs:simpleContent>
+					<xs:extension base="xs:string">
+						<xs:attribute name="checked" type="xs:boolean" default="0"/>
+					</xs:extension>
+				</xs:simpleContent>
+			</xs:complexType>	
+		</xs:element>
+	</xs:sequence>
+</xs:complexType>
+
+<xs:element name="survey">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="question" type="type-question" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+
+</xs:schema>
