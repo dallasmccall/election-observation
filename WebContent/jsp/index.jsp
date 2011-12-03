@@ -81,12 +81,8 @@
 	
   </div>
   
-  <%
-  	String xslPath ="/Users/dallas/Documents/workspace/ElectionObservation/src/backend/survey.xsl";
-	String xmlPath ="/Users/dallas/Documents/workspace/ElectionObservation/src/backend/survey.xml";
-  %>
   
-  <%=SurveyTransformer.transform(xslPath, xmlPath)%>
+  <%=QuestionMap.generateSurvey()%>
   
 </body>
 </html>
