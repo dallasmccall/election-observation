@@ -2,6 +2,8 @@ package backend;
 
 import backend.SurveyTransformer;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -42,14 +44,16 @@ public class QuestionMap {
 		getMap().questions.add(question);
 	}
 	
-	public static void generateSurvey()
+	public static String generateSurvey() throws MalformedURLException
 	{
+	
+		URL xslUrl = QuestionMap.class.getResource("./survey.xsl");
+		URL xmlUrl = QuestionMap.class.getResource("./survey.xml");
 		
-		String xslPath ="/Users/dallas/Documents/workspace/ElectionObservationServer/src/backend/survey.xsl";
-		String xmlPath ="/Users/dallas/Documents/workspace/ElectionObservationServer/src/backend/survey.xml";
-		String outPath ="/Users/dallas/Documents/workspace/ElectionObservationServer/WebContent/jsp/index.jsp";
+		String xslPath = xslUrl.getPath().replaceAll("%20", " ");
+		String xmlPath = xmlUrl.getPath().replaceAll("%20", " ");		
 
-		SurveyTransformer.transform(xslPath,xmlPath,outPath);
+		return SurveyTransformer.transform(xslPath,xmlPath);
 
 	
 	}
