@@ -119,7 +119,7 @@
 	  <ul data-role="listview" data-inset="true">
 	    <li> <a href="#myForm"> View My Submission </a> </li>
 		<li> <a href="#globalResults" onclick="Home.loadResults();"> View Current Results </a> </li>
-		<li> <a href="#cloudPoints" data-rel="dialog" data-transition="fade"> Learn about Cloud Points! </a> </li>
+		<li> <a href="#sponsorsPage" data-rel="dialog" data-transition="fade"> Learn about our sponsors! </a> </li>
 	  </ul>	
 	</div>
 	
@@ -135,7 +135,7 @@
 				<div data-role="navbar" data-position="fixed">
 					<ul>
 					<li><a href="#AlreadyHome" data-role="button" data-transition="fade">Home</a></li>
-					<li><a href="#cloudPoints" data-role="button" data-rel="dialog" data-transition="fade">Cloud Points</a></li>
+					<li><a href="#sponsorsPage" data-role="button" data-rel="dialog" data-transition="fade">Sponsors</a></li>
 					<li><a href="#newForm" data-role="button" data-transition="fade">Restart</a></li>
 					</ul>
 				</div><!-- /navbar -->				
@@ -164,24 +164,27 @@
   </div>
   
   
-    <!-- CLOUD POINTS -->
-  <div id="cloudPoints" data-role="page">
+    <!-- SPONSORS -->
+
+  <div id="sponsorsPage" data-role="page">
     <div data-role="header">
-	  <h1> Cloud Points </h1>
+	  <h1> Sponsors </h1>
 	</div>
 	
 	<div data-role="content">
-	  <p>Cloud Points allow you to post a message on our publically viewable Cloud Board. The more points the larger your post will be, and the longer you can keep it visible!
-	  Earn points by: Submitting a survey (3 points), sending a link to a friend (1 point), and a friend you recommend submitting a survey (2 points)!</p>
-	  <p> 1 Point: Small text size, visible for 1+ day. </p>
-	  <p> 4 Points: Medium text size OR visible for 3+ days. </p>
-	  <p> 8 Points: Medium text size OR visible for 7+ days. </p>
-	  <p> 12 Points: Large text size OR visible for 14+ days. </p>
-	  <p> 20 Points: Extra Large Text Size </p>
+	  <p>Here is info about our sponsors</p>
+
+
+
+
+
+
+
+
 	</div>
   </div>
   
-    <!-- CLOUD POINTS -->
+    <!-- INFO PAGE -->
   <div id="infoPage" data-role="page">
     <div data-role="header">
 	  <h1>How To Use The Tool</h1>
@@ -204,7 +207,7 @@
 
 			<ul>
 				<li><a href="#home" data-role="button" data-transition="fade">Home</a></li>
-				<li><a href="#cloudPoints" data-role="button" data-rel="dialog" data-transition="fade">Cloud Points</a></li>
+				<li><a href="#sponsorsPage" data-role="button" data-rel="dialog" data-transition="fade">Sponsors</a></li>
 				<li><a href="#newForm" data-role="button" data-transition="fade">Restart</a></li>
 			</ul>
 
