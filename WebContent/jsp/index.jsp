@@ -1,6 +1,7 @@
 <html>
 <head>
 	<%@ page import="backend.*" %>
+	<%@ page import="java.util.UUID" %>
 
 	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta charset="utf-8"></meta>
@@ -14,12 +15,19 @@
 
 	<script type="text/javascript" src="../js/Home.js"></script>
 	<script type="text/javascript" src="../js/Request.js"></script>
+	
+	<script type="text/javascript">
+	if (null === localStorage.getItem("sessionID"))
+	{
+		localStorage.setItem("sessionID", "<%=UUID.randomUUID().toString()%>");
+	}
+	</script>
 
 	<title>Election Observation Tool</title>
   
  
 </head>
-<body>
+<body onload="Home.initializeIndex();">
 
 
 
@@ -41,6 +49,8 @@
 		<li> <a href="#globalResults"> View Current Results </a> </li>
 		<li> <a href="#cloudPoints" data-rel="dialog" data-transition="fade"> Learn about Cloud Points! </a> </li>
 	  </ul>	
+	  
+	  <button type="submit" data-theme="b" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false">Submit</button>
 	</div>
   </div>
   
@@ -81,8 +91,7 @@
 	
   </div>
   
-  
-  <%=QuestionMap.generateSurvey()%>
+    <%=QuestionMap.generateSurvey()%>
   
 </body>
 </html>
