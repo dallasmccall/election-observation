@@ -25,11 +25,15 @@
 		localStorage.setItem("sessionID", "<%=UUID.randomUUID().toString()%>");
 	}
 	
+	$(window).bind("load", function() {
+		Home.initializeIndex();
+        navigator.geolocation.getCurrentPosition(showLocation, showError, {enableHighAccuracy:true,maximumAge:600000});
+	});
+	
 	function load() 
 	{
 		//window.location.hash = "home";
-		Home.initializeIndex();
-        navigator.geolocation.getCurrentPosition(showLocation, showError, {enableHighAccuracy:true,maximumAge:600000});
+		
 	}
 	
 	function showError(error) 
