@@ -102,7 +102,7 @@
 				<div data-role="navbar" data-position="fixed">
 					<ul>
 					<li><a href="#home" data-role="button" data-transition="fade">Home</a></li>
-					<li><a href="#cloudPoints" data-role="button" data-rel="dialog" data-transition="fade">Cloud Points</a></li>
+					<li><a href="#sponsorsPage" data-role="button" data-rel="dialog" data-transition="fade">Sponsors</a></li>
 					<li><a href="#newForm" data-role="button" data-transition="fade">Restart</a></li>
 					</ul>
 				</div><!-- /navbar -->				
