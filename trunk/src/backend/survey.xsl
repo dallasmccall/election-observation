@@ -101,9 +101,14 @@
 			<div class="navbarMenu">
 				<div data-role="navbar" data-position="fixed">
 					<ul>
-					<li><a href="#home" data-role="button" data-transition="fade">Home</a></li>
+					<li><a href="#AlreadyHome" data-role="button" data-transition="fade">Home</a></li>
 					<li><a href="#sponsorsPage" data-role="button" data-rel="dialog" data-transition="fade">Sponsors</a></li>
-					<li><a href="#newForm" data-role="button" data-transition="fade">Restart</a></li>
+					<li><a href="#mapPage" data-role="button" data-transition="fade">Map</a></li>
+					</ul>
+					<ul>
+					<li><a href="#mySurveyPage" data-role="button" data-transition="fade">My Survey</a></li>
+					<li><a href="#globalResults" data-role="button" data-rel="dialog" data-transition="fade">Results</a></li>
+					<li><a href="#page1" data-role="button" data-transition="fade">Restart</a></li>
 					</ul>
 				</div><!-- /navbar -->				
 			</div>		

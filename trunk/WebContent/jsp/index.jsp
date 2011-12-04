@@ -132,7 +132,12 @@
 					<ul>
 					<li><a href="#AlreadyHome" data-role="button" data-transition="fade">Home</a></li>
 					<li><a href="#sponsorsPage" data-role="button" data-rel="dialog" data-transition="fade">Sponsors</a></li>
-					<li><a href="#newForm" data-role="button" data-transition="fade">Restart</a></li>
+					<li><a href="#mapPage" data-role="button" data-transition="fade">Map</a></li>
+					</ul>
+					<ul>
+					<li><a href="#mySurveyPage" data-role="button" data-transition="fade">My Survey</a></li>
+					<li><a href="#globalResults" data-role="button" data-rel="dialog" data-transition="fade">Results</a></li>
+					<li><a href="#page1" data-role="button" data-transition="fade">Restart</a></li>
 					</ul>
 				</div><!-- /navbar -->				
 			</div>
@@ -154,6 +159,9 @@
 					<li>
 						<a href="#page1" data-role="button" data-icon="arrow-r"  data-transition="slide" data-direction="forward"></a>
 					</li>
+					
+					
+					
 				</ul>
 			</div><!-- /navbar -->
 		</div><!-- /footer -->	
@@ -206,24 +214,6 @@
   </div>
 
 
-  
-    <!-- MENU fadeUP -->
-  <div id="menu" data-role="page" data-overlay-theme="e">
-    <div data-role="header">
-	  <h1> Menu </h1>
-	</div>
-
-	<div data-role="content">
-
-			<ul>
-				<li><a href="#home" data-role="button" data-transition="fade">Home</a></li>
-				<li><a href="#sponsorsPage" data-role="button" data-rel="dialog" data-transition="fade">Sponsors</a></li>
-				<li><a href="#newForm" data-role="button" data-transition="fade">Restart</a></li>
-			</ul>
-
-	</div>
-	
-  </div>
   
     <%=QuestionMap.generateSurvey()%>
   
