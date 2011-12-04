@@ -4,6 +4,29 @@ function Home ()
 	return false;
 }
 
+Home.initializeIndex = function()
+{
+	Home.attemptResultsTransmission();
+};
+
+Home.attemptResultsTransmission = function()
+{
+	function transmit() 
+	{
+		var formCache = localStorage.getItem("ElectionObservationSendCache");
+		var sessionID = localStorage.getItem("sessionID");
+		
+		if (null !== formCache && "" !== formCache)
+		{
+			var url = "../servlet/Home?" + "userResponse=" + sessionID + formCache;
+			Request.sendRequest(url, Home.handleTransmitResponse);
+		}
+		
+        setTimeout(transmit, 5000);
+    }
+    transmit();
+};
+
 Home.putElement = function()
 {	
 	var question = document.getElementById("questionTitle").innerHTML;
@@ -29,6 +52,38 @@ Home.submitElement = function(item)
 	return false;
 };
 
+Home.handleFormChange = function(item)
+{
+	var formCache = localStorage.getItem("ElectionObservationSendCache");
+	if (null === formCache)
+	{
+		formCache = "";
+	}
+	
+	if ("radio" === item.type)
+	{
+		formCache += "&" + item.getAttribute("caption") + "=" + item.getAttribute("choice");
+	}
+	else if ("checkbox" === item.type)
+	{
+		formCache += "&" + item.getAttribute("caption") + ":" + item.getAttribute("choice") + "=";
+		if (true === item.checked)
+		{
+			formCache += "true";
+		}
+		else
+		{
+			formCache += "false";
+		}
+	}
+	else
+	{
+		formCache += "&" + item.getAttribute("caption") + "=" + item.value;
+	}
+	localStorage.setItem("ElectionObservationSendCache", formCache);
+	return true;
+};
+
 
 Home.handlePutResponse = function(response)
 {
@@ -36,6 +91,18 @@ Home.handlePutResponse = function(response)
 	{
 		alert("ERROR: Failed to put item");
 		return false;
+	}
+};
+
+Home.handleTransmitResponse = function(response)
+{
+	if (response.status != 200)
+	{
+		return false;
+	}
+	else
+	{
+		localStorage.setItem("ElectionObservationSendCache", "");
 	}
 };
 
