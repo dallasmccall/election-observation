@@ -34,12 +34,12 @@
 			<!-- IF RADIOBOX -->
 			<xsl:for-each select="radio">			
 				<legend><xsl:value-of select="../caption"/></legend>
-				<xsl:for-each select="choice">
 				
+				<xsl:for-each select="choice">
 					<input type="radio" name="radio-choice-M" id="radio-choice-N" value="choice-N">			
 						<xsl:attribute name="caption"><xsl:value-of select="../../caption"/>
 						</xsl:attribute>
-						<xsl:attribute name="choice"><xsl:value-of select="../choice"/>
+						<xsl:attribute name="choice"><xsl:value-of select="."/>
 						</xsl:attribute>
 						<xsl:attribute name="onclick">Home.handleFormChange(this);
 						</xsl:attribute>
@@ -69,7 +69,7 @@
 					<input type="checkbox" name="check-choice-M" id="check-choice-N" class="custom">
 						<xsl:attribute name="caption"><xsl:value-of select="../../caption"/>
 						</xsl:attribute>
-						<xsl:attribute name="choice"><xsl:value-of select="../choice"/>
+						<xsl:attribute name="choice"><xsl:value-of select="."/>
 						</xsl:attribute>
 						<xsl:attribute name="onclick">Home.handleFormChange(this);
 						</xsl:attribute>
