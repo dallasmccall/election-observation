@@ -4,9 +4,64 @@ function Home ()
 	return false;
 }
 
+var responseCache = new Array();
+
 Home.initializeIndex = function()
 {
+	var responseCacheJSON = localStorage.getItem("ElectionObservationResponseCache");
+	
+	
+	if (responseCacheJSON != null)
+	{
+		responseCache = eval(responseCacheJSON);
+		for (var idx = 0; idx < responseCache.length; idx++)
+		{
+			var elem = document.getElementById(responseCache[idx][1]);
+			
+			var name = "#" + responseCache[idx][1];
+			
+			if (responseCache[idx][2] === "radio")
+			{
+				$(name).prop("checked",true).checkboxradio("refresh");
+				
+			}
+			else if (responseCache[idx][2] === "checkbox")
+			{
+				if (responseCache[idx][3] === "true")
+				{
+					$(name).prop("checked",true).checkboxradio("refresh");
+				}
+			}
+			else
+			{
+				elem.value = responseCache[idx][3];
+			}
+		}
+	}
+	
 	Home.attemptResultsTransmission();
+	return false;
+};
+
+Home.addResponseToCache = function(name, id, type, response)
+{
+	for (var idx = 0; idx < responseCache.length; idx++)
+	{
+		if (responseCache[idx][0] === name)
+		{
+			responseCache[idx][1] = id;
+			responseCache[idx][2] = type;
+			responseCache[idx][3] = response;
+			
+			localStorage.setItem("ElectionObservationResponseCache", JSON.stringify(responseCache));
+			return false;
+		}
+	}
+	var elem = [name, id, type, response];
+	responseCache.push(elem);
+	
+	localStorage.setItem("ElectionObservationResponseCache", JSON.stringify(responseCache));
+	
 	return false;
 };
 
@@ -74,6 +129,7 @@ Home.handleFormChange = function(item)
 	if ("radio" === item.type)
 	{
 		formCache += "&" + item.getAttribute("caption") + "=" + item.getAttribute("choice");
+		Home.addResponseToCache(item.name, item.id, "radio", item.getAttribute("choice"));
 	}
 	else if ("checkbox" === item.type)
 	{
@@ -81,15 +137,18 @@ Home.handleFormChange = function(item)
 		if (true === item.checked)
 		{
 			formCache += "true";
+			Home.addResponseToCache(item.id, item.id, "checkbox", "true");
 		}
 		else
 		{
+			Home.addResponseToCache(item.id, item.id, "checkbox", "false");
 			formCache += "false";
 		}
 	}
 	else
 	{
 		formCache += "&" + item.getAttribute("caption") + "=" + item.value;
+		Home.addResponseToCache(item.name, item.id, "textbox", item.value);
 	}
 	localStorage.setItem("ElectionObservationSendCache", formCache);
 	return true;
