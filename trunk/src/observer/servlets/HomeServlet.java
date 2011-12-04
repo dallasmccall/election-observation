@@ -3,6 +3,7 @@ package observer.servlets;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.*;
@@ -34,9 +35,28 @@ public class HomeServlet extends HttpServlet
     public void doGet(HttpServletRequest request,
 	                  HttpServletResponse response)
 	{
-    	System.out.println("doing get");
 		try
         {
+			String userResponse = request.getParameter("userResponse");
+			
+			if (null != userResponse)
+			{
+				Map<String, String[]> params = request.getParameterMap();
+				
+				for (String question : params.keySet())
+				{
+					if (question.equals("userResponse"))
+					{
+						continue;
+					}
+					for (String answer : params.get(question))
+					{
+						System.out.println(question + " " + answer);
+					}
+					
+				}
+			}
+			
 		    String requestType = request.getParameter(TYPE);
 		    
 		    StringBuffer responseText = new StringBuffer();
