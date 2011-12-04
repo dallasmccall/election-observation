@@ -95,12 +95,8 @@
 </head>
 <body onload="load();">
 
-  <div id="globalResults">
-    <div id="resultsContent">
-    No results to display.
-    </div>
-  	<a href="#home" data-role="button" data-transition="fade">Go Home</a>
-  </div>
+
+
 
 
   <!-- HOME PAGE -->
@@ -118,7 +114,7 @@
 	  
 	  <ul data-role="listview" data-inset="true">
 	    <li> <a href="#myForm"> View My Submission </a> </li>
-		<li> <a href="#globalResults" onclick="Home.loadResults();"> View Current Results </a> </li>
+		<li> <a href="#globalResults" onclick="Home.loadResults();" data-rel="dialog" data-transition="fade"> View Current Results </a> </li>
 		<li> <a href="#sponsorsPage" data-rel="dialog" data-transition="fade"> Learn about our sponsors! </a> </li>
 	  </ul>	
 	</div>
@@ -164,6 +160,28 @@
   </div>
   
   
+  
+  
+  
+  
+  
+  <div id="globalResults" data-role="page">
+    <div data-role="header">
+	  <h1> Results </h1>
+	</div>
+	
+	<div data-role="content">
+	    <div id="resultsContent">
+	    No results to display.
+	    </div>
+	</div>
+  </div>
+  
+  
+  
+  
+  
+  
     <!-- SPONSORS -->
 
   <div id="sponsorsPage" data-role="page">
@@ -173,14 +191,6 @@
 	
 	<div data-role="content">
 	  <p>Here is info about our sponsors</p>
-
-
-
-
-
-
-
-
 	</div>
   </div>
   
