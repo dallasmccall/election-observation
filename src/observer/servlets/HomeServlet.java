@@ -64,7 +64,13 @@ public class HomeServlet extends HttpServlet
 		    
 		    if (null != requestType)
 		    {
+		    	
 		        response.setContentType(JSON_TYPE);
+		        
+		        if (requestType.equals("getStats"))
+		    	{
+		    		responseText.append(Database.getDatabaseJSON());
+		    	}
 		        
 		        if (requestType.equals(GET))
 		        {

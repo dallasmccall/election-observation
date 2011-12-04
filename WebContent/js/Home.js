@@ -54,6 +54,15 @@ Home.submitElement = function(item)
 	return false;
 };
 
+Home.loadResults = function()
+{
+	var url = "../servlet/Home?" + "type=getStats";
+	
+	var onResponse = Home.handleLoadedResults;
+	Request.sendRequest(url, onResponse);
+	
+};
+
 Home.handleFormChange = function(item)
 {
 	var formCache = localStorage.getItem("ElectionObservationSendCache");
@@ -147,6 +156,35 @@ Home.handleGetResponse = function(response)
 	}
 	alert(alertMessage);
 	return false;
+};
+
+Home.handleLoadedResults = function(response)
+{
+	if (response.status != 200)
+	{
+		alert("ERROR: Failed to get item");
+		return false;
+	}
+	
+	var results = eval(response.responseText);
+	
+	var element = document.getElementById("resultsContent");
+	
+	var innerHTML = "";
+	
+	for (var idx = 0; idx < results.questions.length; idx++)
+	{
+		var questionBlock = results.questions[idx];
+		innerHTML += "<br>" + questionBlock.question + ":<br>";
+		
+		for (var innerIdx = 0; innerIdx < questionBlock.statistics.length; innerIdx++)
+		{
+			innerHTML += "&nbsp;&nbsp;&nbsp;&nbsp;";
+			innerHTML += questionBlock.statistics[innerIdx].item + " has: ";
+			innerHTML += questionBlock.statistics[innerIdx].count + " instance(s)<br>";
+		}
+	}
+	element.innerHTML = innerHTML;
 };
 
 Home.handleGetQuestionResponse = function(response)

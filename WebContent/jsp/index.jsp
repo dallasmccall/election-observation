@@ -69,6 +69,12 @@
 </head>
 <body onload="load();">
 
+  <div id="globalResults">
+    <div id="resultsContent">
+    No results to display.
+    </div>
+  	<a href="#home" data-role="button" data-transition="fade">Go Home</a>
+  </div>
 
 
   <!-- HOME PAGE -->
@@ -86,7 +92,7 @@
 	  
 	  <ul data-role="listview" data-inset="true">
 	    <li> <a href="#myForm"> View My Submission </a> </li>
-		<li> <a href="#globalResults"> View Current Results </a> </li>
+		<li> <a href="#globalResults" onclick="Home.loadResults();"> View Current Results </a> </li>
 		<li> <a href="#cloudPoints" data-rel="dialog" data-transition="fade"> Learn about Cloud Points! </a> </li>
 	  </ul>	
 	</div>

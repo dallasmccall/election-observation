@@ -28,7 +28,7 @@
 				<textarea 	name="textarea-{../caption}" 
 							id="textarea-a" 
 							caption="{../caption}"
-							onchange="Home.handleFormChange(this)"><xsl:value-of select="default-text"/>
+							onchange="Home.handleFormChange(this);"><xsl:value-of select="default-text"/>
 				</textarea>
 				
 			</xsl:for-each>
