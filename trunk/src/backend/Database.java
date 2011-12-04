@@ -1,5 +1,7 @@
 package backend;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 
 public class Database 
@@ -47,7 +49,56 @@ public class Database
 	public static String getDatabaseJSON()
 	{
 		Hashtable<String, Hashtable<String, Integer>> accumulatedDatabase = sa.getAccumulatedDatabase();
-		return null;
+		
+		StringBuilder responseText = new StringBuilder();
+		
+		responseText.append("({questions:[");
+		
+		boolean firstQuestion = true;
+		
+		for (String question : accumulatedDatabase.keySet())
+		{
+			if (!firstQuestion)
+			{
+				responseText.append(",");
+			}
+			else
+			{
+				firstQuestion = false;
+			}
+			responseText.append("{question:'");
+			responseText.append(question);
+			responseText.append("',statistics:[");
+			
+			Hashtable<String, Integer> responseMap = accumulatedDatabase.get(question);
+			
+			boolean first = true;
+			
+			for (String questionResponse : responseMap.keySet())
+			{
+				if (!first)
+	               {
+	                   responseText.append(",");
+	               }
+	               else
+	               {
+	                   first = false;
+	               }
+	               
+	               responseText.append("{");
+	               responseText.append("item:'")
+	                   .append(questionResponse);
+	               responseText.append("',");
+	               responseText.append("count:'")
+	                   .append(responseMap.get(questionResponse));
+	               responseText.append("'}");
+			}
+			
+			responseText.append("]}");
+		}
+		responseText.append("]})");
+		
+		return responseText.toString();
 	}
 	
 	
