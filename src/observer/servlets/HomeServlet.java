@@ -51,7 +51,8 @@ public class HomeServlet extends HttpServlet
 					}
 					for (String answer : params.get(question))
 					{
-						System.out.println(question + " " + answer);
+						Database.PUT(userResponse, question, answer);
+						//System.out.println(question + " " + answer);
 					}
 					
 				}
