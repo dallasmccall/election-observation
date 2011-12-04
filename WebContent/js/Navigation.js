@@ -5,6 +5,10 @@ function toggleMenu(){
 	$.mobile.fixedToolbars.show(true);
 }
 
+function hideMenu(){
+	hide_visibility("navbarMenu");
+	$.mobile.fixedToolbars.show(true);
+}
 
 function getElementsByClassName(node,classname) {
   if (node.getElementsByClassName) { // use native implementation if available
@@ -45,10 +49,22 @@ function toggle_visibility(className) {
 	}
 
 
+function hide_visibility(className) {
+	   var elements = getElementsByClassName(document, className),
+	       n = elements.length;
+	   for (var i = 0; i < n; i++) {
+	     var e = elements[i];
+	       e.style.display = 'none';	  }
+	}
+
+
+$( 'div' ).live( 'pagebeforehide',function(event, ui){
+	hide_visibility("navbarMenu");
+	$.mobile.fixedToolbars.show(true);
+});
 
 
   $(document).ready(function() {
-      $('.navbarMenu').hide();
-      $.mobile.fixedToolbars.show(true);
-      
+		hide_visibility("navbarMenu");
+		$.mobile.fixedToolbars.show(true);
   });
