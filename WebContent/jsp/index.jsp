@@ -27,6 +27,7 @@
 	
 	function load() 
 	{
+		//window.location.hash = "home";
 		Home.initializeIndex();
         navigator.geolocation.getCurrentPosition(showLocation, showError, {enableHighAccuracy:true,maximumAge:600000});
 	}
