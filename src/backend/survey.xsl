@@ -1,12 +1,14 @@
 <?xml version="1.0"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"> <xsl:template match="/">
-<html>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"> 
+<xsl:output method="html" indent="yes" version="4.0"/>
 
+
+<xsl:template match="/">
 
 <!-- SURVEY -->	
 <xsl:for-each select="survey/question">
 	<!-- START OF PAGE -->	
-	<div id="pageID" data-role="page">
+	<div id="pageN" data-role="page">
 	  <xsl:attribute name="id">page<xsl:number count="question" level="any" />
 	  </xsl:attribute>
 
@@ -50,7 +52,7 @@
 						<xsl:attribute name="value">radio-choice-<xsl:value-of select="position()"/>
 						</xsl:attribute>
 						<xsl:if test="../@selected = position()">
-							<xsl:attribute name="checked"/>
+							<xsl:attribute name="checked">checked</xsl:attribute>
 						</xsl:if>
 					</input>
 					
@@ -110,7 +112,7 @@
 				<ul>
 					<!-- BACK BUTTON -->
 					<li>
-						<a id="backID" href="#home" data-role="button" data-icon="arrow-l"  data-transition="slide" data-direction="reverse">
+						<a href="#home" data-role="button" data-icon="arrow-l"  data-transition="slide" data-direction="reverse">
 							<!-- If not on first page, back should go to previous page. -->
 							<xsl:if test="position() &gt; 1">
 								<xsl:attribute name="href">#page<xsl:value-of select="position()-1"/>
@@ -128,7 +130,7 @@
 					
 					<!-- NEXT BUTTON -->
 					<li>
-						<a id="nextID" href="#page2" data-role="button" data-icon="arrow-r"  data-transition="slide" data-direction="forward">
+						<a href="#page2" data-role="button" data-icon="arrow-r"  data-transition="slide" data-direction="forward">
 							<xsl:if test="position() &lt; count(/survey/question)">
 								<!-- If not on last page, next should go to previous page. -->
 								<xsl:attribute name="href">#page<xsl:value-of select="position()+1"/>
@@ -146,6 +148,5 @@
 	</div><!-- /page -->
 </xsl:for-each><!-- for-each survey/question -->
 
-</html>
 </xsl:template>
 </xsl:stylesheet>
