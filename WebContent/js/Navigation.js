@@ -58,13 +58,14 @@ function hide_visibility(className) {
 	}
 
 
-$( 'div' ).live( 'pagebeforehide',function(event, ui){
+$( document ).live( 'pagebeforechange',function(event, ui){
 	hide_visibility("navbarMenu");
 	$.mobile.fixedToolbars.show(true);
 });
 
-
+/*
   $(document).ready(function() {
 		hide_visibility("navbarMenu");
 		$.mobile.fixedToolbars.show(true);
   });
+*/
