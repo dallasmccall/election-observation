@@ -1,12 +1,12 @@
+<!DOCTYPE html> 
+
 <html>
 <head>
 	<%@ page import="backend.*" %>
 	<%@ page import="java.util.UUID" %>
 
-	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta charset="utf-8"></meta>
-	<link rel="stylesheet" href="../css/jquery.mobile-1.0.css"></link>
-	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1"></meta>
+	<link rel="stylesheet" href="../css/jquery.mobile-1.0.css">
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1">
 	<script src="../js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../js/underscore-min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../js/backbone-min.js" type="text/javascript" charset="utf-8"></script>
@@ -15,6 +15,9 @@
 
 	<script type="text/javascript" src="../js/Home.js"></script>
 	<script type="text/javascript" src="../js/Request.js"></script>
+
+	<script type="text/javascript" src="../js/Navigation.js"></script>
+
 	
 	<script type="text/javascript">
 	if (null === localStorage.getItem("sessionID"))
@@ -22,6 +25,7 @@
 		localStorage.setItem("sessionID", "<%=UUID.randomUUID().toString()%>");
 	}
 	</script>
+
 
 	<title>Election Observation Tool</title>
   
@@ -52,6 +56,50 @@
 	  
 	  <button type="submit" data-theme="b" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false">Submit</button>
 	</div>
+	
+	
+	
+	
+	
+			<!-- FOOTER AND NAVBAR -->
+		<div data-role="footer"  data-position="fixed" data-id="global-nav-bar">	
+		
+		
+	
+		
+		
+			<div class="navbarMenu">		
+			
+
+			
+				<div data-role="navbar" data-position="fixed">
+					<ul>
+					<li><a href="#AlreadyHome" data-role="button" data-transition="fade">Home</a></li>
+					<li><a href="#cloudPoints" data-role="button" data-rel="dialog" data-transition="fade">Cloud Points</a></li>
+					<li><a href="#newForm" data-role="button" data-transition="fade">Restart</a></li>
+					</ul>
+				</div><!-- /navbar -->				
+			</div>
+			
+		
+			<!-- FOOTER AND NAVBAR -->
+			<div data-role="navbar" data-position="fixed">
+				<ul>
+					<!-- INFO BUTTON -->
+					<li>
+						<a href="#infoPage" data-role="button" data-rel="dialog" data-transition="fade" data-icon="info"></a>
+					</li>
+					
+					<!-- MENU BUTTON -->
+					<li><a href="Javascript:toggleMenu()" data-role="button" data-icon="grid" ></a></li>
+					
+					<!-- NEXT BUTTON -->
+					<li>
+						<a href="#page1" data-role="button" data-icon="arrow-r"  data-transition="slide" data-direction="forward"></a>
+					</li>
+				</ul>
+			</div><!-- /navbar -->
+		</div><!-- /footer -->	
   </div>
   
   
@@ -72,9 +120,21 @@
 	</div>
   </div>
   
+    <!-- CLOUD POINTS -->
+  <div id="infoPage" data-role="page">
+    <div data-role="header">
+	  <h1>How To Use The Tool</h1>
+	</div>
+	
+	<div data-role="content">
+	  <p>Use the buttons on the bottom to navigate. The button in the middle brings up a menu. (TODO: add more explanation.)</p>
+	</div>
+  </div>
+
+
   
     <!-- MENU fadeUP -->
-  <div id="menu" data-role="page" data-theme="b">
+  <div id="menu" data-role="page" data-overlay-theme="e">
     <div data-role="header">
 	  <h1> Menu </h1>
 	</div>

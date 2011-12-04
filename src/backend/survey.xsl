@@ -95,6 +95,17 @@
 		
 		<!-- FOOTER AND NAVBAR -->
 		<div data-role="footer"  data-position="fixed" data-id="global-nav-bar">	
+		
+			<div class="navbarMenu">
+				<div data-role="navbar" data-position="fixed">
+					<ul>
+					<li><a href="#home" data-role="button" data-transition="fade">Home</a></li>
+					<li><a href="#cloudPoints" data-role="button" data-rel="dialog" data-transition="fade">Cloud Points</a></li>
+					<li><a href="#newForm" data-role="button" data-transition="fade">Restart</a></li>
+					</ul>
+				</div><!-- /navbar -->				
+			</div>		
+		
 			<div data-role="navbar" data-position="fixed">
 				<ul>
 					<!-- BACK BUTTON -->
@@ -113,7 +124,7 @@
 					</li>
 					
 					<!-- MENU BUTTON -->
-					<li><a href="#menu" data-role="button" data-icon="grid" data-rel="dialog" data-transition="fade"></a></li>
+					<li><a href="Javascript:toggleMenu()" data-role="button" data-icon="grid"></a></li>					
 					
 					<!-- NEXT BUTTON -->
 					<li>
