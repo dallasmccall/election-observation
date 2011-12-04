@@ -62,14 +62,8 @@
 			<!-- FOOTER AND NAVBAR -->
 		<div data-role="footer"  data-position="fixed" data-id="global-nav-bar">	
 		
-		
-	
-		
-		
-			<div class="navbarMenu">		
-			
-
-			
+					
+			<div class="navbarMenu">
 				<div data-role="navbar" data-position="fixed">
 					<ul>
 					<li><a href="#AlreadyHome" data-role="button" data-transition="fade">Home</a></li>
