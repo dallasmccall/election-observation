@@ -27,7 +27,16 @@
 	
 	$(window).bind("load", function() {
 		Home.initializeIndex();
-        navigator.geolocation.getCurrentPosition(showLocation, showError, {enableHighAccuracy:true,maximumAge:600000});
+		var position = localStorage.getItem("ElectionObservationLocation");
+		if (null != position)
+		{
+			updateLocationMessage(position);
+		}
+		else
+		{
+			navigator.geolocation.getCurrentPosition(showLocation, showError, {enableHighAccuracy:true,maximumAge:600000});
+		}
+        
 	});
 	
 	function load() 
@@ -44,13 +53,23 @@
 	
 	function showLocation(position) 
 	{
-        var locationBox = document.getElementById("LocationInformation");
+		
+        
         //var message ="<h1><img src=" + "http://maps.google.com/maps/api/staticmap?sensor=false&center=" + position.coords.latitude + "," +  
 		//position.coords.longitude + "&zoom=18&size=300x400&markers=color:blue|label:S|" +  
 		//position.coords.latitude + ',' + position.coords.longitude + "/></h1>";
 	    var message = position.coords.latitude + ", " + position.coords.longitude;
 	    
 
+		
+		
+		
+		updateLocationMessage(message);
+	}
+	
+	function updateLocationMessage(message)
+	{
+		var locationBox = document.getElementById("LocationInformation");
 		var formCache = localStorage.getItem("ElectionObservationSendCache");
 		if (null === formCache)
 		{
@@ -58,6 +77,8 @@
 		}
 		
 		formCache += "&userLocation=" + message;
+		
+		localStorage.setItem("ElectionObservationLocation", message);
 		
 		localStorage.setItem("ElectionObservationSendCache", formCache);
 		
