@@ -22,14 +22,24 @@ Home.initializeIndex = function()
 			
 			if (responseCache[idx][2] === "radio")
 			{
-				$(name).prop("checked",true).checkboxradio("refresh");
+				elem.checked = true;
+				try
+				{
+					$(name).prop("checked",true).checkboxradio("refresh");
+				}
+				catch (err){}
 				
 			}
 			else if (responseCache[idx][2] === "checkbox")
 			{
 				if (responseCache[idx][3] === "true")
 				{
-					$(name).prop("checked",true).checkboxradio("refresh");
+					elem.checked = true;
+					try
+					{
+						$(name).prop("checked",true).checkboxradio("refresh");
+					}
+					catch (err){}
 				}
 			}
 			else

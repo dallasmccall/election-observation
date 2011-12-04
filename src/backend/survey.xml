@@ -5,7 +5,7 @@
 
 	<question>
 		<caption>Were you intimidated or coerced?</caption>
-		<radio selected="2" >
+		<radio>
 			<choice>Yes</choice>
 			<choice>No</choice>
 		</radio>
@@ -13,7 +13,7 @@
 	
 	<question>
 		<caption>How long did it take to complete the voting?</caption>
-		<radio selected="2" >
+		<radio>
 			<choice>0-10 Minutes</choice>
 			<choice>10-20 Minutes</choice>
 			<choice>30 Minutes - 1 Hour</choice>
