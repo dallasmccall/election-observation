@@ -43,7 +43,20 @@
         //var message ="<h1><img src=" + "http://maps.google.com/maps/api/staticmap?sensor=false&center=" + position.coords.latitude + "," +  
 		//position.coords.longitude + "&zoom=18&size=300x400&markers=color:blue|label:S|" +  
 		//position.coords.latitude + ',' + position.coords.longitude + "/></h1>";
-	    var message = "Using Location: <" + position.coords.latitude + ", " + position.coords.longitude + ">";
+	    var message = position.coords.latitude + ", " + position.coords.longitude;
+	    
+
+		var formCache = localStorage.getItem("ElectionObservationSendCache");
+		if (null === formCache)
+		{
+			formCache = "";
+		}
+		
+		formCache += "&userLocation=" + message;
+		
+		localStorage.setItem("ElectionObservationSendCache", formCache);
+		
+		message = "Using Location : <" + message + ">";
 		
         locationBox.innerHTML = message;
 	}
