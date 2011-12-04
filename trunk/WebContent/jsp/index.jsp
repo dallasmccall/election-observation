@@ -53,8 +53,6 @@
 		<li> <a href="#globalResults"> View Current Results </a> </li>
 		<li> <a href="#cloudPoints" data-rel="dialog" data-transition="fade"> Learn about Cloud Points! </a> </li>
 	  </ul>	
-	  
-	  <button type="submit" data-theme="b" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false">Submit</button>
 	</div>
 	
 	
