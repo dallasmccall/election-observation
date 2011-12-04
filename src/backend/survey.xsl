@@ -23,7 +23,12 @@
 			<!-- IF TEXTBOX -->
 			<xsl:for-each select="text">
 				<label for="textarea-a"><xsl:value-of select="../caption"/></label>
-				<textarea name="textarea-a" id="textarea-a"><xsl:value-of select="default-text"/></textarea>
+				<textarea 	name="textarea-{../caption}" 
+							id="textarea-a" 
+							caption="{../caption}"
+							onchange="Home.handleFormChange(this)"><xsl:value-of select="default-text"/>
+				</textarea>
+				
 			</xsl:for-each>
 			
 			<!-- IF RADIOBOX -->
@@ -32,11 +37,17 @@
 				<xsl:for-each select="choice">
 				
 					<input type="radio" name="radio-choice-M" id="radio-choice-N" value="choice-N">			
-						<xsl:attribute name="name">radio-choice-<xsl:number count="radio" level="any"/>
+						<xsl:attribute name="caption"><xsl:value-of select="../../caption"/>
 						</xsl:attribute>
-						<xsl:attribute name="id">radio-choice-<xsl:value-of select="position()"/>
+						<xsl:attribute name="choice"><xsl:value-of select="../choice"/>
 						</xsl:attribute>
-						<xsl:attribute name="value">radio-<xsl:value-of select="position()"/>
+						<xsl:attribute name="onclick">Home.handleFormChange(this);
+						</xsl:attribute>
+						<xsl:attribute name="name">radio-choice-<xsl:number count="radio" level="any" />
+						</xsl:attribute>
+						<xsl:attribute name="id">radio-choice-<xsl:number count="question" level="any" />-<xsl:value-of select="position()"/>
+						</xsl:attribute>
+						<xsl:attribute name="value">radio-choice-<xsl:value-of select="position()"/>
 						</xsl:attribute>
 						<xsl:if test="../@selected = position()">
 							<xsl:attribute name="checked"/>
@@ -44,7 +55,7 @@
 					</input>
 					
 					<label for="radio-choice-N">
-						<xsl:attribute name="for">radio-choice-<xsl:value-of select="position()"/>
+						<xsl:attribute name="for">radio-choice-<xsl:number count="question" level="any" />-<xsl:value-of select="position()"/>
 						</xsl:attribute>
 						<xsl:value-of select="current()"/>
 					</label>
@@ -56,16 +67,22 @@
 				<legend><xsl:value-of select="../caption"/></legend>
 				<xsl:for-each select="choice">
 					<input type="checkbox" name="check-choice-M" id="check-choice-N" class="custom">
+						<xsl:attribute name="caption"><xsl:value-of select="../../caption"/>
+						</xsl:attribute>
+						<xsl:attribute name="choice"><xsl:value-of select="../choice"/>
+						</xsl:attribute>
+						<xsl:attribute name="onclick">Home.handleFormChange(this);
+						</xsl:attribute>
 						<xsl:attribute name="name">check-choice-<xsl:number count="check" level="any" />
 						</xsl:attribute>
-						<xsl:attribute name="id">check-choice-<xsl:value-of select="position()"/>
+						<xsl:attribute name="id">check-choice-<xsl:number count="question" level="any" />-<xsl:value-of select="position()"/>
 						</xsl:attribute>
 						<xsl:if test="@checked = 1">
 							<xsl:attribute name="checked"/>
 						</xsl:if>
 					</input>
 					<label for="check-choice-N">
-						<xsl:attribute name="for">check-choice-<xsl:value-of select="position()"/>
+						<xsl:attribute name="for">check-choice-<xsl:number count="question" level="any" />-<xsl:value-of select="position()"/>
 						</xsl:attribute>
 						<xsl:value-of select="current()"/>
 					</label>
