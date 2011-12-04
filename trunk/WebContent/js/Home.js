@@ -7,6 +7,7 @@ function Home ()
 Home.initializeIndex = function()
 {
 	Home.attemptResultsTransmission();
+	return false;
 };
 
 Home.attemptResultsTransmission = function()
@@ -25,6 +26,7 @@ Home.attemptResultsTransmission = function()
         setTimeout(transmit, 5000);
     }
     transmit();
+    return false;
 };
 
 Home.putElement = function()
