@@ -209,10 +209,11 @@
       <td>More Than 4 Hours</td><td>128</td>
     </tr>
   </table>
-
-
-  	<a href="#home" data-role="button" data-transition="fade">Go Home</a>
-  	    </div>
+  
+  <div id="resultsContent">
+  </div>
+  
+  </div>
   	
   </div>
 
