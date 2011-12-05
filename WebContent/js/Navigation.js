@@ -64,6 +64,9 @@ $( document ).live( 'pagebeforechange',function(event, ui){
 });
 
 
+$( "#globalResults" ).live( 'pageshow',function(event, ui){
+		  $("#chart").height($("#chart").width());
+});
 
 
 function selectButtonDescription(id){
@@ -75,6 +78,11 @@ function hideButtonDescriptions(){
 	$("#buttonDescriptionButtonMenu").addClass("ui-btn-active");
 }
 
+
+
+$(window).resize(function() {
+	  $("#chart").height($("#chart").width());
+	});
 
 /*
   $(document).ready(function() {
