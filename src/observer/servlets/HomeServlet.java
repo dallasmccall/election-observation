@@ -75,6 +75,14 @@ public class HomeServlet extends HttpServlet
 		        {
 		        	responseText.append(Database.getShortQuestionsJSON());
 		        }
+		        else if (requestType.equals("loadResult"))
+		        {
+		        	String item = request.getParameter("item");
+		        	if (null != item)
+		        	{
+		        		responseText.append(Database.getRequestedResult(item));
+		        	}
+		        }
 		        
 		        
 		        else if (requestType.equals(GET))

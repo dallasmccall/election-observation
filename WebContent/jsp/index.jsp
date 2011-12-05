@@ -32,7 +32,7 @@
 		
 		chartCanvas.width = window.innerWidth;
 		chartCanvas.height = window.innerWidth;
-		pieChart();
+		pieChart("chart", "chartData");
 		
 		Home.initializeIndex();
 		var position = localStorage.getItem("ElectionObservationLocation");
