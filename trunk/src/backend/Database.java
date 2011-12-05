@@ -4,7 +4,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URL;
 import java.util.Hashtable;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.transform.stream.StreamSource;
 
 public class Database 
 {
@@ -17,6 +21,8 @@ public class Database
 	
 	private static DataStore ds;
 	
+	private static Survey svy;
+	
 	public Database()
 	{
 		sa = new StatsAccumulator();
@@ -25,6 +31,21 @@ public class Database
 		ds = new DataStore();
 		database = ds.attemptLoad();
 		new Thread(ds).start();
+	}
+	
+	public static void loadSurvey()
+	{
+		try {
+			URL xmlUrl = QuestionMap.class.getResource("./survey.xml");
+			String xmlPath = xmlUrl.getPath().replaceAll("%20", " ");		
+
+			StreamSource s = new javax.xml.transform.stream.StreamSource(xmlPath);
+		    JAXBContext context = JAXBContext.newInstance(Survey.class);
+		    svy = (Survey) context.createUnmarshaller().unmarshal(s);
+		  } catch(Exception e) {
+		    
+		  }
+		System.out.println("Survey xml loaded successfully.");
 	}
 	
 	public static void PUT(String sessionName, String question, String response)
@@ -40,6 +61,7 @@ public class Database
 			{
 				database = new Hashtable<String, Hashtable<String, String>>();
 			}
+			loadSurvey();
 		}
 		
 		Hashtable<String, String> session = database.get(sessionName);
