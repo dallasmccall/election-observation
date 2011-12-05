@@ -173,7 +173,7 @@
 	
 	
 <div data-role="content">	
-    <canvas id="chart" style="width:100%; height:500px; text-align:left" ></canvas>
+    <canvas id="chart" style="width:100%; text-align:left" ></canvas>
   <div id="resultsContent">
   <table id="chartData" style="width: 100%; height: 100%; text-align:left">
 
