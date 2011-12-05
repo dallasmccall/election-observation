@@ -171,6 +171,7 @@ Home.handleFormChange = function(item)
 		Home.addResponseToCache(item.name, item.id, "textbox", item.value);
 	}
 
+	$( ".transmitButton" ).removeClass("ui-disabled");
 	localStorage.setItem("ElectionObservationSendCache", formCache);
 	return true;
 };
@@ -193,6 +194,8 @@ Home.handleTransmitResponse = function(response)
 	}
 	else
 	{
+		
+		$( ".transmitButton" ).addClass("ui-disabled");
 		localStorage.setItem("ElectionObservationSendCache", "");
 	}
 };
