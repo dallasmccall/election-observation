@@ -107,7 +107,7 @@
 					</ul>
 					<ul>
 					<li><a data-icon="gear" href="#mySurveyPage" data-role="button" data-transition="fade">My Survey</a></li>
-					<li><a data-icon="arrow-u" href="#globalResults" onclick="Home.loadResults();" data-role="button" data-rel="dialog" data-transition="fade">Results</a></li>
+					<li><a data-icon="arrow-u" href="#globalResults" onclick="Home.loadResults();" data-role="button"  data-transition="fade">Results</a></li>
 					<li><a data-icon="back" onclick="hideMenu();"  href="#page1" data-role="button" data-transition="fade">Restart</a></li>
 					</ul>
 				</div><!-- /navbar -->				

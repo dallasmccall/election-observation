@@ -169,12 +169,15 @@
 		</div><!-- /footer -->	
   </div>
   
-  
+  <!-- GLOBAL RESULTS -->
   <div id="globalResults" data-role="page">
   <div data-role="header">
 	  <h1> Results </h1>
 	</div>
-    <canvas id="chart" width=document.body.clientWidth height="500"></canvas>
+	
+	
+<div data-role="content">	
+    <canvas id="chart" style="width: 100%; text-align:left" ></canvas>
 
   <table id="chartData" style="width: 100%; text-align:left">
 
@@ -206,9 +209,11 @@
       <td>More Than 4 Hours</td><td>128</td>
     </tr>
   </table>
-  <div id="resultsContent">
-    </div>
+
+
   	<a href="#home" data-role="button" data-transition="fade">Go Home</a>
+  	    </div>
+  	
   </div>
 
     <!-- SPONSORS -->
