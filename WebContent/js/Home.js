@@ -71,7 +71,6 @@ Home.addResponseToCache = function(name, id, type, response)
 	responseCache.push(elem);
 	
 	localStorage.setItem("ElectionObservationResponseCache", JSON.stringify(responseCache));
-	
 	return false;
 };
 
@@ -160,6 +159,7 @@ Home.handleFormChange = function(item)
 		formCache += "&" + item.getAttribute("caption") + "=" + item.value;
 		Home.addResponseToCache(item.name, item.id, "textbox", item.value);
 	}
+
 	localStorage.setItem("ElectionObservationSendCache", formCache);
 	return true;
 };
