@@ -1,5 +1,9 @@
 package backend;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Hashtable;
 
 public class Database 
@@ -11,18 +15,20 @@ public class Database
 	
 	private static StatsAccumulator sa;
 	
+	private static DataStore ds;
+	
 	public Database()
 	{
 		sa = new StatsAccumulator();
 		new Thread(sa).start();
+		
+		ds = new DataStore();
+		database = ds.attemptLoad();
+		new Thread(ds).start();
 	}
 	
 	public static void PUT(String sessionName, String question, String response)
 	{
-		if (null == database)
-		{
-			database = new Hashtable<String, Hashtable<String, String>>();
-		}
 		synchronized(accumulatorStarted)
 		{
 			if (accumulatorStarted.equals(0))
@@ -30,8 +36,11 @@ public class Database
 				new Database();
 				accumulatorStarted = 1;
 			}
+			if (null == database)
+			{
+				database = new Hashtable<String, Hashtable<String, String>>();
+			}
 		}
-		
 		
 		Hashtable<String, String> session = database.get(sessionName);
 		
@@ -46,6 +55,19 @@ public class Database
 	
 	public static String getDatabaseJSON()
 	{
+		synchronized(accumulatorStarted)
+		{
+			if (accumulatorStarted.equals(0))
+			{
+				new Database();
+				accumulatorStarted = 1;
+			}
+			if (null == database)
+			{
+				database = new Hashtable<String, Hashtable<String, String>>();
+			}
+		}
+		
 		Hashtable<String, Hashtable<String, Integer>> accumulatedDatabase = sa.getAccumulatedDatabase();
 		
 		StringBuilder responseText = new StringBuilder();
@@ -99,6 +121,47 @@ public class Database
 		return responseText.toString();
 	}
 	
+	private class DataStore implements Runnable
+	{
+		public void run() 
+		{
+			while (true)
+			{
+				try 
+				{
+					FileOutputStream fos = new FileOutputStream("db.ser");
+					ObjectOutputStream oos = new ObjectOutputStream(fos);
+					oos.writeObject(Database.database);
+					oos.flush();
+					oos.close();
+					Thread.sleep(30000);
+				} 
+				catch (Exception e) 
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		public Hashtable<String, Hashtable<String, String>> attemptLoad()
+		{
+			Hashtable<String, Hashtable<String, String>> deserializedDB = null;
+			try 
+			{
+				FileInputStream fis = new FileInputStream("db.ser");
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				deserializedDB = 
+						(Hashtable<String, Hashtable<String, String>>)ois.readObject();
+				ois.close();
+			} catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+			return deserializedDB;
+		}
+		
+	}
+	
 	
 	private class StatsAccumulator implements Runnable
 	{
@@ -119,56 +182,44 @@ public class Database
 		{
 			while (true)
 			{
-				Hashtable<String, Hashtable<String, Integer>> tempAccumulator = new Hashtable<String, Hashtable<String, Integer>>();
-				
-				for (String session : Database.database.keySet())
+				try
 				{
-					Hashtable<String, String> sessionQuestions = Database.database.get(session);
+					Hashtable<String, Hashtable<String, Integer>> tempAccumulator = new Hashtable<String, Hashtable<String, Integer>>();
 					
-					for (String question : sessionQuestions.keySet())
+					for (String session : Database.database.keySet())
 					{
-						String questionResponse = sessionQuestions.get(question);
+						Hashtable<String, String> sessionQuestions = Database.database.get(session);
 						
-						Hashtable<String, Integer> responseMap = tempAccumulator.get(questionResponse);
-						
-						if (null == responseMap)
+						for (String question : sessionQuestions.keySet())
 						{
-							responseMap = new Hashtable<String, Integer>();
+							String questionResponse = sessionQuestions.get(question);
+							
+							Hashtable<String, Integer> responseMap = tempAccumulator.get(question);
+							
+							if (null == responseMap)
+							{
+								responseMap = new Hashtable<String, Integer>();
+							}
+							
+							Integer responseCount = responseMap.get(questionResponse);
+							
+							if (null == responseCount)
+							{
+								responseCount = 0;
+							}
+							
+							responseCount = responseCount + 1;
+							
+							responseMap.put(questionResponse, responseCount);
+							tempAccumulator.put(question, responseMap);
 						}
-						
-						Integer responseCount = responseMap.get(questionResponse);
-						
-						if (null == responseCount)
-						{
-							responseCount = 0;
-						}
-						
-						responseCount = responseCount + 1;
-						
-						responseMap.put(questionResponse, responseCount);
-						tempAccumulator.put(question, responseMap);
 					}
-				}
-				accumulatedDatabase = tempAccumulator;
-				
-				//TODO remove this code
-				/*for (String question : accumulatedDatabase.keySet())
-				{
-					Hashtable<String, Integer> responses = accumulatedDatabase.get(question);
-					
-					System.out.println(question);
-					for (String questionResponse : responses.keySet())
-					{
-						System.out.println("\t" + questionResponse + " seen " + responses.get(questionResponse) + " times.");
-					}
-				}*/
-				try 
-				{
+					accumulatedDatabase = tempAccumulator;
 					Thread.sleep(5000);
-				} 
-				catch (InterruptedException e) 
+				}
+				catch (Exception e)
 				{
-					e.printStackTrace();
+					
 				}
 			}
 		}
