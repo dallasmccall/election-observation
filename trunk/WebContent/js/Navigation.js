@@ -63,6 +63,19 @@ $( document ).live( 'pagebeforechange',function(event, ui){
 	$.mobile.fixedToolbars.show(true);
 });
 
+
+
+
+function selectButtonDescription(id){
+	$("#" + id).show().siblings().hide();
+}
+
+function hideButtonDescriptions(){
+	$("#buttonDescriptionMenu").show().siblings().hide();
+	$("#buttonDescriptionButtonMenu").addClass("ui-btn-active");
+}
+
+
 /*
   $(document).ready(function() {
 		hide_visibility("navbarMenu");
