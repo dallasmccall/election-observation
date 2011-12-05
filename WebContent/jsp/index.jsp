@@ -96,6 +96,7 @@
 	</script>
 
 
+
 	<title>Election Observation Tool</title>
 
 </head>
@@ -151,7 +152,7 @@
 				<ul>
 					<!-- INFO BUTTON -->
 					<li>
-						<a href="#infoPage" data-role="button" data-rel="dialog" data-transition="fade" data-icon="info"></a>
+						<a href="#infoPage" data-role="button" onclick="hideButtonDescriptions();" data-rel="dialog" data-transition="fade" data-icon="info"></a>
 					</li>
 					
 					<!-- MENU BUTTON -->
@@ -235,8 +236,43 @@
 	  <h1>How To Use The Tool</h1>
 	</div>
 	
-	<div data-role="content">
-	  <p>Use the buttons on the bottom to navigate. The button in the middle brings up a menu. (TODO: add more explanation.)</p>
+	<div data-role="content"   >
+	  <p>Use the buttons on the bottom to navigate. The button in the middle brings up a menu.</p>
+	  <p>Your answers are automatically submited as you take the survey. If you are offline, your answers will automatically be submited when you go back online.</p>
+	  <p>Press a button below for more information.</p>
+	
+				<div data-role="navbar">
+					<ul>
+					<li><a onclick="selectButtonDescription('buttonDescriptionHome');" data-icon="home"  data-role="button" data-theme="a">Home</a></li>
+					<li><a onclick="selectButtonDescription('buttonDescriptionSponsors');" data-icon="check"data-role="button" data-theme="a">Sponsors</a></li>
+					<li><a onclick="selectButtonDescription('buttonDescriptionMap');" data-icon="star" data-role="button" data-theme="a">Map</a></li>
+					</ul>
+					<ul>
+					<li><a onclick="selectButtonDescription('buttonDescriptionMySurvey');" data-icon="gear" data-role="button" data-theme="a">My Survey</a></li>
+					<li><a onclick="selectButtonDescription('buttonDescriptionResults');" data-icon="arrow-u" data-role="button" data-theme="a">Results</a></li>
+					<li><a onclick="selectButtonDescription('buttonDescriptionRestart');" data-icon="back" data-role="button" data-theme="a">Restart</a></li>
+					</ul>
+					<ul>
+					<li><a onclick="selectButtonDescription('buttonDescriptionBack');" data-role="button" data-icon="arrow-l" data-theme="a"></a></li>
+					<li><a id="buttonDescriptionButtonMenu" onclick="selectButtonDescription('buttonDescriptionMenu');" data-role="button" data-icon="grid" data-theme="a"></a></li>
+					<li><a onclick="selectButtonDescription('buttonDescriptionNext');" data-role="button" data-icon="arrow-r" data-theme="a"></a></li>		
+					</ul>
+				</div><!-- /navbar -->		
+				
+				<div id="buttonDescriptions">
+					<p id="buttonDescriptionHome">Goes to the home page.</p>
+					<p id="buttonDescriptionSponsors">Shows our sponsors, and the prizes they offer for completing a form.</p>
+					<p id="buttonDescriptionMap">Shows the survey results map.</p>
+
+					<p id="buttonDescriptionMySurvey">Shows the answers to the survey that you took.</p>
+					<p id="buttonDescriptionResults">Shows the latest results from other contributers.</p>
+					<p id="buttonDescriptionRestart">Restart</p>
+
+					<p id="buttonDescriptionBack">Goes to the previous page in the survey. On the Home page, this brings up this How-To page.</p>
+					<p id="buttonDescriptionMenu">Opens the menu. Includes the Home, Sponsors, Map, My Survey, Results, and Restart buttons seen above.</p>
+					<p id="buttonDescriptionNext">Goes to the next page in the survey. On the Home page, this starts the survey.</p>
+				</div>
+	
 	</div>
   </div>
 
