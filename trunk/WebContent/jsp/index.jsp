@@ -27,6 +27,7 @@
 	}
 	
 	$(window).bind("load", function() {
+		Home.loadResultsList();
 		var chartCanvas = document.getElementById('chart');
 		
 		chartCanvas.width = window.innerWidth;
@@ -45,11 +46,6 @@
 		}
         
 	});
-	
-	$( '#globalResults' ).live( 'pageinit',function(event){
-		  //alert( 'This page was just enhanced by jQuery Mobile!' );
-		  Home.loadResultsList();
-		});
 	
 	function load() 
 	{
@@ -138,7 +134,7 @@
 					</ul>
 					<ul>
 					<li><a data-icon="gear" href="#mySurveyPage" data-role="button" data-transition="fade">My Survey</a></li>
-					<li><a data-icon="arrow-u"  href="#globalResults" onclick="Home.loadResults();" data-role="button" data-rel="dialog" data-transition="fade">Results</a></li>
+					<li><a data-icon="arrow-u"  href="#globalResults" data-role="button" data-rel="dialog" data-transition="fade">Results</a></li>
 					<li><a data-icon="back"  href="#page1" data-role="button" data-transition="fade">Restart</a></li>
 					</ul>
 				</div><!-- /navbar -->				

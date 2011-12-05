@@ -95,8 +95,14 @@ Home.attemptResultsTransmission = function()
 
 Home.loadResultsList = function()
 {
+	var url = "../servlet/Home?" + "type=getShortQuestions";
 	
-}
+	var onResponse = Home.handleLoadResultsList;
+	Request.sendRequest(url, onResponse);
+	
+	return false;
+};
+
 
 Home.putElement = function()
 {	
@@ -123,11 +129,11 @@ Home.submitElement = function(item)
 	return false;
 };
 
-Home.loadResults = function()
+Home.loadResult = function(item)
 {
-	var url = "../servlet/Home?" + "type=getStats";
+	var url = "../servlet/Home?" + "type=loadResult" + "item=" + item.id;
 	
-	var onResponse = Home.handleLoadedResults;
+	var onResponse = Home.handleLoadedResult;
 	Request.sendRequest(url, onResponse);
 	
 };
@@ -232,7 +238,7 @@ Home.handleGetResponse = function(response)
 	return false;
 };
 
-Home.handleLoadedResults = function(response)
+Home.handleLoadedResult = function(response)
 {
 	if (response.status != 200)
 	{
@@ -240,7 +246,7 @@ Home.handleLoadedResults = function(response)
 		return false;
 	}
 	
-	var results = eval(response.responseText);
+	/*var results = eval(response.responseText);
 	
 	var element = document.getElementById("resultsContent");
 	
@@ -259,6 +265,35 @@ Home.handleLoadedResults = function(response)
 		}
 	}
 	element.innerHTML = innerHTML;
+	
+	$("#globalResults").page('refresh');*/
+};
+
+Home.handleLoadResultsList = function(response)
+{
+	if (response.status != 200)
+	{
+		alert("ERROR: Failed to get item");
+		return false;
+	}
+	
+	var results = eval(response.responseText);
+	
+	var element = document.getElementById("resultsContent");
+	
+	var innerHTML = "";
+	
+	for (var idx = 0; idx < results.questions.length; idx++)
+	{
+		var question = results.questions[idx].question;
+		innerHTML += "<div data-role='collapsible' data-theme='b' data-content-theme='d' id='" + question + "' onclick='Home.loadResult(this);'>";
+		innerHTML += "<h3>" + question + "</h3>";
+		innerHTML += "<p id='" + question + "globalResponse" + "'>Loading Results...</p>";
+		innerHTML += "</div>";
+	}
+	
+	element.innerHTML = innerHTML;
+	$("#globalResults").page('refresh');
 };
 
 Home.handleGetQuestionResponse = function(response)

@@ -5,6 +5,7 @@
 <xs:complexType name="type-question">
   <xs:sequence minOccurs="0" maxOccurs="unbounded">
     <xs:element name="caption" type="xs:string" minOccurs="1" maxOccurs="1"/>
+    <xs:element name="shortName" type="xs:string" minOccurs="1" maxOccurs="1"/>
 	<xs:choice minOccurs="1" maxOccurs="1">
 		<xs:element name="text" type="type-text"/>
 		<xs:element name="check" type="type-check"/>
