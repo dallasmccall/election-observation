@@ -93,6 +93,11 @@ Home.attemptResultsTransmission = function()
     return false;
 };
 
+Home.loadResultsList = function()
+{
+	
+}
+
 Home.putElement = function()
 {	
 	var question = document.getElementById("questionTitle").innerHTML;

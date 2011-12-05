@@ -46,6 +46,11 @@
         
 	});
 	
+	$( '#globalResults' ).live( 'pageinit',function(event){
+		  //alert( 'This page was just enhanced by jQuery Mobile!' );
+		  Home.loadResultsList();
+		});
+	
 	function load() 
 	{
 		//window.location.hash = "home";
@@ -173,7 +178,7 @@
 	
 <div data-role="content">	
     <canvas id="chart" style="width: 100%" ></canvas>
-
+  <div id="resultsContent">
   <table id="chartData" style="width: 100%; height: 100%; text-align:left">
 
     <tr>
@@ -204,8 +209,7 @@
       <td>More Than 4 Hours</td><td>128</td>
     </tr>
   </table>
-  
-  <div id="resultsContent">
+
   </div>
   
   </div>
