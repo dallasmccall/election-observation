@@ -11,8 +11,8 @@ function pieChart() {
   var pullOutFrameStep = 4;                         // How many pixels to move a slice with each animation frame
   var pullOutFrameInterval = 40;                    // How long (in ms) between each animation frame
   var pullOutLabelPadding = 45;                     // Padding between pulled-out slice and its label  
-  var pullOutLabelFont = "bold 16px 'Trebuchet MS', Verdana, sans-serif";  // Pull-out slice label font
-  var pullOutValueFont = "bold 12px 'Trebuchet MS', Verdana, sans-serif";  // Pull-out slice value font
+  var pullOutLabelFont = "bold 40px 'Trebuchet MS', Verdana, sans-serif";  // Pull-out slice label font
+  var pullOutValueFont = "bold 30px 'Trebuchet MS', Verdana, sans-serif";  // Pull-out slice value font
   var pullOutValuePrefix = "";                     // Pull-out slice value prefix
   var pullOutShadowColour = "rgba( 0, 0, 0, .5 )";  // Colour to use for the pull-out slice shadow
   var pullOutShadowOffsetX = 5;                     // X-offset (in pixels) of the pull-out slice shadow
@@ -107,7 +107,7 @@ function pieChart() {
 
     // All ready! Now draw the pie chart, and add the click handler to it
     drawChart();
-    $('#chart').click ( handleChartClick );
+    //$('#chart').click ( handleChartClick );
   }
 
 
@@ -303,7 +303,7 @@ function pieChart() {
       context.font = pullOutLabelFont;
       context.fillText( chartData[slice]['label'], centerX, canvasHeight * .95 );
       context.font = pullOutValueFont;
-      context.fillText( pullOutValuePrefix + Math.floor(chartData[slice]['value']) + " (" + ( parseInt( chartData[slice]['value'] / totalValue * 100 + .5 ) ) +  "%)", centerX, (canvasHeight * .95) + 15);
+      context.fillText( pullOutValuePrefix + Math.floor(chartData[slice]['value']) + " (" + ( parseInt( chartData[slice]['value'] / totalValue * 100 + .5 ) ) +  "%)", centerX, (canvasHeight * .95) + 40);
       context.shadowOffsetX = pullOutShadowOffsetX;
       context.shadowOffsetY = pullOutShadowOffsetY;
       context.shadowBlur = pullOutShadowBlur;
