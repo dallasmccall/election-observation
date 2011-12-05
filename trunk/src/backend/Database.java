@@ -194,7 +194,7 @@ public class Database
 				
 				responseText.append("{");
 	            responseText.append("item:'")
-	            	.append(userResponse);
+	            	.append(userResponse.replace("'", ""));
 	            responseText.append("',");
 	            responseText.append("count:'")
 	            	.append(requestedResult.get(userResponse));

@@ -248,7 +248,7 @@ Home.handleLoadedResult = function(response)
 	
 	var results = eval(response.responseText);
 
-	var question = results.question + "globalResponse";
+	var question = results.question.split(' ').join('') + "globalResponse";
 	
     var defualtColors = ["#0DA068", "#194E9C", "#ED9C13", "#ED5713", "#057249", "#5F91DC"];
     
@@ -310,9 +310,9 @@ Home.handleLoadResultsList = function(response)
 	for (var idx = 0; idx < results.questions.length; idx++)
 	{
 		var question = results.questions[idx].question;
-		innerHTML += "<div data-role='collapsible' data-theme='b' data-content-theme='d' id='" + question + "'>";
+		innerHTML += "<div data-role='collapsible' data-theme='b' data-content-theme='d' id='" + question.split(' ').join('') + "'>";
 		innerHTML += "<h3>" + question + "</h3>";
-		innerHTML += "<div id='" + question + "globalResponse" + "'>Loading Results...</div>";
+		innerHTML += "<div id='" + question.split(' ').join('') + "globalResponse" + "'>Loading Results...</div>";
 		innerHTML += "</div>";
 	}
 	
@@ -320,7 +320,8 @@ Home.handleLoadResultsList = function(response)
 	
 	for (var idx = 0; idx < results.questions.length; idx++)
 	{
-		$('#' + results.questions[idx].question).bind('expand', Home.loadResult);
+		var name = "#" + results.questions[idx].question.split(' ').join('');
+		$(name).bind('expand', Home.loadResult);
 	}
 	
 	
