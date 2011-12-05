@@ -75,6 +75,36 @@ public class Database
 		database.put(sessionName, session);
 	}
 	
+	public static String getShortQuestionsJSON()
+	{
+		Hashtable<String, Hashtable<String, Integer>> accumulatedDatabase = sa.getAccumulatedDatabase();
+		
+		StringBuilder responseText = new StringBuilder();
+		
+		responseText.append("({questions:[");
+		
+		boolean firstQuestion = true;
+		
+		for (String question : accumulatedDatabase.keySet())
+		{
+			if (!firstQuestion)
+			{
+				responseText.append(",");
+			}
+			else
+			{
+				firstQuestion = false;
+			}
+			
+			responseText.append("{question:'");
+			responseText.append(question);
+			responseText.append("'}");
+		}
+		responseText.append("]})");
+		
+		return responseText.toString();
+	}
+	
 	public static String getDatabaseJSON()
 	{
 		synchronized(accumulatorStarted)
