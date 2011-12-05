@@ -303,7 +303,7 @@ function pieChart() {
       context.font = pullOutLabelFont;
       context.fillText( chartData[slice]['label'], centerX, canvasHeight * .95 );
       context.font = pullOutValueFont;
-      context.fillText( pullOutValuePrefix + chartData[slice]['value'] + " (" + ( parseInt( chartData[slice]['value'] / totalValue * 100 + .5 ) ) +  "%)", centerX, (canvasHeight * .95) + 15);
+      context.fillText( pullOutValuePrefix + Math.floor(chartData[slice]['value']) + " (" + ( parseInt( chartData[slice]['value'] / totalValue * 100 + .5 ) ) +  "%)", centerX, (canvasHeight * .95) + 15);
       context.shadowOffsetX = pullOutShadowOffsetX;
       context.shadowOffsetY = pullOutShadowOffsetY;
       context.shadowBlur = pullOutShadowBlur;
