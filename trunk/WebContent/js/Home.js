@@ -131,7 +131,7 @@ Home.submitElement = function(item)
 
 Home.loadResult = function(item)
 {
-	var url = "../servlet/Home?" + "type=loadResult" + "item=" + item.id;
+	var url = "../servlet/Home?" + "type=loadResult" + "&item=" + item.target.id;
 	
 	var onResponse = Home.handleLoadedResult;
 	Request.sendRequest(url, onResponse);
@@ -246,27 +246,51 @@ Home.handleLoadedResult = function(response)
 		return false;
 	}
 	
-	/*var results = eval(response.responseText);
+	var results = eval(response.responseText);
+
+	var question = results.question + "globalResponse";
 	
-	var element = document.getElementById("resultsContent");
+    var defualtColors = ["#0DA068", "#194E9C", "#ED9C13", "#ED5713", "#057249", "#5F91DC"];
+    
+    var root = document.getElementById(question);
+    
+    root.innerHTML = "";
+    
+    var rc = document.getElementById("resultsContent");
+    
+    var crt = document.createElement('canvas');
+    crt.id = results.question + "chart";
+    crt.width = rc.clientWidth;
+	crt.height = rc.clientWidth;
+    
+    var tab = document.createElement('table');
+    
+    tab.style = "width: 100%";
+    tab.id = results.question + "chartData";
+    var tbo = document.createElement('tbody');
+    
+    for(var idx = 0; idx < results.statistics.length; idx++){
+    	var rowColor = defualtColors[idx % defualtColors.length];
+    	
+    	var row = document.createElement('tr');
+    	row.style.color = rowColor;
+    	
+    	var leftCell = document.createElement('td');
+    	var rightCell = document.createElement('td');
+    	
+    	leftCell.appendChild(document.createTextNode(results.statistics[idx].item));
+    	rightCell.appendChild(document.createTextNode(results.statistics[idx].count));
+    	
+    	row.appendChild(leftCell);
+    	row.appendChild(rightCell);
+    	
+    	tbo.appendChild(row);
+    }
+    tab.appendChild(tbo);
+    root.appendChild(crt);
+    root.appendChild(tab);
 	
-	var innerHTML = "";
-	
-	for (var idx = 0; idx < results.questions.length; idx++)
-	{
-		var questionBlock = results.questions[idx];
-		innerHTML += "<br>" + questionBlock.question + ":<br>";
-		
-		for (var innerIdx = 0; innerIdx < questionBlock.statistics.length; innerIdx++)
-		{
-			innerHTML += "&nbsp;&nbsp;&nbsp;&nbsp;";
-			innerHTML += questionBlock.statistics[innerIdx].item + " has: ";
-			innerHTML += questionBlock.statistics[innerIdx].count + " instance(s)<br>";
-		}
-	}
-	element.innerHTML = innerHTML;
-	
-	$("#globalResults").page('refresh');*/
+	pieChart( results.question + "chart", results.question + "chartData");
 };
 
 Home.handleLoadResultsList = function(response)
@@ -286,14 +310,24 @@ Home.handleLoadResultsList = function(response)
 	for (var idx = 0; idx < results.questions.length; idx++)
 	{
 		var question = results.questions[idx].question;
-		innerHTML += "<div data-role='collapsible' data-theme='b' data-content-theme='d' id='" + question + "' onclick='Home.loadResult(this);'>";
+		innerHTML += "<div data-role='collapsible' data-theme='b' data-content-theme='d' id='" + question + "'>";
 		innerHTML += "<h3>" + question + "</h3>";
-		innerHTML += "<p id='" + question + "globalResponse" + "'>Loading Results...</p>";
+		innerHTML += "<div id='" + question + "globalResponse" + "'>Loading Results...</div>";
 		innerHTML += "</div>";
 	}
 	
 	element.innerHTML = innerHTML;
-	$("#globalResults").page('refresh');
+	
+	for (var idx = 0; idx < results.questions.length; idx++)
+	{
+		$('#' + results.questions[idx].question).bind('expand', Home.loadResult);
+	}
+	
+	
+	for (var idx = 0; idx < results.questions.length; idx++)
+	{
+		
+	}
 };
 
 Home.handleGetQuestionResponse = function(response)

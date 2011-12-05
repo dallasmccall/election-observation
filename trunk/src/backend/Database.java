@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Hashtable;
 
 import javax.xml.bind.JAXBContext;
@@ -50,19 +51,7 @@ public class Database
 	
 	public static void PUT(String sessionName, String question, String response)
 	{
-		synchronized(accumulatorStarted)
-		{
-			if (accumulatorStarted.equals(0))
-			{
-				new Database();
-				accumulatorStarted = 1;
-			}
-			if (null == database)
-			{
-				database = new Hashtable<String, Hashtable<String, String>>();
-			}
-			loadSurvey();
-		}
+		loadIfNecessary();
 		
 		Hashtable<String, String> session = database.get(sessionName);
 		
@@ -75,21 +64,27 @@ public class Database
 		database.put(sessionName, session);
 	}
 	
-	public static String getShortQuestionsJSON()
+	private static void loadIfNecessary()
 	{
 		synchronized(accumulatorStarted)
 		{
 			if (accumulatorStarted.equals(0))
 			{
 				new Database();
+				loadSurvey();
 				accumulatorStarted = 1;
 			}
 			if (null == database)
 			{
 				database = new Hashtable<String, Hashtable<String, String>>();
 			}
-			loadSurvey();
+			
 		}
+	}
+	
+	public static String getShortQuestionsJSON()
+	{
+		loadIfNecessary();
 		
 		//Hashtable<String, Hashtable<String, Integer>> accumulatedDatabase = sa.getAccumulatedDatabase();
 		StringBuilder responseText = new StringBuilder();
@@ -123,20 +118,102 @@ public class Database
 		return responseText.toString();
 	}
 	
+	public static String getRequestedResult(String item)
+	{
+		loadIfNecessary();
+		try
+		{
+			StringBuilder responseText = new StringBuilder();
+			responseText.append("({question:'");
+			responseText.append(item);
+			responseText.append("',");
+			
+			//Question -> (Response -> Count)
+			HashMap<String, Integer> requestedResult = new HashMap<String, Integer>();
+			
+			for (TypeQuestion question : svy.getQuestion())
+			{
+				String shortName = question.getCaptionAndShortNameAndText().get(1).getValue().toString();
+				
+				if (shortName.equals(item))
+				{
+					String dbName = question.getCaptionAndShortNameAndText().get(0).getValue().toString();
+					
+					Hashtable<String, Hashtable<String, Integer>> accumulatedDatabase = sa.getAccumulatedDatabase();
+					
+					for (String dbQuestion : accumulatedDatabase.keySet())
+					{
+						if (dbQuestion.startsWith(dbName))
+						{
+							Hashtable<String, Integer> tempResult = accumulatedDatabase.get(dbQuestion);
+							
+							String actualName = dbQuestion;
+							boolean isSplit = false;
+							if (dbQuestion.contains(":"))
+							{
+								actualName = dbQuestion.split(":")[1];
+								isSplit = true;
+							}
+							
+							if (!isSplit)
+							{
+								for (String dbAnswer : tempResult.keySet())
+								{
+									requestedResult.put(dbAnswer, tempResult.get(dbAnswer));
+								}
+								break;
+							}
+							else
+							{
+								Integer resultCount = tempResult.get("true");
+								if (null == resultCount)
+								{
+									resultCount = 0;
+								}
+								requestedResult.put(actualName, resultCount);
+							}
+						}
+					}
+					break;
+				}
+			}
+			
+			responseText.append("statistics:[");
+
+			boolean first = true;
+			for (String userResponse : requestedResult.keySet())
+			{
+				if (!first)
+				{
+					responseText.append(",");
+				}
+				else
+				{
+					first = false;
+				}
+				
+				responseText.append("{");
+	            responseText.append("item:'")
+	            	.append(userResponse);
+	            responseText.append("',");
+	            responseText.append("count:'")
+	            	.append(requestedResult.get(userResponse));
+	            responseText.append("'}");
+			}
+			
+			responseText.append("]})");
+			return responseText.toString();
+		}
+		catch (Exception e)
+		{
+			
+		}
+		return "";
+	}
+	
 	public static String getDatabaseJSON()
 	{
-		synchronized(accumulatorStarted)
-		{
-			if (accumulatorStarted.equals(0))
-			{
-				new Database();
-				accumulatorStarted = 1;
-			}
-			if (null == database)
-			{
-				database = new Hashtable<String, Hashtable<String, String>>();
-			}
-		}
+		loadIfNecessary();
 		
 		Hashtable<String, Hashtable<String, Integer>> accumulatedDatabase = sa.getAccumulatedDatabase();
 		

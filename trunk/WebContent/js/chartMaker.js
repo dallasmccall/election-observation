@@ -1,8 +1,10 @@
 // Run the code when the DOM is ready
 
-function pieChart() {
+function pieChart(chartName, tableName) {
 
   // Config settings
+  var nameOfChart = chartName;
+  var nameOfTable = tableName;
   var chartSizePercent = 80;                        // The chart radius relative to the canvas width/height (in percent)
   var sliceBorderWidth = 1;                         // Width (in pixels) of the border around each slice
   var sliceBorderStyle = "#fff";                    // Colour of the border around each slice
@@ -11,8 +13,8 @@ function pieChart() {
   var pullOutFrameStep = 4;                         // How many pixels to move a slice with each animation frame
   var pullOutFrameInterval = 40;                    // How long (in ms) between each animation frame
   var pullOutLabelPadding = 45;                     // Padding between pulled-out slice and its label  
-  var pullOutLabelFont = "bold 40px 'Trebuchet MS', Verdana, sans-serif";  // Pull-out slice label font
-  var pullOutValueFont = "bold 30px 'Trebuchet MS', Verdana, sans-serif";  // Pull-out slice value font
+  var pullOutLabelFont = "bold 16px 'Trebuchet MS', Verdana, sans-serif";  // Pull-out slice label font
+  var pullOutValueFont = "bold 12px 'Trebuchet MS', Verdana, sans-serif";  // Pull-out slice value font
   var pullOutValuePrefix = "";                     // Pull-out slice value prefix
   var pullOutShadowColour = "rgba( 0, 0, 0, .5 )";  // Colour to use for the pull-out slice shadow
   var pullOutShadowOffsetX = 5;                     // X-offset (in pixels) of the pull-out slice shadow
@@ -48,7 +50,7 @@ function pieChart() {
   function init() {
 
     // Get the canvas element in the page
-    canvas = document.getElementById('chart');
+    canvas = document.getElementById(nameOfChart);
 
     // Exit if the browser isn't canvas-capable
     if ( typeof canvas.getContext === 'undefined' ) return;
@@ -66,7 +68,7 @@ function pieChart() {
     var currentRow = -1;
     var currentCell = 0;
 
-    $('#chartData td').each( function() {
+    $('#' + nameOfTable + ' td').each( function() {
       currentCell++;
       if ( currentCell % 2 != 0 ) {
         currentRow++;
@@ -107,7 +109,7 @@ function pieChart() {
 
     // All ready! Now draw the pie chart, and add the click handler to it
     drawChart();
-    //$('#chart').click ( handleChartClick );
+    $('#chart').click ( handleChartClick );
   }
 
 
@@ -301,9 +303,9 @@ function pieChart() {
       context.fillStyle = 'rgb(' + chartColours[slice].join(',') + ')';
       context.textAlign = "center";
       context.font = pullOutLabelFont;
-      context.fillText( chartData[slice]['label'], centerX, canvasHeight * .95 );
+      context.fillText( chartData[slice]['label'], centerX, canvasHeight * .96 );
       context.font = pullOutValueFont;
-      context.fillText( pullOutValuePrefix + Math.floor(chartData[slice]['value']) + " (" + ( parseInt( chartData[slice]['value'] / totalValue * 100 + .5 ) ) +  "%)", centerX, (canvasHeight * .95) + 40);
+      context.fillText( pullOutValuePrefix + Math.floor(chartData[slice]['value']) + " (" + ( parseInt( chartData[slice]['value'] / totalValue * 100 + .5 ) ) +  "%)", centerX, (canvasHeight * .96) + 10);
       context.shadowOffsetX = pullOutShadowOffsetX;
       context.shadowOffsetY = pullOutShadowOffsetY;
       context.shadowBlur = pullOutShadowBlur;
