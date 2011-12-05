@@ -77,31 +77,49 @@ public class Database
 	
 	public static String getShortQuestionsJSON()
 	{
-		Hashtable<String, Hashtable<String, Integer>> accumulatedDatabase = sa.getAccumulatedDatabase();
-		
-		StringBuilder responseText = new StringBuilder();
-		
-		responseText.append("({questions:[");
-		
-		boolean firstQuestion = true;
-		
-		for (String question : accumulatedDatabase.keySet())
+		synchronized(accumulatorStarted)
 		{
-			if (!firstQuestion)
+			if (accumulatorStarted.equals(0))
 			{
-				responseText.append(",");
+				new Database();
+				accumulatorStarted = 1;
 			}
-			else
+			if (null == database)
 			{
-				firstQuestion = false;
+				database = new Hashtable<String, Hashtable<String, String>>();
 			}
-			
-			responseText.append("{question:'");
-			responseText.append(question);
-			responseText.append("'}");
+			loadSurvey();
 		}
-		responseText.append("]})");
 		
+		//Hashtable<String, Hashtable<String, Integer>> accumulatedDatabase = sa.getAccumulatedDatabase();
+		StringBuilder responseText = new StringBuilder();
+		try
+		{
+			responseText.append("({questions:[");
+			
+			boolean firstQuestion = true;
+			
+			for (TypeQuestion question : svy.getQuestion())
+			{
+				if (!firstQuestion)
+				{
+					responseText.append(",");
+				}
+				else
+				{
+					firstQuestion = false;
+				}
+				
+				responseText.append("{question:'");
+				responseText.append(question.getCaptionAndShortNameAndText().get(1).getValue());
+				responseText.append("'}");
+			}
+			responseText.append("]})");
+		}
+		catch (Exception e)
+		{
+			
+		}
 		return responseText.toString();
 	}
 	
