@@ -30,7 +30,7 @@
 		var chartCanvas = document.getElementById('chart');
 		
 		chartCanvas.width = window.innerWidth;
-		chartCanvas.height = window.innerWidth * 1.1;
+		chartCanvas.height = window.innerWidth;
 		pieChart();
 		
 		Home.initializeIndex();
@@ -104,22 +104,16 @@
 
   <!-- HOME PAGE -->
   <div id="home" data-role="page">
-    <div data-role="header">
-	  <h1> Election Observation Tool  </h1>
-	  
+    <div data-role="header" data-theme="a">
+	  <h1> Election Observation Tool  </h1>	  
 	</div>
 	
 	<div data-role="content">
 
-	  <a href="#page1" data-role="button" data-icon="plus" data-theme="b" data-transition="slide" data-direction="forward">
-	  Begin Survey
-	  </a>
-	  
-	  <ul data-role="listview" data-inset="true">
-	    <li> <a href="#myForm"> View My Submission </a> </li>
-		<li> <a href="#globalResults" onclick="Home.loadResults();" data-transition="fade"> View Current Results </a> </li>
-		<li> <a href="#sponsorsPage" data-rel="dialog" data-transition="fade"> Learn about our sponsors! </a> </li>
-	  </ul>	
+	<h4>Welcome to the Election Observation Tool!</h4>
+	<p>Press the arrow button at the bottom right to start the survey, or press the info on the bottom left button for help on using the tool.</p>
+	<p>Be sure to check out our sponsors, they have offered some cool rewards for completing a survey. And don't forget to tell your friends!</p>
+		
 	</div>
 	
 	
@@ -178,9 +172,9 @@
 	
 	
 <div data-role="content">	
-    <canvas id="chart" style="width: 100%; text-align:left" ></canvas>
+    <canvas id="chart" style="width: 100%" ></canvas>
 
-  <table id="chartData" style="width: 100%; text-align:left">
+  <table id="chartData" style="width: 100%; height: 100%; text-align:left">
 
     <tr>
       <th>Voting Time</th><th># of people</th>
@@ -225,9 +219,24 @@
 	  <h1> Sponsors </h1>
 	</div>
 
-	<div data-role="content">
-	  <p>Here is info about our sponsors</p>
+<div data-role="content">
+	<div data-role="collapsible" data-theme="b" data-content-theme="d">
+	   <h3>Sponsor 1</h3>
+	   <p>Information about Sponsor 1.</p>
 	</div>
+	<div data-role="collapsible" data-theme="b" data-content-theme="d">
+	   <h3>Sponsor 2</h3>
+	   <p>Information about Sponsor 2.</p>
+	</div>
+	<div data-role="collapsible" data-theme="b" data-content-theme="d">
+	   <h3>Sponsor 3</h3>
+	   <p>Information about Sponsor 3.</p>
+	</div>
+		<div data-role="collapsible" data-theme="b" data-content-theme="d">
+	   <h3>Sponsor 4</h3>
+	   <p>Information about Sponsor 4.</p>
+	</div>
+</div>
   </div>
 
     <!-- INFO PAGE -->
