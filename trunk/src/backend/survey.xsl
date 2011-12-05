@@ -14,6 +14,8 @@
 
 		<!-- PAGE HEADER -->
 		<div data-role="header" data-position="fixed" >
+			<a data-role="button" data-theme="d">Location</a>
+	 		<a class="transmitButton" data-role="button"  data-theme="d">Transmit</a> 
 			<h1>Question <xsl:number count="question" level="any" />/<xsl:value-of select="count(/survey/question)"/>
 			</h1>	  
 		</div>

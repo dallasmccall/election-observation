@@ -80,6 +80,7 @@ function hideButtonDescriptions(){
 
 
 
+
 $(window).resize(function() {
 	  $("#chart").height($("#chart").width());
 	});

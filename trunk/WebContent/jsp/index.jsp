@@ -106,7 +106,9 @@
   <!-- HOME PAGE -->
   <div id="home" data-role="page">
     <div data-role="header" data-theme="a">
-	  <h1> Election Observation Tool  </h1>	  
+	  <a data-role="button" data-theme="d">Location</a>
+	  <a class="transmitButton" data-role="button"  data-theme="d"  class="ui-disabled">Transmit</a> 
+	  <h1  data-theme="a">Election Observation Tool</h1>	  
 	</div>
 	
 	<div data-role="content">
