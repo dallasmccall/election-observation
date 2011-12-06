@@ -169,48 +169,13 @@
   
   <!-- GLOBAL RESULTS -->
   <div id="globalResults" data-role="page">
-  <div data-role="header">
+    <div data-role="header">
 	  <h1> Results </h1>
 	</div>
 	
-	
-<div data-role="content">	
-    <canvas id="chart" style="width:100%; text-align:left" ></canvas>
-  <div id="resultsContent">
-  <table id="chartData" style="width: 100%; height: 100%; text-align:left">
-
-    <tr>
-      <th>Voting Time</th><th># of people</th>
-     </tr>
-
-    <tr style="color: #0DA068">
-      <td>0-10 Minutes</td><td>134</td>
-    </tr>
-
-    <tr style="color: #194E9C">
-      <td>10-20 Minutes</td><td>3482</td>
-    </tr>
-
-    <tr style="color: #ED9C13">
-      <td>30 Minutes - 1 Hour</td><td>516</td>
-    </tr>
-
-    <tr style="color: #ED5713">
-      <td>1-2 Hours</td><td>33</td>
-    </tr>
-
-    <tr style="color: #057249">
-      <td>2-4 Hours</td><td>1920</td>
-    </tr>
-
-    <tr style="color: #5F91DC">
-      <td>More Than 4 Hours</td><td>128</td>
-    </tr>
-  </table>
-
-  </div>
-  
-  </div>
+    <div data-role="content">	
+      <div id="resultsContent">Loading Results...</div>
+    </div>
   	
   </div>
 
