@@ -172,6 +172,7 @@ Home.handleFormChange = function(item)
 	}
 
 	$( ".transmitButton" ).removeClass("ui-disabled");
+	$(".transmitButton span.ui-icon").addClass("ui-icon-alert").removeClass("ui-icon-check");
 	localStorage.setItem("ElectionObservationSendCache", formCache);
 	return true;
 };
@@ -196,6 +197,7 @@ Home.handleTransmitResponse = function(response)
 	{
 		
 		$( ".transmitButton" ).addClass("ui-disabled");
+		$(".transmitButton span.ui-icon").addClass("ui-icon-check").removeClass("ui-icon-alert");
 		localStorage.setItem("ElectionObservationSendCache", "");
 	}
 };
@@ -288,6 +290,29 @@ Home.handleLoadedResult = function(response)
     thd.appendChild(headerRow);
     tab.appendChild(thd);
     
+
+    var listview = document.createElement('ul');
+    listview.setAttribute("data-role", "listview");
+    listview.setAttribute("data-inset", "true");
+    listview.setAttribute("class", "ui-listview ui-listview-inset ui-corner-all ui-shadow");
+    
+    var dividerHeader = document.createElement('li');
+    dividerHeader.setAttribute("data-role", "list-divider");
+    dividerHeader.setAttribute("role", "heading");
+    dividerHeader.setAttribute("class", "ui-li ui-li-divider ui-btn ui-bar-d ui-li-has-count ui-corner-top ui-btn-hover-undefined ui-btn-up-undefined");
+    dividerHeader.appendChild(document.createTextNode(results.leftHeader));
+        
+    
+    var dividerRight = document.createElement('span');
+    dividerRight.setAttribute("class", "ui-li-count ui-btn-up-c ui-btn-corner-all");
+    dividerRight.appendChild(document.createTextNode(results.rightHeader));
+    
+    
+    dividerHeader.appendChild(dividerRight);    
+    listview.appendChild(dividerHeader);
+    
+    
+    var buttons = [];
     for(var idx = 0; idx < results.statistics.length; idx++){
     	var rowColor = defualtColors[idx % defualtColors.length];
     	
@@ -304,12 +329,82 @@ Home.handleLoadedResult = function(response)
     	row.appendChild(rightCell);
     	
     	tbo.appendChild(row);
+    
+    	/*
+
+
+    	<li data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-btn-up-c">
+    		<div class="ui-btn-inner ui-li" aria-hidden="true">    		
+    			<div class="ui-btn-text">    	    					
+    				<a style="color: rgb(13, 160, 104);" class="ui-link-inherit">    				
+    					I felt that election officials were helpful.
+    					
+    					<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">
+    						12
+    					</span>
+    				</a>
+    			</div>
+    			<span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span>
+    		</div>
+    	</li>
+    	
+    	<li data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-btn-up-c"><div class="ui-btn-inner ui-li" aria-hidden="true"><div class="ui-btn-text"><a style="color: rgb(25, 78, 156);" class="ui-link-inherit">I believe that my vote will be counted.<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">0</span></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span></div></li>
+    	<li data-theme="c" class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-corner-bottom"><div class="ui-btn-inner ui-li" aria-hidden="true"><div class="ui-btn-text"><a style="color: rgb(237, 156, 19);" class="ui-link-inherit">I was able to successfully cast my ballot and vote for my official of choice.<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">4</span></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span></div></li>
+
+
+    */
+    	
+    	
+    	var liItem = document.createElement('li');
+    	liItem.setAttribute("data-theme", "c");
+    	liItem.setAttribute("class", "ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-btn-up-c");
+    	var divItem1 = document.createElement('div');
+    	divItem1.setAttribute("aria-hidden", "true");
+    	divItem1.setAttribute("class", "ui-btn-inner ui-li");    	
+    	var divItem2 = document.createElement('div');
+    	divItem2.setAttribute("class", "ui-btn-text");    
+    	var aItem = document.createElement('a');
+    	aItem.style.color = rowColor;
+    	aItem.setAttribute("class", "ui-link-inherit");
+    	aItem.setAttribute("data-slice", idx);
+    	aItem.setAttribute("onclick", "toggleSlice(" + idx +");");
+    	var spanItem1 = document.createElement('span');
+    	spanItem1.setAttribute("class", "ui-li-count ui-btn-up-c ui-btn-corner-all");
+    	var spanItem2 = document.createElement('span');
+    	spanItem2.setAttribute("class", "ui-icon ui-icon-arrow-r ui-icon-shadow");
+    	
+    	
+    	liItem.appendChild(divItem1);
+    	divItem1.appendChild(divItem2);
+    	divItem2.appendChild(aItem);
+    	aItem.appendChild(document.createTextNode(results.statistics[idx].item));
+    	aItem.appendChild(spanItem1);
+    	spanItem1.appendChild(document.createTextNode(results.statistics[idx].count)); 
+    	divItem1.appendChild(spanItem2);
+
+    	
+    	listview.appendChild(liItem);
+    	
+    	buttons[idx] = aItem;
+    	
+    	
     }
+    
+    // Hack, didn't feel like changing all the chartMaker.js code so I just
+    // hide the table. (Currently, chartMaker.js builds the based on the 
+    // table--but the table is no longer necessary because now we have nicely 
+    // formated clickable ones now).
+    tab.style.display = "none";
+    
     tab.appendChild(tbo);
     root.appendChild(crt);
     root.appendChild(tab);
+    
+    
+    
+    root.appendChild(listview);
 	
-	pieChart( results.question + "chart", results.question + "chartData");
+	pieChart( results.question + "chart", results.question + "chartData", buttons);
 };
 
 Home.handleLoadResultsList = function(response)
@@ -429,3 +524,4 @@ Home.handleGetSurveyResponse = function(response)
 	
 	return false;
 };
+

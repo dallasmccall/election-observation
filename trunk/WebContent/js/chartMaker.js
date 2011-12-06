@@ -1,6 +1,6 @@
 // Run the code when the DOM is ready
 
-function pieChart(chartName, tableName) {
+function pieChart(chartName, tableName, buttons) {
 
   // Config settings
   var nameOfChart = chartName;
@@ -67,6 +67,17 @@ function pieChart(chartName, tableName) {
     
     var currentRow = -1;
     var currentCell = 0;
+    
+    function handleButtonClick(item){
+    	myslice = item.data;
+    	
+    	toggleSlice ( myslice );
+    }
+    
+    for (var i = 0; i < buttons.length; i++){
+    	var myslice = buttons[i].getAttribute("data-slice");
+    	$(buttons[i]).click(myslice, handleButtonClick);
+    }
 
     $('#' + nameOfTable + ' td').each( function() {
       currentCell++;
