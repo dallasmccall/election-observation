@@ -36,11 +36,11 @@ public class Database
 		new Thread(sa).start();
 		
 		ds = new DataStore();
-		database = ds.attemptLoad();
+		//database = ds.attemptLoad();
 		new Thread(ds).start();
 		
-		df = new DataFaker();
-		new Thread(df).start();
+		//df = new DataFaker();
+		//new Thread(df).start();
 	}
 	
 	public static void loadSurvey()
