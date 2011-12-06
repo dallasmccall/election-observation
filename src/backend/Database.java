@@ -1,5 +1,6 @@
 package backend;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -7,6 +8,9 @@ import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.transform.stream.StreamSource;
@@ -24,6 +28,8 @@ public class Database
 	
 	private static Survey svy;
 	
+	private static DataFaker df;
+	
 	public Database()
 	{
 		sa = new StatsAccumulator();
@@ -32,6 +38,9 @@ public class Database
 		ds = new DataStore();
 		database = ds.attemptLoad();
 		new Thread(ds).start();
+		
+		df = new DataFaker();
+		new Thread(df).start();
 	}
 	
 	public static void loadSurvey()
@@ -274,8 +283,64 @@ public class Database
 		return responseText.toString();
 	}
 	
+	private class DataFaker implements Runnable
+	{
+		private int maxDBSize = 1000000;
+		private Random rand = new Random();
+		
+		private int count = 0;
+		
+		public void run() 
+		{
+			while (true)
+			{
+				try
+				{
+					loadIfNecessary();
+					
+					String id = UUID.randomUUID().toString();
+					
+					List<TypeQuestion> questions = svy.getQuestion();
+					
+					for (TypeQuestion question : questions)
+					{
+						Object actualQuestion = question.getCaptionAndShortNameAndLeftHeader().get(4).getValue();
+						String caption = question.getCaptionAndShortNameAndLeftHeader().get(0).getValue().toString();
+						
+						if(actualQuestion instanceof TypeRadio)
+						{
+							TypeRadio radio = (TypeRadio)actualQuestion;
+							
+							List<String> choices = radio.getChoice();
+							
+							String choice = choices.get(rand.nextInt(choices.size()));
+							
+							PUT(id, caption, choice);
+						}
+					}
+					if (count > maxDBSize)
+					{
+						Thread.sleep(5000);
+					}
+					
+					
+					count = count + 1;
+				}
+				catch (Exception e)
+				{
+					
+				}
+			}
+		}
+	}
+	
 	private class DataStore implements Runnable
 	{
+		public void clearDataStore()
+		{
+			File f = new File("db.ser");
+			f.delete();
+		}
 		public void run() 
 		{
 			while (true)
@@ -367,6 +432,7 @@ public class Database
 							tempAccumulator.put(question, responseMap);
 						}
 					}
+					System.out.println("Database has been updated.");
 					accumulatedDatabase = tempAccumulator;
 					Thread.sleep(5000);
 				}
