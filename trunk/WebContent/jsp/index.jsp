@@ -7,7 +7,7 @@
 
 	<link rel="stylesheet" href="../css/jquery.mobile-1.0.css">
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1">
-	<script src="../js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/jquery-1.7.1.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../js/underscore-min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../js/backbone-min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../js/backbone.localStorage-min.js" type="text/javascript" charset="utf-8"></script>
@@ -18,6 +18,10 @@
 	<script type="text/javascript" src="../js/Request.js"></script>
 
 	<script type="text/javascript" src="../js/Navigation.js"></script>
+
+
+	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
 
 	
 	<script type="text/javascript">
@@ -62,9 +66,6 @@
 		//position.coords.latitude + ',' + position.coords.longitude + "/></h1>";
 	    var message = position.coords.latitude + ", " + position.coords.longitude;
 	    
-
-		
-		
 		
 		updateLocationMessage(message);
 	}
@@ -89,27 +90,125 @@
         locationBox.innerHTML = message;
 	}
 	</script>
+	
+	<script>
+	
+	 var geocoder;
+ 	 var map;
+ 	 var newMarker;
+ 	// When map page opens get location and display map
+	$("#pageMyLocation").live("pageinit", function() {
+		
+		
+		
+	    $('#findAddress').keypress(function(e)
+	    	    {
+	    	        code= (e.keyCode ? e.keyCode : e.which);
+	    	        if (code == 13) {
+	    	        	
+	    	        	
+	    	        	
+	    	    	    var address = $("#findAddress").val();
+	    	    	    
+	    	    	    geocoder.geocode( { 'address': address}, function(results, status) {
+	    	    	      if (status == google.maps.GeocoderStatus.OK) {
+	    	    	        map.setCenter(results[0].geometry.location);
+	    	    	        newMarker = new google.maps.Marker({
+	    	    	            map: map,
+	    	    	            position: results[0].geometry.location,
+	    	    	            title:"New Location",
+	    	    	            draggable:true
+	    	    	        });
+	    	    	      } else {
+	    	    	        alert("Geocode was not successful for the following reason: " + status);
+	    	    	      }
+	    	    	    });
+	    	        	
+	    	        	
+	    	        	
+	    	        	e.preventDefault();
+	    	        }
+	    	        
+	   });
+		
+		
+		
+		geocoder = new google.maps.Geocoder();
+		var position = localStorage.getItem("ElectionObservationLocation");
+		if (null != position)
+		{
+			updateLocationMessage(position);
+			var coords = position.split(", ");
+			
+		    addMap(coords[0], coords[1], "map_canvas");
+		}
+		else
+		{
+			navigator.geolocation.getCurrentPosition(showLocation, showError, {enableHighAccuracy:true,maximumAge:600000});
+		}
 
+	    
+	});
+	
+ 	
+ 	
 
+ 	
+	
+	
+	function addMap(lat,lng,divID) {
+		var latlng = new google.maps.LatLng(lat, lng);
+		var myOptions = {
+			zoom: 16,
+			center: latlng,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+	    };
+		
+		
+		$("#" + divID).height($(document).height()*0.50);
+	    map = new google.maps.Map(document.getElementById(divID),myOptions);
+	    
+	    
+	    
+
+	    
+	    
+	    
+	    
+	    var marker = new google.maps.Marker({
+	        position: latlng,
+	        map: map,
+	        title:"Currently Used Location"
+	    });
+	}
+	
+	
+	
+	</script>
 
 	<title>Election Observation Tool</title>
 
 </head>
 <body onload="load();">
 
+
+
+
+
   <!-- HOME PAGE -->
   <div id="home" data-role="page">
     <div data-role="header" data-theme="a">
-	  <a data-role="button" data-theme="d">Location</a>
-	  <a class="transmitButton" data-role="button"  data-theme="d"  class="ui-disabled">Transmit</a> 
+	  <a href="#pageMyLocation" data-role="button" data-theme="d" data-icon="gear" data-rel="dialog" data-transition="fade">Loc</a>
+	  <a class="transmitButton ui-disabled" data-role="button"  data-theme="d" data-icon="check" data-iconpos="right">Save</a> 
 	  <h1  data-theme="a">Election Observation Tool</h1>	  
 	</div>
 	
-	<div data-role="content">
+	<div data-role="content" style="width:100%; height:100%; padding:0;">
 
 	<h4>Welcome to the Election Observation Tool!</h4>
 	<p>Press the arrow button at the bottom right to start the survey, or press the info on the bottom left button for help on using the tool.</p>
 	<p>Be sure to check out our sponsors, they have offered some cool rewards for completing a survey. And don't forget to tell your friends!</p>
+		
 		
 	</div>
 	
@@ -126,7 +225,7 @@
 					<ul>
 					<li><a data-icon="home"  href="#home" data-role="button" data-transition="fade">Home</a></li>
 					<li><a data-icon="check" href="#sponsorsPage" data-role="button" data-rel="dialog" data-transition="fade">Sponsors</a></li>
-					<li><a data-icon="star"  href="#mapPage" data-role="button" data-transition="fade">Map</a></li>
+					<li><a data-icon="star"  href="#mapPage" data-role="button" data-transition="fade" data-rel="dialog">Map</a></li>
 					</ul>
 					<ul>
 					<li><a data-icon="gear" href="#mySurveyPage" data-role="button" data-transition="fade">My Survey</a></li>
@@ -160,6 +259,36 @@
 			</div><!-- /navbar -->
 		</div><!-- /footer -->	
   </div>
+  
+  
+  
+  	<div id="pageMyLocation" data-role="page">
+		<div data-role="header"><h1>Map View</h1></div>
+		<div id="pageMyLcationContent" data-role="content"> 
+			<div id="map_canvas" style="width:100%; height:100px; text-align:left">
+				<!-- map loads here... -->
+			</div>
+			
+
+			<input type="search" name="findAddress" id="findAddress" value="Enter Address" />
+
+			<div class="ui-grid-a">
+				<div class="ui-block-a">
+					<div data-role="controlgroup" data-type="horizontal">
+						<a data-role="button">Address</a>
+						<a data-role="button">Detect</a>
+					</div>
+				</div>
+				<div class="ui-block-b">
+					<a data-role="button">Use New Location</a>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+  
+  
+  
   
   <!-- GLOBAL RESULTS -->
   <div id="globalResults" data-role="page">
