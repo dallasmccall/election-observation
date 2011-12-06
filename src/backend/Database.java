@@ -106,7 +106,7 @@ public class Database
 				}
 				
 				responseText.append("{question:'");
-				responseText.append(question.getCaptionAndShortNameAndText().get(1).getValue());
+				responseText.append(question.getCaptionAndShortNameAndLeftHeader().get(1).getValue());
 				responseText.append("'}");
 			}
 			responseText.append("]})");
@@ -133,11 +133,17 @@ public class Database
 			
 			for (TypeQuestion question : svy.getQuestion())
 			{
-				String shortName = question.getCaptionAndShortNameAndText().get(1).getValue().toString();
+				String shortName = question.getCaptionAndShortNameAndLeftHeader().get(1).getValue().toString().replaceAll(" ", "");
 				
 				if (shortName.equals(item))
 				{
-					String dbName = question.getCaptionAndShortNameAndText().get(0).getValue().toString();
+					responseText.append("leftHeader:'");
+					responseText.append(question.getCaptionAndShortNameAndLeftHeader().get(2).getValue());
+					responseText.append("',");
+					responseText.append("rightHeader:'");
+					responseText.append(question.getCaptionAndShortNameAndLeftHeader().get(3).getValue());
+					responseText.append("',");
+					String dbName = question.getCaptionAndShortNameAndLeftHeader().get(0).getValue().toString();
 					
 					Hashtable<String, Hashtable<String, Integer>> accumulatedDatabase = sa.getAccumulatedDatabase();
 					

@@ -268,9 +268,25 @@ Home.handleLoadedResult = function(response)
     
     var tab = document.createElement('table');
     
-    tab.style = "width: 100%";
+    tab.style.width = "100%";
     tab.id = results.question + "chartData";
     var tbo = document.createElement('tbody');
+    
+    var thd = document.createElement('thead');
+    
+    var headerRow = document.createElement('tr');
+    
+    var leftHeader = document.createElement('th');
+    var rightHeader = document.createElement('th');
+    
+    leftHeader.appendChild(document.createTextNode(results.leftHeader));
+    rightHeader.appendChild(document.createTextNode(results.rightHeader));
+    
+    headerRow.appendChild(leftHeader);
+    headerRow.appendChild(rightHeader);
+    
+    thd.appendChild(headerRow);
+    tab.appendChild(thd);
     
     for(var idx = 0; idx < results.statistics.length; idx++){
     	var rowColor = defualtColors[idx % defualtColors.length];
