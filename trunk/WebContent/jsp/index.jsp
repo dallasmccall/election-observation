@@ -27,13 +27,7 @@
 	}
 	
 	$(window).bind("load", function() {
-		Home.loadResultsList();
-		var chartCanvas = document.getElementById('chart');
-		
-		chartCanvas.width = window.innerWidth;
-		chartCanvas.height = window.innerWidth;
-		pieChart("chart", "chartData");
-		
+		Home.loadResultsList();		
 		Home.initializeIndex();
 		var position = localStorage.getItem("ElectionObservationLocation");
 		if (null != position)
