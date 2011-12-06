@@ -192,53 +192,6 @@
 <body onload="load();">
 
 
-<div data-role="page">
-	<table style="width: 100%; " id="VotingExperiencechartData">
-		<thead>
-			<tr>
-				<th>Voting Experience</th><th># of people</th>
-			</tr>
-		</thead>
-	
-		<tbody>
-			<tr style="color: rgb(13, 160, 104); ">
-				<td>I felt that election officials were helpful.</td>
-				<td>1</td>
-			</tr>
-			<tr style="color: rgb(25, 78, 156); ">
-				<td>I believe that my vote will be counted.</td>
-				<td>1</td>
-			</tr>
-			<tr style="color: rgb(237, 156, 19); ">
-				<td>I was able to successfully cast my ballot and vote for my official of choice.</td>
-				<td>1</td>
-			</tr>
-		</tbody>
-	</table>
-	
-		<ul data-role="listview" data-inset="true">
-			<li data-role="list-divider">Voting Experience<span class="ui-li-count"># of People</span></li>
-
-			<li><a style="color: rgb(13, 160, 104);">I felt that election officials were helpful.<span class="ui-li-count">12</span></a></li>
-			<li><a style="color: rgb(25, 78, 156);">I believe that my vote will be counted.<span class="ui-li-count">0</span></a></li>
-			<li><a style="color: rgb(237, 156, 19);">I was able to successfully cast my ballot and vote for my official of choice.<span class="ui-li-count">4</span></a></li>
-		</ul>
-		
-		
-		
-		
-<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-			<li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-btn ui-bar-b ui-li-has-count ui-corner-top ui-btn-hover-undefined ui-btn-up-undefined">Voting Experience<span class="ui-li-count ui-btn-up-c ui-btn-corner-all"># of People</span></li>
-
-			<li data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-btn-up-c"><div class="ui-btn-inner ui-li" aria-hidden="true"><div class="ui-btn-text"><a style="color: rgb(13, 160, 104);" class="ui-link-inherit">I felt that election officials were helpful.<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">12</span></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span></div></li>
-			<li data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-btn-up-c"><div class="ui-btn-inner ui-li" aria-hidden="true"><div class="ui-btn-text"><a style="color: rgb(25, 78, 156);" class="ui-link-inherit">I believe that my vote will be counted.<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">0</span></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span></div></li>
-			<li data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-corner-bottom ui-btn-up-c"><div class="ui-btn-inner ui-li" aria-hidden="true"><div class="ui-btn-text"><a style="color: rgb(237, 156, 19);" class="ui-link-inherit">I was able to successfully cast my ballot and vote for my official of choice.<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">4</span></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span></div></li>
-		</ul>
-		
-</div>
-
-
-
 
   <!-- HOME PAGE -->
   <div id="home" data-role="page">
