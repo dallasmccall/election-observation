@@ -285,7 +285,7 @@ public class Database
 	
 	private class DataFaker implements Runnable
 	{
-		private int maxDBSize = 1000000;
+		private int maxDBSize = 100;//0000;
 		private Random rand = new Random();
 		
 		private int count = 0;
