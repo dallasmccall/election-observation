@@ -6,6 +6,8 @@
 	<question>
 		<caption>Were you intimidated or coerced?</caption>
 		<shortName>Intimidation</shortName>
+		<leftHeader>Were you intimidated?</leftHeader>
+		<rightHeader># of people</rightHeader>
 		<radio>
 			<choice>Yes</choice>
 			<choice>No</choice>
@@ -15,6 +17,8 @@
 	<question>
 		<caption>How long did it take to complete the voting?</caption>
 		<shortName>Voting Times</shortName>
+		<leftHeader>Time taken</leftHeader>
+		<rightHeader># of people</rightHeader>
 		<radio>
 			<choice>0-10 Minutes</choice>
 			<choice>10-20 Minutes</choice>
@@ -28,6 +32,8 @@
 	<question>
 		<caption>Which of the following statements (if any) apply to your voting experience?</caption>
 		<shortName>Voting Experience</shortName>
+		<leftHeader>Voting Experience</leftHeader>
+		<rightHeader># of people</rightHeader>
 		<check>
 			<choice>I considered my voting experience to be good overall.</choice>
 			<choice>I felt that election officials were helpful.</choice>
@@ -39,6 +45,8 @@
 	<question>
 		<caption>Do you have any final thoughts about your voting experience?</caption>
 		<shortName>Thoughts</shortName>
+		<leftHeader>Final Thoguhts</leftHeader>
+		<rightHeader>should not be seen</rightHeader>
 		<text>
 			<default-text>Comments Here</default-text>
 		</text>
