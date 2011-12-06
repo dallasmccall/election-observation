@@ -330,29 +330,6 @@ Home.handleLoadedResult = function(response)
     	
     	tbo.appendChild(row);
     
-    	/*
-
-
-    	<li data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-btn-up-c">
-    		<div class="ui-btn-inner ui-li" aria-hidden="true">    		
-    			<div class="ui-btn-text">    	    					
-    				<a style="color: rgb(13, 160, 104);" class="ui-link-inherit">    				
-    					I felt that election officials were helpful.
-    					
-    					<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">
-    						12
-    					</span>
-    				</a>
-    			</div>
-    			<span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span>
-    		</div>
-    	</li>
-    	
-    	<li data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-btn-up-c"><div class="ui-btn-inner ui-li" aria-hidden="true"><div class="ui-btn-text"><a style="color: rgb(25, 78, 156);" class="ui-link-inherit">I believe that my vote will be counted.<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">0</span></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span></div></li>
-    	<li data-theme="c" class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-corner-bottom"><div class="ui-btn-inner ui-li" aria-hidden="true"><div class="ui-btn-text"><a style="color: rgb(237, 156, 19);" class="ui-link-inherit">I was able to successfully cast my ballot and vote for my official of choice.<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">4</span></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span></div></li>
-
-
-    */
     	
     	
     	var liItem = document.createElement('li');
@@ -390,7 +367,7 @@ Home.handleLoadedResult = function(response)
     	
     }
     
-    // Hack, didn't feel like changing all the chartMaker.js code so I just
+    // HACK: didn't feel like changing all the chartMaker.js code so I just
     // hide the table. (Currently, chartMaker.js builds the based on the 
     // table--but the table is no longer necessary because now we have nicely 
     // formated clickable ones now).
