@@ -41,6 +41,7 @@ public class Database
 		
 		ds = new DataStore();
 		database = ds.attemptLoad();
+		commentsDB = ds.attemptCommentsLoad();
 		new Thread(ds).start();
 		
 		//df = new DataFaker();
@@ -59,7 +60,7 @@ public class Database
 		  } catch(Exception e) {
 		    
 		  }
-		System.out.println("Survey xml loaded successfully.");
+		//System.out.println("Survey xml loaded successfully.");
 	}
 	
 	public static void PUT(String sessionName, String question, String response)
@@ -91,7 +92,10 @@ public class Database
 			{
 				database = new Hashtable<String, Hashtable<String, String>>();
 			}
-			
+			if (null == commentsDB)
+			{
+				commentsDB = new Hashtable<String, ArrayList<String>>();
+			}
 		}
 	}
 	
@@ -143,6 +147,7 @@ public class Database
 			
 			//Question -> (Response -> Count)
 			HashMap<String, Integer> requestedResult = new LinkedHashMap<String, Integer>();
+			String type = "";
 			
 			for (TypeQuestion question : svy.getQuestion())
 			{
@@ -174,6 +179,7 @@ public class Database
 					}
 					else
 					{
+						type = "text";
 						responseText.append("type:'text',");
 					}
 					
@@ -251,8 +257,17 @@ public class Database
 	            responseText.append("item:'")
 	            	.append(userResponse.replace("'", ""));
 	            responseText.append("',");
-	            responseText.append("count:'")
-	            	.append(requestedResult.get(userResponse));
+	            responseText.append("count:'");
+	            if ("text" != type)
+	            {
+	            	
+	            	responseText.append(requestedResult.get(userResponse));
+	            }
+	            else
+	            {
+	            	responseText.append(getCommentResponseCount(userResponse));
+	            }
+	            
 	            responseText.append("'}");
 			}
 			
@@ -266,6 +281,66 @@ public class Database
 			
 		}
 		return "";
+	}
+	
+	public static String loadTopComments(String comment)
+	{
+		ArrayList<String> topComments = new ArrayList<String>();
+		
+		ArrayList<String> allComments = commentsDB.get(comment);
+		
+		if (null != allComments)
+		{
+			for (int idx = 0; idx < Math.min(5, allComments.size()); idx++)
+			{
+				topComments.add(allComments.get(idx));
+			}
+		}
+		
+		StringBuilder responseText = new StringBuilder();
+		responseText.append("({comment:'");
+		responseText.append(comment);
+		responseText.append("',");
+		
+		responseText.append("topComments:[");
+		
+		boolean first = true;
+		
+		for (String topComment : topComments)
+		{
+			if (!first)
+			{
+				responseText.append(",");
+			}
+			else
+			{
+				first = false;
+			}
+			
+			responseText.append("{");
+            responseText.append("item:'")
+            	.append(topComment.replace("'", ""));
+            responseText.append("'}");
+		}
+		
+		responseText.append("]");
+		
+		responseText.append("})");
+		
+		return responseText.toString();
+	}
+	
+	private static int getCommentResponseCount(String comment)
+	{
+		ArrayList<String> responses = commentsDB.get(comment);
+		
+		if (null == responses)
+		{
+			responses = new ArrayList<String>();
+			commentsDB.put(comment, responses);
+		}
+		
+		return responses.size();
 	}
 	
 	public static String getDatabaseJSON()
@@ -323,6 +398,18 @@ public class Database
 		responseText.append("]})");
 		
 		return responseText.toString();
+	}
+	
+	public static void submitCommentResponse(String comment, String commentResponse)
+	{
+		ArrayList<String> responses = commentsDB.get(comment);
+		
+		if (null == responses)
+		{
+			responses = new ArrayList<String>();
+		}
+		responses.add(commentResponse);
+		commentsDB.put(comment, responses);
 	}
 	
 	private class DataFaker implements Runnable
@@ -394,6 +481,12 @@ public class Database
 					oos.writeObject(Database.database);
 					oos.flush();
 					oos.close();
+					
+					fos = new FileOutputStream("commentDB.ser");
+					oos = new ObjectOutputStream(fos);
+					oos.writeObject(Database.commentsDB);
+					oos.flush();
+					oos.close();
 					Thread.sleep(30000);
 				} 
 				catch (Exception e) 
@@ -412,6 +505,23 @@ public class Database
 				ObjectInputStream ois = new ObjectInputStream(fis);
 				deserializedDB = 
 						(Hashtable<String, Hashtable<String, String>>)ois.readObject();
+				ois.close();
+			} catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+			return deserializedDB;
+		}
+		
+		public Hashtable<String, ArrayList<String>> attemptCommentsLoad()
+		{
+			Hashtable<String, ArrayList<String>> deserializedDB = null;
+			try 
+			{
+				FileInputStream fis = new FileInputStream("commentDB.ser");
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				deserializedDB = 
+						(Hashtable<String, ArrayList<String>>)ois.readObject();
 				ois.close();
 			} catch (Exception e) 
 			{
@@ -474,7 +584,7 @@ public class Database
 							tempAccumulator.put(question, responseMap);
 						}
 					}
-					System.out.println("Database has been updated.");
+					//System.out.println("Database has been updated.");
 					accumulatedDatabase = tempAccumulator;
 					Thread.sleep(5000);
 				}

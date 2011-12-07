@@ -83,7 +83,23 @@ public class HomeServlet extends HttpServlet
 		        		responseText.append(Database.getRequestedResult(item));
 		        	}
 		        }
-		        
+		        else if (requestType.equals("submitComment"))
+		        {
+		        	String comment = request.getParameter("comment");
+		        	String commentResponse = request.getParameter("response");
+		        	if (null != comment && null != commentResponse)
+		        	{
+		        		Database.submitCommentResponse(comment, commentResponse);
+		        	}
+		        }
+		        else if (requestType.equals("loadComments"))
+		        {
+		        	String comment = request.getParameter("comment");
+		        	if (null != comment)
+		        	{
+		        		responseText.append(Database.loadTopComments(comment));
+		        	}
+		        }
 		        
 		        else if (requestType.equals(GET))
 		        {
