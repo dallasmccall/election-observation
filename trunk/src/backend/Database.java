@@ -167,8 +167,6 @@ public class Database
 						choices = cQuestions.getChoice();
 					}
 					
-					
-					
 					Hashtable<String, Hashtable<String, Integer>> accumulatedDatabase = sa.getAccumulatedDatabase();
 					
 					for (String dbQuestion : accumulatedDatabase.keySet())
@@ -187,6 +185,13 @@ public class Database
 							
 							if (!isSplit)
 							{
+								if (null != choices)
+								{
+									for (String choice : choices)
+									{
+										requestedResult.put(choice, 0);
+									}
+								}
 								for (String dbAnswer : tempResult.keySet())
 								{
 									requestedResult.put(dbAnswer, tempResult.get(dbAnswer));
@@ -195,6 +200,16 @@ public class Database
 							}
 							else
 							{
+								if (null != choices)
+								{
+									for (String choice : choices)
+									{
+										if (null == requestedResult.get(choice))
+										{
+											requestedResult.put(choice, 0);
+										}
+									}
+								}
 								Integer resultCount = tempResult.get("true");
 								if (null == resultCount)
 								{
