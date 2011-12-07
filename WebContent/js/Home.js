@@ -302,15 +302,26 @@ Home.handleLoadedResult = function(response)
         dividerHeader.setAttribute("role", "heading");
         dividerHeader.setAttribute("class", "ui-li ui-li-divider ui-btn ui-bar-d ui-li-has-count ui-corner-top ui-btn-hover-undefined ui-btn-up-undefined");
         dividerHeader.appendChild(document.createTextNode(results.leftHeader));
-            
+         
         
-        var dividerRight = document.createElement('span');
-        dividerRight.setAttribute("class", "ui-li-count ui-btn-up-c ui-btn-corner-all");
-        dividerRight.appendChild(document.createTextNode(results.rightHeader));
+        var isMap = false;
         
+        if (results.statistics.length > 0 && results.statistics[0].count === "-1")
+        {
+        	isMap = true;
+        }
         
-        dividerHeader.appendChild(dividerRight);    
+        if (!isMap)
+        {
+        	var dividerRight = document.createElement('span');
+            dividerRight.setAttribute("class", "ui-li-count ui-btn-up-c ui-btn-corner-all");
+            dividerRight.appendChild(document.createTextNode(results.rightHeader));
+            dividerHeader.appendChild(dividerRight);  
+        }
+          
         listview.appendChild(dividerHeader);
+        
+        
         
         var buttons = [];
         for(var idx = 0; idx < results.statistics.length; idx++)
@@ -356,8 +367,19 @@ Home.handleLoadedResult = function(response)
         	divItem1.appendChild(divItem2);
         	divItem2.appendChild(aItem);
         	aItem.appendChild(document.createTextNode(results.statistics[idx].item));
-        	aItem.appendChild(spanItem1);
-        	spanItem1.appendChild(document.createTextNode(results.statistics[idx].count)); 
+        	
+        	if (!isMap)
+        	{
+        		aItem.appendChild(spanItem1);
+        		spanItem1.appendChild(document.createTextNode(results.statistics[idx].count));
+        	}
+        	else
+        	{
+        		aItem.setAttribute("onclick", "Home.loadMap('" + results.question + "');");
+        		aItem.setAttribute("href", "#" + results.question + "MapPage");
+        		aItem.setAttribute("data-rel", "dialog");
+        		aItem.setAttribute("data-transition", "fade");
+        	}
         	divItem1.appendChild(spanItem2);
 
         	
@@ -375,14 +397,14 @@ Home.handleLoadedResult = function(response)
         tab.style.display = "none";
         
         tab.appendChild(tbo);
-        root.appendChild(crt);
-        root.appendChild(tab);
-        
-        
+        if (!isMap)
+        {
+        	root.appendChild(crt);
+            root.appendChild(tab);
+            pieChart( results.question + "chart", results.question + "chartData", buttons);
+        }
         
         root.appendChild(listview);
-    	
-    	pieChart( results.question + "chart", results.question + "chartData", buttons);
     }
     else
     {
@@ -459,6 +481,33 @@ Home.handleLoadedResult = function(response)
     }
 };
 
+Home.loadMap = function(mapName)
+{
+	var mapPageId = mapName + "MapPage";
+	
+	
+	var doesPageExist = false;
+	
+	if (document.getElementById(mapPageId) != null)
+	{
+		doesPageExist = true;
+	}
+	
+	
+	if (!doesPageExist)
+	{
+		var mapPage = $("<div data-role=page id=" + mapPageId + "><div data-role=header><h1>Respond</h1></div><div data-role=content id=" + mapPageId +"Content>Page Content</div></div");
+		mapPage.appendTo($.mobile.pageContainer);
+		
+		
+		var mapPageContent = document.getElementById(mapPageId + "Content");
+		
+		mapPageContent.innerHTML = "<strong>Map Area</strong>";
+
+	}
+	addMap(0, 0, mapPageId + "Content");
+};
+
 Home.loadCommentsForPage = function(pageId)
 {
 	Home.loadCommentsForPageDirect(pageId.currentTarget.getAttribute("targetQuestion"));
@@ -515,7 +564,7 @@ Home.handleLoadResultsList = function(response)
 	
 	var element = document.getElementById("resultsContent");
 	
-	var innerHTML = "";
+	var innerHTML = "<div data-role='collapsible-set'>";
 	
 	for (var idx = 0; idx < results.questions.length; idx++)
 	{
@@ -526,6 +575,19 @@ Home.handleLoadResultsList = function(response)
 		innerHTML += "</div>";
 	}
 	
+	innerHTML += "</div><div data-role='collapsible-set'>";
+	
+	for (var idx = 0; idx < results.questions.length; idx++)
+	{
+		var question = results.questions[idx].question;
+		innerHTML += "<div data-role='collapsible' data-theme='b' data-content-theme='d' id='" + question.split(' ').join('') + "Maps'>";
+		innerHTML += "<h3>" + question + " Maps</h3>";
+		innerHTML += "<div id='" + question.split(' ').join('') + "MapsglobalResponse" + "'>Loading Results...</div>";
+		innerHTML += "</div>";
+	}
+	
+	innerHTML += "</div>";
+	
 	element.innerHTML = innerHTML;
 	
 	for (var idx = 0; idx < results.questions.length; idx++)
@@ -534,10 +596,10 @@ Home.handleLoadResultsList = function(response)
 		$(name).bind('expand', Home.loadResult);
 	}
 	
-	
 	for (var idx = 0; idx < results.questions.length; idx++)
 	{
-		
+		var name = "#" + results.questions[idx].question.split(' ').join('') + "Maps";
+		$(name).bind('expand', Home.loadResult);
 	}
 };
 

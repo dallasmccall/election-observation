@@ -145,6 +145,69 @@ public class Database
 			responseText.append(item);
 			responseText.append("',");
 			
+			if (item.endsWith("Maps"))
+			{
+				item = item.replaceAll("Maps", "");
+				for (TypeQuestion question : svy.getQuestion())
+				{
+					String shortName = question.getCaptionAndShortNameAndLeftHeader().get(1).getValue().toString().replaceAll(" ", "");
+					if (shortName.equals(item))
+					{
+						responseText.append("leftHeader:'");
+						responseText.append(question.getCaptionAndShortNameAndLeftHeader().get(2).getValue());
+						responseText.append("',");
+						
+						Object actualQuestion = question.getCaptionAndShortNameAndLeftHeader().get(4).getValue();
+						List<String> choices = null;
+								
+						if (actualQuestion instanceof TypeRadio)
+						{
+							TypeRadio rQuestions = (TypeRadio)actualQuestion;
+							choices = rQuestions.getChoice();
+						}
+						else if (actualQuestion instanceof TypeCheck)
+						{
+							TypeCheck cQuestions = (TypeCheck)actualQuestion;
+							choices = cQuestions.getChoice();
+						}
+						
+						if (choices != null)
+						{
+							responseText.append("statistics:[");
+							
+							boolean first = true;
+							for (String choice : choices)
+							{
+								if (!first)
+								{
+									responseText.append(",");
+								}
+								else
+								{
+									first = false;
+								}
+								
+								responseText.append("{");
+					            responseText.append("item:'")
+					            	.append(choice.replace("'", ""));
+					            responseText.append("',");
+					            responseText.append("count:'");
+					            	
+					            responseText.append("-1");
+					            
+					            responseText.append("'}");
+							}
+							
+							responseText.append("]");
+							
+							responseText.append("})");
+							return responseText.toString();
+						}
+					}
+				}
+			}
+			
+			
 			//Question -> (Response -> Count)
 			HashMap<String, Integer> requestedResult = new LinkedHashMap<String, Integer>();
 			String type = "";
