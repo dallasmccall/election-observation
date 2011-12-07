@@ -53,8 +53,13 @@
 	
 	function showError(error) 
 	{
-        var locationBox = document.getElementById("LocationInformation");
-        locationBox.innerHTML = "Error: Could not locate device";
+//        var locationBox = document.getElementById("LocationInformation");
+//        
+//        var message = locationBox.innerHTML;
+//        message = message.replace("Using Location", "No Location");
+//		message = message.replace("Determining Location", "Using Location");	
+//        
+//        locationBox.innerHTML = "No Location";
 	}
 	
 	function showLocation(position) 
@@ -84,10 +89,6 @@
 		localStorage.setItem("ElectionObservationLocation", message);
 		
 		localStorage.setItem("ElectionObservationSendCache", formCache);
-		
-		message = "Using Location : <" + message + ">";
-		
-        locationBox.innerHTML = message;
 	}
 	</script>
 	
@@ -196,7 +197,7 @@
   <!-- HOME PAGE -->
   <div id="home" data-role="page">
     <div data-role="header" data-theme="a">
-	  <a href="#pageMyLocation" data-role="button" data-theme="d" data-icon="gear" data-rel="dialog" data-transition="fade" data-iconpos="notext"></a>
+	  <a href="#pageMyLocation" data-role="button" data-theme="d" data-icon="gear" data-iconpos="notext" data-rel="dialog" data-transition="fade"></a>
 	  <a class="transmitButton ui-disabled" data-role="button"  data-theme="d" data-icon="check" data-iconpos="notext"></a> 
 	  <h1  data-theme="a">Election Observation Tool</h1>	  
 	</div>
@@ -215,8 +216,7 @@
 	
 	
 			<!-- FOOTER AND NAVBAR -->
-		<div data-role="footer"  data-position="fixed" data-id="global-nav-bar">	
-			<span id="LocationInformation" style="text-align: center">Determining Location...</span>
+		<div data-role="footer"  data-position="fixed" data-id="global-nav-bar">
 					
 			<div class="navbarMenu">
 				<div data-role="navbar" data-position="fixed">
