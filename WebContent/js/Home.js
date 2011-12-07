@@ -252,8 +252,6 @@ Home.handleLoadedResult = function(response)
 	}
 	
 	var results = eval(response.responseText);
-	
-	alert(results.type);
 
 	var question = results.question.split(' ').join('') + "globalResponse";
 	
@@ -388,12 +386,121 @@ Home.handleLoadedResult = function(response)
     }
     else
     {
+    	var listId = results.question + "TextList";
+    	var topList = document.createElement('ul');
+    	topList.setAttribute("id", listId);
+    	topList.setAttribute("data-role", "listview");
+    	topList.setAttribute("data-inset", "true");
+    	//topList.setAttribute("class", "ui-listview ui-listview-inset ui-corner-all ui-shadow");
+    	
     	for(var idx = 0; idx < results.statistics.length; idx++)
     	{
-    		var textEntry = results.statistics[idx].item;
     		
+    		var textEntry = results.statistics[idx].item;
+    		var responsePageName = idx + "Response";
+    		var textLi = document.createElement('li');
+    		var countBubble = document.createElement('span');
+    		var resultLink = document.createElement('a');
+    		var resultText = document.createElement('p');
+    		
+    		resultText.appendChild(document.createTextNode(textEntry));
+    		
+    		resultLink.setAttribute("href", "#" + responsePageName);
+    		resultLink.setAttribute("data-rel", "dialog");
+    		resultLink.setAttribute("data-role", "button");
+    		resultLink.setAttribute("data-transition", "fade");
+    		resultLink.setAttribute("onclick", "Home.loadCommentsForPageDirect('" + textEntry + "')");
+    		resultLink.appendChild(resultText);
+    		
+    		topList.setAttribute("data-theme", "c");
+    		countBubble.setAttribute("class", "ui-li-count");
+    		countBubble.appendChild(document.createTextNode(results.statistics[idx].count));
+    		textLi.appendChild(resultLink);
+    		textLi.appendChild(countBubble);
+    		topList.appendChild(textLi);
+    		
+    		//var responsePage = document.createElement('div');
+    		//responsePage.setAttribute("data-role", "page");
+    		//responsePage.setAttribute("id", responsePageName);
+    		
+    		//var responsePageContent = document.createElement('div');
+    		
+    		var doesPageExist = false;
+    		
+    		if (document.getElementById(responsePageName) != null)
+    		{
+    			doesPageExist = true;
+    		}
+    		
+    		
+    		if (!doesPageExist)
+    		{
+    			var responsePage = $("<div data-role=page id=" + responsePageName + " targetQuestion='" + textEntry + "'><div data-role=header><h1>Respond</h1></div><div data-role=content id=" + responsePageName +"Content>Page Content</div></div");
+    			responsePage.appendTo($.mobile.pageContainer);
+    			
+        		
+        		var responsePageContent = document.getElementById(responsePageName + "Content");
+        		
+        		responsePageContent.innerHTML = "<strong>Original Comment:</strong>";
+        		
+        		responsePageContent.innerHTML += "<p>" + textEntry + "<br><br><strong>Top Responses:</strong></p>";
+        		responsePageContent.innerHTML += "<p style='padding-left:10%;' id='" + textEntry + "CommentsArea'></p>";
+        		responsePageContent.innerHTML +="<br><strong>Give a Reply:</strong>";
+        		responsePageContent.innerHTML += "<textarea id='" + textEntry + "TextArea'></textarea>";
+        		responsePageContent.innerHTML += "<a href='#' data-rel='back' onclick='Home.submitQuestionComment(this);' id='" + textEntry + "' data-role='button'>Reply</a>";
+
+    		}
     	}
+    	
+    	root.appendChild(topList);
+    	
+    	$("#" + listId).listview();
+    	$("#" + listId).listview("refresh");
     }
+};
+
+Home.loadCommentsForPage = function(pageId)
+{
+	Home.loadCommentsForPageDirect(pageId.currentTarget.getAttribute("targetQuestion"));
+};
+
+Home.loadCommentsForPageDirect = function(pageId)
+{
+	var url = "../servlet/Home?" + "type=loadComments" + "&comment=" + pageId;
+	
+	var onResponse = Home.handleLoadComments;
+	Request.sendRequest(url, onResponse);
+};
+
+Home.submitQuestionComment = function(comment)
+{
+	var commentResponse = document.getElementById(comment.id + "TextArea").value;
+	document.getElementById(comment.id + "TextArea").value = "";
+	
+	var url = "../servlet/Home?" + "type=submitComment" + "&comment=" + comment.id + "&response=" + commentResponse;
+	
+	var onResponse = Home.handlePutResponse;
+	Request.sendRequest(url, onResponse);
+};
+
+Home.handleLoadComments = function(response)
+{
+	if (response.status != 200)
+	{
+		alert("ERROR: Failed to get item");
+		return false;
+	}
+	
+	var results = eval(response.responseText);
+	
+	var element = document.getElementById(results.comment + "CommentsArea");
+	
+	element.innerHTML = "";
+	
+	for (var idx = 0; idx < results.topComments.length; idx++)
+	{
+		element.innerHTML += results.topComments[idx].item + "<br><br>";
+	}
 };
 
 Home.handleLoadResultsList = function(response)
