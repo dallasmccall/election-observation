@@ -263,127 +263,137 @@ Home.handleLoadedResult = function(response)
     
     root.innerHTML = "";
     
-    var rc = document.getElementById("resultsContent");
-    
-    var crt = document.createElement('canvas');
-    crt.id = results.question + "chart";
-    crt.width = rc.clientWidth;
-	crt.height = rc.clientWidth;
-    
-    var tab = document.createElement('table');
-    
-    tab.style.width = "100%";
-    tab.id = results.question + "chartData";
-    var tbo = document.createElement('tbody');
-    
-    var thd = document.createElement('thead');
-    
-    var headerRow = document.createElement('tr');
-    
-    var leftHeader = document.createElement('th');
-    var rightHeader = document.createElement('th');
-    
-    leftHeader.appendChild(document.createTextNode(results.leftHeader));
-    rightHeader.appendChild(document.createTextNode(results.rightHeader));
-    
-    headerRow.appendChild(leftHeader);
-    headerRow.appendChild(rightHeader);
-    
-    thd.appendChild(headerRow);
-    tab.appendChild(thd);
-    
-
-    var listview = document.createElement('ul');
-    listview.setAttribute("data-role", "listview");
-    listview.setAttribute("data-inset", "true");
-    listview.setAttribute("class", "ui-listview ui-listview-inset ui-corner-all ui-shadow");
-    
-    var dividerHeader = document.createElement('li');
-    dividerHeader.setAttribute("data-role", "list-divider");
-    dividerHeader.setAttribute("role", "heading");
-    dividerHeader.setAttribute("class", "ui-li ui-li-divider ui-btn ui-bar-d ui-li-has-count ui-corner-top ui-btn-hover-undefined ui-btn-up-undefined");
-    dividerHeader.appendChild(document.createTextNode(results.leftHeader));
+    if (results.type !== "text")
+    {
+    	var rc = document.getElementById("resultsContent");
+    	var crt = document.createElement('canvas');
+        crt.id = results.question + "chart";
+        crt.width = rc.clientWidth;
+    	crt.height = rc.clientWidth;
         
-    
-    var dividerRight = document.createElement('span');
-    dividerRight.setAttribute("class", "ui-li-count ui-btn-up-c ui-btn-corner-all");
-    dividerRight.appendChild(document.createTextNode(results.rightHeader));
-    
-    
-    dividerHeader.appendChild(dividerRight);    
-    listview.appendChild(dividerHeader);
-    
-    
-    var buttons = [];
-    for(var idx = 0; idx < results.statistics.length; idx++){
-    	var rowColor = defualtColors[idx % defualtColors.length];
-    	
-    	var row = document.createElement('tr');
-    	row.style.color = rowColor;
-    	
-    	var leftCell = document.createElement('td');
-    	var rightCell = document.createElement('td');
-    	
-    	leftCell.appendChild(document.createTextNode(results.statistics[idx].item));
-    	rightCell.appendChild(document.createTextNode(results.statistics[idx].count));
-    	
-    	row.appendChild(leftCell);
-    	row.appendChild(rightCell);
-    	
-    	tbo.appendChild(row);
-    
-    	
-    	
-    	var liItem = document.createElement('li');
-    	liItem.setAttribute("data-theme", "c");
-    	liItem.setAttribute("class", "ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-btn-up-c");
-    	var divItem1 = document.createElement('div');
-    	divItem1.setAttribute("aria-hidden", "true");
-    	divItem1.setAttribute("class", "ui-btn-inner ui-li");    	
-    	var divItem2 = document.createElement('div');
-    	divItem2.setAttribute("class", "ui-btn-text");    
-    	var aItem = document.createElement('a');
-    	aItem.style.color = rowColor;
-    	aItem.setAttribute("class", "ui-link-inherit");
-    	aItem.setAttribute("data-slice", idx);
-    	aItem.setAttribute("onclick", "toggleSlice(" + idx +");");
-    	var spanItem1 = document.createElement('span');
-    	spanItem1.setAttribute("class", "ui-li-count ui-btn-up-c ui-btn-corner-all");
-    	var spanItem2 = document.createElement('span');
-    	spanItem2.setAttribute("class", "ui-icon ui-icon-arrow-r ui-icon-shadow");
-    	
-    	
-    	liItem.appendChild(divItem1);
-    	divItem1.appendChild(divItem2);
-    	divItem2.appendChild(aItem);
-    	aItem.appendChild(document.createTextNode(results.statistics[idx].item));
-    	aItem.appendChild(spanItem1);
-    	spanItem1.appendChild(document.createTextNode(results.statistics[idx].count)); 
-    	divItem1.appendChild(spanItem2);
+        var tab = document.createElement('table');
+        
+        tab.style.width = "100%";
+        tab.id = results.question + "chartData";
+        var tbo = document.createElement('tbody');
+        
+        var thd = document.createElement('thead');
+        
+        var headerRow = document.createElement('tr');
+        
+        var leftHeader = document.createElement('th');
+        var rightHeader = document.createElement('th');
+        
+        leftHeader.appendChild(document.createTextNode(results.leftHeader));
+        rightHeader.appendChild(document.createTextNode(results.rightHeader));
+        
+        headerRow.appendChild(leftHeader);
+        headerRow.appendChild(rightHeader);
+        
+        thd.appendChild(headerRow);
+        tab.appendChild(thd);
+        
 
+        var listview = document.createElement('ul');
+        listview.setAttribute("data-role", "listview");
+        listview.setAttribute("data-inset", "true");
+        listview.setAttribute("class", "ui-listview ui-listview-inset ui-corner-all ui-shadow");
+        
+        var dividerHeader = document.createElement('li');
+        dividerHeader.setAttribute("data-role", "list-divider");
+        dividerHeader.setAttribute("role", "heading");
+        dividerHeader.setAttribute("class", "ui-li ui-li-divider ui-btn ui-bar-d ui-li-has-count ui-corner-top ui-btn-hover-undefined ui-btn-up-undefined");
+        dividerHeader.appendChild(document.createTextNode(results.leftHeader));
+            
+        
+        var dividerRight = document.createElement('span');
+        dividerRight.setAttribute("class", "ui-li-count ui-btn-up-c ui-btn-corner-all");
+        dividerRight.appendChild(document.createTextNode(results.rightHeader));
+        
+        
+        dividerHeader.appendChild(dividerRight);    
+        listview.appendChild(dividerHeader);
+        
+        var buttons = [];
+        for(var idx = 0; idx < results.statistics.length; idx++)
+        {
+        	var rowColor = defualtColors[idx % defualtColors.length];
+        	
+        	var row = document.createElement('tr');
+        	row.style.color = rowColor;
+        	
+        	var leftCell = document.createElement('td');
+        	var rightCell = document.createElement('td');
+        	
+        	leftCell.appendChild(document.createTextNode(results.statistics[idx].item));
+        	rightCell.appendChild(document.createTextNode(results.statistics[idx].count));
+        	
+        	row.appendChild(leftCell);
+        	row.appendChild(rightCell);
+        	
+        	tbo.appendChild(row);
+        
+        	
+        	
+        	var liItem = document.createElement('li');
+        	liItem.setAttribute("data-theme", "c");
+        	liItem.setAttribute("class", "ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-btn-up-c");
+        	var divItem1 = document.createElement('div');
+        	divItem1.setAttribute("aria-hidden", "true");
+        	divItem1.setAttribute("class", "ui-btn-inner ui-li");    	
+        	var divItem2 = document.createElement('div');
+        	divItem2.setAttribute("class", "ui-btn-text");    
+        	var aItem = document.createElement('a');
+        	aItem.style.color = rowColor;
+        	aItem.setAttribute("class", "ui-link-inherit");
+        	aItem.setAttribute("data-slice", idx);
+        	aItem.setAttribute("onclick", "toggleSlice(" + idx +");");
+        	var spanItem1 = document.createElement('span');
+        	spanItem1.setAttribute("class", "ui-li-count ui-btn-up-c ui-btn-corner-all");
+        	var spanItem2 = document.createElement('span');
+        	spanItem2.setAttribute("class", "ui-icon ui-icon-arrow-r ui-icon-shadow");
+        	
+        	
+        	liItem.appendChild(divItem1);
+        	divItem1.appendChild(divItem2);
+        	divItem2.appendChild(aItem);
+        	aItem.appendChild(document.createTextNode(results.statistics[idx].item));
+        	aItem.appendChild(spanItem1);
+        	spanItem1.appendChild(document.createTextNode(results.statistics[idx].count)); 
+        	divItem1.appendChild(spanItem2);
+
+        	
+        	listview.appendChild(liItem);
+        	
+        	buttons[idx] = aItem;
+        	
+        	
+        }
+        
+        // HACK: didn't feel like changing all the chartMaker.js code so I just
+        // hide the table. (Currently, chartMaker.js builds the based on the 
+        // table--but the table is no longer necessary because now we have nicely 
+        // formated clickable ones now).
+        tab.style.display = "none";
+        
+        tab.appendChild(tbo);
+        root.appendChild(crt);
+        root.appendChild(tab);
+        
+        
+        
+        root.appendChild(listview);
     	
-    	listview.appendChild(liItem);
-    	
-    	buttons[idx] = aItem;
-    	
-    	
+    	pieChart( results.question + "chart", results.question + "chartData", buttons);
     }
-    
-    // HACK: didn't feel like changing all the chartMaker.js code so I just
-    // hide the table. (Currently, chartMaker.js builds the based on the 
-    // table--but the table is no longer necessary because now we have nicely 
-    // formated clickable ones now).
-    tab.style.display = "none";
-    
-    tab.appendChild(tbo);
-    root.appendChild(crt);
-    root.appendChild(tab);
-    
-    
-    
-    root.appendChild(listview);
-	
-	pieChart( results.question + "chart", results.question + "chartData", buttons);
+    else
+    {
+    	for(var idx = 0; idx < results.statistics.length; idx++)
+    	{
+    		var textEntry = results.statistics[idx].item;
+    		
+    	}
+    }
 };
 
 Home.handleLoadResultsList = function(response)

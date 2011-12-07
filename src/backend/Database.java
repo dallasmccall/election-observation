@@ -6,8 +6,10 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -19,6 +21,8 @@ public class Database
 {
 	//Session -> (question -> response)
 	private static Hashtable<String, Hashtable<String, String>> database;
+	
+	private static Hashtable<String, ArrayList<String>> commentsDB;
 	
 	private static Integer accumulatorStarted = 0;
 	
@@ -138,7 +142,7 @@ public class Database
 			responseText.append("',");
 			
 			//Question -> (Response -> Count)
-			HashMap<String, Integer> requestedResult = new HashMap<String, Integer>();
+			HashMap<String, Integer> requestedResult = new LinkedHashMap<String, Integer>();
 			
 			for (TypeQuestion question : svy.getQuestion())
 			{
@@ -252,7 +256,9 @@ public class Database
 	            responseText.append("'}");
 			}
 			
-			responseText.append("]})");
+			responseText.append("]");
+			
+			responseText.append("})");
 			return responseText.toString();
 		}
 		catch (Exception e)
