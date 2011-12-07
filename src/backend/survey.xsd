@@ -35,28 +35,12 @@
 	<xs:sequence>
 		<xs:element name="choice" type="xs:string" minOccurs="2" maxOccurs="unbounded"/>
 	</xs:sequence>
-  
-	<xs:attribute name="selected" default="0">
-		<xs:simpleType>
-			<xs:restriction base="xs:integer">
-				<xs:minInclusive value="0"/>
-			</xs:restriction>
-		</xs:simpleType>
-	</xs:attribute>
 </xs:complexType>
 
 
 <xs:complexType name="type-check">
 	<xs:sequence>	
-		<xs:element name="choice" minOccurs="1" maxOccurs="unbounded">
-			<xs:complexType >
-				<xs:simpleContent>
-					<xs:extension base="xs:string">
-						<xs:attribute name="checked" type="xs:boolean" default="0"/>
-					</xs:extension>
-				</xs:simpleContent>
-			</xs:complexType>	
-		</xs:element>
+		<xs:element name="choice" type="xs:string" minOccurs="2" maxOccurs="unbounded"/>
 	</xs:sequence>
 </xs:complexType>
 

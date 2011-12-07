@@ -14,7 +14,7 @@
 
 		<!-- PAGE HEADER -->
 		<div data-role="header" data-position="fixed" >
-			<a data-role="button" data-theme="d">Location</a>
+			<a href="#pageMyLocation" data-role="button" data-theme="d" data-icon="gear" data-iconpos="notext" data-rel="dialog" data-transition="fade"></a>
 	 		<a class="transmitButton ui-disabled" data-role="button"  data-theme="d" data-icon="check" data-iconpos="notext"></a> 
 			<h1>Question <xsl:number count="question" level="any" />/<xsl:value-of select="count(/survey/question)"/>
 			</h1>	  
@@ -53,9 +53,6 @@
 						</xsl:attribute>
 						<xsl:attribute name="value">radio-choice-<xsl:value-of select="position()"/>
 						</xsl:attribute>
-						<xsl:if test="../@selected = position()">
-							<xsl:attribute name="checked">checked</xsl:attribute>
-						</xsl:if>
 					</input>
 					
 					<label for="radio-choice-N">
@@ -81,9 +78,6 @@
 						</xsl:attribute>
 						<xsl:attribute name="id">check-choice-<xsl:number count="question" level="any" />-<xsl:value-of select="position()"/>
 						</xsl:attribute>
-						<xsl:if test="@checked = 1">
-							<xsl:attribute name="checked"/>
-						</xsl:if>
 					</input>
 					<label for="check-choice-N">
 						<xsl:attribute name="for">check-choice-<xsl:number count="question" level="any" />-<xsl:value-of select="position()"/>
