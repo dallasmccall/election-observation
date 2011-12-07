@@ -539,7 +539,7 @@ Home.handleLoadMap = function(response)
 Home.addMapWithPins = function (divID, locations, lat, lng) {
 	var latlng = new google.maps.LatLng(lat, lng);
 	var myOptions = {
-		zoom: 16,
+		zoom: 10,
 		center: latlng,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
     };
