@@ -160,11 +160,17 @@ public class Database
 					{
 						TypeRadio rQuestions = (TypeRadio)actualQuestion;
 						choices = rQuestions.getChoice();
+						responseText.append("type:'radio',");
 					}
 					else if (actualQuestion instanceof TypeCheck)
 					{
 						TypeCheck cQuestions = (TypeCheck)actualQuestion;
 						choices = cQuestions.getChoice();
+						responseText.append("type:'check',");
+					}
+					else
+					{
+						responseText.append("type:'text',");
 					}
 					
 					Hashtable<String, Hashtable<String, Integer>> accumulatedDatabase = sa.getAccumulatedDatabase();

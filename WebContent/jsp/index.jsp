@@ -295,7 +295,7 @@
 	</div>
 	
     <div data-role="content">	
-      <div id="resultsContent">Loading Results...</div>
+      <div data-role="collapsible-set" id="resultsContent">Loading Results...</div>
     </div>
   	
   </div>
