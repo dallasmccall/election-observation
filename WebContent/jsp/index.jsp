@@ -270,23 +270,6 @@
 			<p>Click submit ot verify your results<br>If you wish to change anything, do so before pressing submit</p>
 			<a href="#home" data-role="button" onclick="verifyPage();" data-transition="fade">Submit</a>
 		</div>
-		
-		<!-- FOOTER AND NAVBAR -->
-		<div data-role="footer"  data-position="fixed" data-id="global-nav-bar">		
-			<!-- FOOTER AND NAVBAR -->
-			<div data-role="navbar" data-position="fixed">
-				
-				<ul>
-					<li>
-						<a href="#asdlfkjasdlfjasdf" data-rel='back' data-role="button" data-icon="arrow-l"  data-transition="fade"></a>
-					</li>
-					<!-- INFO BUTTON -->
-					<li>
-						<a href="#infoPage" data-role="button" onclick="hideButtonDescriptions();" data-rel="dialog" data-transition="fade" data-icon="info"></a>
-					</li>
-				</ul>
-			</div><!-- /navbar -->
-		</div><!-- /footer -->	
   </div>
   
   	<div id="pageMyLocation" data-role="page">
