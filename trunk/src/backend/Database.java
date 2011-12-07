@@ -143,7 +143,6 @@ public class Database
 			for (TypeQuestion question : svy.getQuestion())
 			{
 				String shortName = question.getCaptionAndShortNameAndLeftHeader().get(1).getValue().toString().replaceAll(" ", "");
-				
 				if (shortName.equals(item))
 				{
 					responseText.append("leftHeader:'");
@@ -153,6 +152,22 @@ public class Database
 					responseText.append(question.getCaptionAndShortNameAndLeftHeader().get(3).getValue());
 					responseText.append("',");
 					String dbName = question.getCaptionAndShortNameAndLeftHeader().get(0).getValue().toString();
+					
+					Object actualQuestion = question.getCaptionAndShortNameAndLeftHeader().get(4).getValue();
+					List<String> choices = null;
+							
+					if (actualQuestion instanceof TypeRadio)
+					{
+						TypeRadio rQuestions = (TypeRadio)actualQuestion;
+						choices = rQuestions.getChoice();
+					}
+					else if (actualQuestion instanceof TypeCheck)
+					{
+						TypeCheck cQuestions = (TypeCheck)actualQuestion;
+						choices = cQuestions.getChoice();
+					}
+					
+					
 					
 					Hashtable<String, Hashtable<String, Integer>> accumulatedDatabase = sa.getAccumulatedDatabase();
 					

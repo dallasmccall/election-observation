@@ -187,7 +187,7 @@
 	
 	</script>
 
-	<title>Election Observation Tool</title>
+	<title>Election Observer</title>
 
 </head>
 <body onload="load();">
@@ -199,7 +199,7 @@
     <div data-role="header" data-theme="a">
 	  <a href="#pageMyLocation" data-role="button" data-theme="d" data-icon="gear" data-iconpos="notext" data-rel="dialog" data-transition="fade"></a>
 	  <a class="transmitButton ui-disabled" data-role="button"  data-theme="d" data-icon="check" data-iconpos="notext"></a> 
-	  <h1  data-theme="a">Election Observation Tool</h1>	  
+	  <h1  data-theme="a">Election Observer</h1>	  
 	</div>
 	
 	<div data-role="content" style="width:100%; height:100%; padding:0;">
