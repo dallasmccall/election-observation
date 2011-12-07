@@ -135,6 +135,95 @@ public class Database
 		return responseText.toString();
 	}
 	
+	public static String loadMaps(String name, String value)
+	{
+		try
+		{
+			name = name.replaceAll("Maps", "");
+			
+			ArrayList<ArrayList<String>> locations = new ArrayList<ArrayList<String>>();
+			
+			for (TypeQuestion question : svy.getQuestion())
+			{
+				String shortName = question.getCaptionAndShortNameAndLeftHeader().get(1).getValue().toString().replaceAll(" ", "");
+				if (shortName.equals(name))
+				{
+					String caption = question.getCaptionAndShortNameAndLeftHeader().get(0).getValue().toString();
+					
+					//Also get from map value of response to question.
+					
+					for (String uid : database.keySet())
+					{
+						Hashtable<String, String> uidTable = database.get(uid);
+						
+						String location = uidTable.get("userLocation");
+						String response = uidTable.get(caption);
+						
+						if (null != location && null != response)
+						{
+							if (value.equals(response))
+							{
+								String[] loc = location.split(",");
+								if (loc.length == 2)
+								{
+									ArrayList<String> tempLoc = new ArrayList<String>();
+									tempLoc.add(loc[0].trim());
+									tempLoc.add(loc[1].trim());
+									locations.add(tempLoc);
+								}
+							}
+						}
+					}
+				}
+			}
+			StringBuilder responseText = new StringBuilder();
+			
+			responseText.append("({map:'");
+			responseText.append(name);
+			
+			
+			if (locations != null)
+			{
+				responseText.append("',");
+				responseText.append("locations:[");
+				
+				boolean first = true;
+				for (ArrayList<String> location : locations)
+				{
+					if (!first)
+					{
+						responseText.append(",");
+					}
+					else
+					{
+						first = false;
+					}
+					
+					responseText.append("{");
+		            responseText.append("lat:'")
+		            	.append(location.get(0));
+		            responseText.append("',");
+		            responseText.append("lng:'");
+		            	
+		            responseText.append(location.get(1));
+		            
+		            responseText.append("'}");
+				}
+				
+				responseText.append("]");
+				
+				
+				
+			}
+			responseText.append("})");
+			return responseText.toString();
+		}
+		catch (Exception e)
+		{
+			return "";
+		}
+	}
+	
 	public static String getRequestedResult(String item)
 	{
 		loadIfNecessary();
