@@ -40,6 +40,7 @@ public class Database
 		new Thread(sa).start();
 		
 		ds = new DataStore();
+		//ds.clearDataStore();
 		database = ds.attemptLoad();
 		commentsDB = ds.attemptCommentsLoad();
 		new Thread(ds).start();
@@ -566,7 +567,7 @@ public class Database
 	
 	private class DataFaker implements Runnable
 	{
-		private int maxDBSize = 100;//0000;
+		private int maxDBSize = 1000;//0000;
 		private Random rand = new Random();
 		
 		private int count = 0;
@@ -602,8 +603,8 @@ public class Database
 					double baseLat = 33.775867;
 					double baseLong = -84.39733;
 					
-					double latOffset = (rand.nextDouble() * .01) - .005;
-					double longOffset = (rand.nextDouble() * .01) - .005;
+					double latOffset = (rand.nextDouble() * 1) - .5;
+					double longOffset = (rand.nextDouble() * 1) - .5;
 					
 					String label = "userLocation";
 					
