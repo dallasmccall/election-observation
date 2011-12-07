@@ -99,7 +99,7 @@
 					<ul>
 					<li><a data-icon="home" href="#home" data-role="button" data-transition="fade">Home</a></li>
 					<li><a data-icon="check" href="#sponsorsPage" data-role="button" data-rel="dialog" data-transition="fade">Sponsors</a></li>
-					<li><a data-icon="star" href="#mapPage" data-role="button" data-transition="fade">Map</a></li>
+					<li><a data-icon="star" href="#mapPage" data-role="button" data-transition="fade" data-rel="dialog">Map</a></li>
 					</ul>
 					<ul>
 					<li><a data-icon="gear" href="#mySurveyPage" data-role="button" data-transition="fade">My Survey</a></li>
