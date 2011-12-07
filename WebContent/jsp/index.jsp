@@ -300,6 +300,19 @@
   	
   </div>
 
+  <!-- MAP PAGE -->
+  <div id="mapPage" data-role="page">
+    <div data-role="header">
+	  <h1> Maps </h1>
+	</div>
+	
+    <div data-role="content">	
+      <div data-role="collapsible-set" id="mapPageContent">Loading Results...</div>
+    </div>
+  	
+  </div>
+
+
     <!-- SPONSORS -->
 
   <div id="sponsorsPage" data-role="page">

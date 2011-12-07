@@ -574,14 +574,18 @@ Home.handleLoadResultsList = function(response)
 		innerHTML += "<div id='" + question.split(' ').join('') + "globalResponse" + "'>Loading Results...</div>";
 		innerHTML += "</div>";
 	}
+	innerHTML += "</div>";
+	element.innerHTML = innerHTML;
 	
-	innerHTML += "</div><div data-role='collapsible-set'>";
+	element = document.getElementById("mapPageContent");
+		
+	innerHTML = "</div><div data-role='collapsible-set'>";
 	
 	for (var idx = 0; idx < results.questions.length; idx++)
 	{
 		var question = results.questions[idx].question;
 		innerHTML += "<div data-role='collapsible' data-theme='b' data-content-theme='d' id='" + question.split(' ').join('') + "Maps'>";
-		innerHTML += "<h3>" + question + " Maps</h3>";
+		innerHTML += "<h3>" + question + "</h3>";
 		innerHTML += "<div id='" + question.split(' ').join('') + "MapsglobalResponse" + "'>Loading Results...</div>";
 		innerHTML += "</div>";
 	}
