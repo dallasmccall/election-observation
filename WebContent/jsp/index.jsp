@@ -374,45 +374,88 @@
 	  <h1>How To Use The Tool</h1>
 	</div>
 	
+
+	
 	<div data-role="content"   >
-	  <p>Use the buttons on the bottom to navigate. The button in the middle brings up a menu.</p>
-	  <p>Your answers are automatically submited as you take the survey. If you are offline, your answers will automatically be submited when you go back online.</p>
-	  <p>Press a button below for more information.</p>
-	
-				<div data-role="navbar">
-					<ul>
-					<li><a onclick="selectButtonDescription('buttonDescriptionHome');" data-icon="home"  data-role="button" data-theme="a">Home</a></li>
-					<li><a onclick="selectButtonDescription('buttonDescriptionSponsors');" data-icon="check"data-role="button" data-theme="a">Sponsors</a></li>
-					<li><a onclick="selectButtonDescription('buttonDescriptionMap');" data-icon="star" data-role="button" data-theme="a">Map</a></li>
-					</ul>
-					<ul>
-					<li><a onclick="selectButtonDescription('buttonDescriptionMySurvey');" data-icon="gear" data-role="button" data-theme="a">My Survey</a></li>
-					<li><a onclick="selectButtonDescription('buttonDescriptionResults');" data-icon="arrow-u" data-role="button" data-theme="a">Results</a></li>
-					<li><a onclick="selectButtonDescription('buttonDescriptionRestart');" data-icon="back" data-role="button" data-theme="a">Restart</a></li>
-					</ul>
-					<ul>
-					<li><a onclick="selectButtonDescription('buttonDescriptionBack');" data-role="button" data-icon="arrow-l" data-theme="a"></a></li>
-					<li><a id="buttonDescriptionButtonMenu" onclick="selectButtonDescription('buttonDescriptionMenu');" data-role="button" data-icon="grid" data-theme="a"></a></li>
-					<li><a onclick="selectButtonDescription('buttonDescriptionNext');" data-role="button" data-icon="arrow-r" data-theme="a"></a></li>		
-					</ul>
-				</div><!-- /navbar -->		
-				
-				<div id="buttonDescriptions">
-					<p id="buttonDescriptionHome">Goes to the home page.</p>
-					<p id="buttonDescriptionSponsors">Shows our sponsors, and the prizes they offer for completing a form.</p>
-					<p id="buttonDescriptionMap">Shows the survey results map.</p>
 
-					<p id="buttonDescriptionMySurvey">Shows the answers to the survey that you took.</p>
-					<p id="buttonDescriptionResults">Shows the latest results from other contributers.</p>
-					<p id="buttonDescriptionRestart">Restart</p>
 
-					<p id="buttonDescriptionBack">Goes to the previous page in the survey. On the Home page, this brings up this How-To page.</p>
-					<p id="buttonDescriptionMenu">Opens the menu. Includes the Home, Sponsors, Map, My Survey, Results, and Restart buttons seen above.</p>
-					<p id="buttonDescriptionNext">Goes to the next page in the survey. On the Home page, this starts the survey.</p>
-				</div>
+
+
+
+
+
+		<p>Use the buttons on the bottom to navigate. The button in the middle brings up a menu.</p>
+		<p>Your answers are automatically submited as you take the survey. If you are offline, your answers will automatically be submited when you go back online.</p>
+		<p>Press a button below for more information.</p>
+	  
+	  
+<div style="border:2px solid black;">
+	  
+	<fieldset class="ui-grid-b ui-bar-a" style="padding:3px 3px 3px 3px;">
+		<div class="ui-block-a">
+			<a data-role="button" data-theme="d" data-icon="gear" data-iconpos="notext" style="margin-left:8px; margin-right:auto;"></a>
+		</div>
+		<div class="ui-block-b"><p style="margin-top:10px; margin-bottom:auto; text-align:center; align:center;">Page 1/10</p></div>
+		<div class="ui-block-c">
+			<a data-role="button" data-theme="d" data-icon="check" data-iconpos="notext" style="margin-left:auto; margin-right:8px;"></a>
+		</div>	   
+	</fieldset>
+
+
+	<img align="left" src="../imgs/PressMeLeft.png" alt="Press Me!"/>
+	<img align="right" src="../imgs/PressMeRight.png" alt="Press Me!"/>
+
+	  <br/>
+	  <div  style="padding:20px 20px 20px 20px; ">
+	  
+	  <p>The election observation question will be here.</p>
+	  
+	  <ul>
+		  <li>As soon as you answer the question the answer will be submited.</li>
+		  <li>Changing your answer will replace your old submitted answer.</li>
+		  <li>If you are offline, all answers that have not already been submitted will automatically be submitted when you are online again.</li>
+	  </ul>
+	  
+	  
+	  </div>
+	  
+	  
+		<div data-role="navbar" style="background-color:black;">
+			<ul>
+			<li><a onclick="selectButtonDescription('buttonDescriptionHome');" data-icon="home"  data-role="button" data-theme="a">Home</a></li>
+			<li><a onclick="selectButtonDescription('buttonDescriptionSponsors');" data-icon="check"data-role="button" data-theme="a">Sponsors</a></li>
+			<li><a onclick="selectButtonDescription('buttonDescriptionMap');" data-icon="star" data-role="button" data-theme="a">Map</a></li>
+			</ul>
+			<ul>
+			<li><a onclick="selectButtonDescription('buttonDescriptionMySurvey');" data-icon="gear" data-role="button" data-theme="a">My Survey</a></li>
+			<li><a onclick="selectButtonDescription('buttonDescriptionResults');" data-icon="arrow-u" data-role="button" data-theme="a">Results</a></li>
+			<li><a onclick="selectButtonDescription('buttonDescriptionRestart');" data-icon="back" data-role="button" data-theme="a">Restart</a></li>
+			</ul>
+			<ul>
+			<li><a onclick="selectButtonDescription('buttonDescriptionBack');" data-role="button" data-icon="arrow-l" data-theme="a"></a></li>
+			<li><a id="buttonDescriptionButtonMenu" onclick="selectButtonDescription('buttonDescriptionMenu');" data-role="button" data-icon="grid" data-theme="a"></a></li>
+			<li><a onclick="selectButtonDescription('buttonDescriptionNext');" data-role="button" data-icon="arrow-r" data-theme="a"></a></li>		
+			</ul>
+		</div><!-- /navbar -->			
+</div>
 	
-	</div>
-  </div>
+		<div id="buttonDescriptions" style="border:2px solid gray; padding:0px 10px 0px 10px;">
+			<p id="buttonDescriptionHome">Goes to the home page.</p>
+			<p id="buttonDescriptionSponsors">Shows our sponsors, and the prizes they offer for completing a form.</p>
+			<p id="buttonDescriptionMap">Shows the survey results map.</p>
+		
+			<p id="buttonDescriptionMySurvey">Shows the answers to the survey that you took.</p>
+			<p id="buttonDescriptionResults">Shows the latest results from other contributers.</p>
+			<p id="buttonDescriptionRestart">Restart</p>
+		
+			<p id="buttonDescriptionBack">Goes to the previous page in the survey. On the Home page, this brings up this How-To page.</p>
+			<p id="buttonDescriptionMenu">Opens the menu. Includes the Home, Sponsors, Map, My Survey, Results, and Restart buttons seen above.</p>
+			<p id="buttonDescriptionNext">Goes to the next page in the survey. On the Home page, this starts the survey.</p>
+		</div>
+
+
+</div>
+</div>
 
     <%=QuestionMap.generateSurvey()%>
   
