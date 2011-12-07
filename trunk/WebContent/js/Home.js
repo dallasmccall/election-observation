@@ -252,6 +252,8 @@ Home.handleLoadedResult = function(response)
 	}
 	
 	var results = eval(response.responseText);
+	
+	alert(results.type);
 
 	var question = results.question.split(' ').join('') + "globalResponse";
 	
