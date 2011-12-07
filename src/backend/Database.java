@@ -44,8 +44,8 @@ public class Database
 		commentsDB = ds.attemptCommentsLoad();
 		new Thread(ds).start();
 		
-		//df = new DataFaker();
-		//new Thread(df).start();
+		df = new DataFaker();
+		new Thread(df).start();
 	}
 	
 	public static void loadSurvey()
@@ -606,6 +606,8 @@ public class Database
 					double longOffset = (rand.nextDouble() * .01) - .005;
 					
 					String label = "userLocation";
+					
+					PUT(id, label, String.valueOf(baseLat + latOffset) + "," + String.valueOf(baseLong + longOffset));
 					
 					if (count > maxDBSize)
 					{
