@@ -35,8 +35,10 @@ public class HomeServlet extends HttpServlet
     public void doGet(HttpServletRequest request,
 	                  HttpServletResponse response)
 	{
+    	ServletOutputStream out = null;
 		try
         {
+			out = response.getOutputStream();
 			String userResponse = request.getParameter("userResponse");
 			
 			if (null != userResponse)
@@ -216,12 +218,25 @@ public class HomeServlet extends HttpServlet
 		        }
 		    }
 		    
-            ServletOutputStream out = response.getOutputStream();
-            out.print(responseText.toString());
+            String responseResult = responseText.toString();
+            out.print(responseResult);
         }
         catch (IOException e)
         {
             System.err.println("ERROR: Failed to send response.");
         }
+		finally 
+		{
+	        if (out != null) 
+	        {
+	            try 
+	            {
+					out.close();
+				} 
+	            catch (IOException e) 
+				{
+				}
+	        }
+		}
 	}
 }

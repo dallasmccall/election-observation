@@ -25,15 +25,15 @@
 			<choice>Yes, they seem to be campaigning</choice>
 			<choice>Yes, they are forcing people to vote for one of the candidates</choice>
 			<choice>Yes, but they are not disturbing anyone</choice>
-			<choice>Yes, I don’t know who they are</choice>
+			<choice>Yes, I don t know who they are</choice>
 			<choice>No</choice>
 		</radio>
 	</question>
 
 	<question>
 		<caption>Is there any evidence of intimidation or disturbance?</caption>
-		<shortName>Intimidation/Disturbance</shortName>
-		<leftHeader>Evidence of intimidation/disturbance</leftHeader>
+		<shortName>Intimidation or Disturbance</shortName>
+		<leftHeader>Evidence of intimidation or disturbance</leftHeader>
 		<rightHeader># of people</rightHeader>
 		<radio>
 			<choice>Yes</choice>
@@ -78,7 +78,7 @@
 	
 	<question>
 		<caption>Are there sufficient ballots and other polling materials where you are voting?</caption>
-		<shortName>Sufficient Ballots/Polling Material</shortName>
+		<shortName>Sufficient Ballots and Polling Material</shortName>
 		<leftHeader>Sufficient ballots/material</leftHeader>
 		<rightHeader># of people</rightHeader>
 		<radio>
@@ -111,18 +111,6 @@
 	</question>
 	
 	<question>
-		<caption>If you forgot your identification, did they let you vote?</caption>
-		<shortName>Voting Without ID</shortName>
-		<leftHeader>Allowed to vote without ID</leftHeader>
-		<rightHeader># of people</rightHeader>
-		<radio>
-			<choice>Did not forget</choice>
-			<choice>I forgot it, but they let me vote</choice>
-			<choice>I forgot it and they didn’t let me vote</choice>	
-		</radio>
-	</question>	
-	
-	<question>
 		<caption>How long did it take to complete the voting?</caption>
 		<shortName>Voting Times</shortName>
 		<leftHeader>Time taken</leftHeader>
@@ -139,8 +127,8 @@
 	
 	<question>
 		<caption>Is anyone other than a polling-station official administering the polling process or giving directions to polling-station officials?</caption>
-		<shortName>Unofficial Administration/Direction</shortName>
-		<leftHeader>Unofficial administering/direction noticed</leftHeader>
+		<shortName>Unofficial Administration or Direction</shortName>
+		<leftHeader>Unofficial administering or direction noticed</leftHeader>
 		<rightHeader># of people</rightHeader>
 		<radio>
 			<choice>Yes</choice>
@@ -201,7 +189,7 @@
 	<question>
 		<caption>Can other people see who you are voting for?</caption>
 		<shortName>Voter Privacy</shortName>
-		<leftHeader>People can see one's vote</leftHeader>
+		<leftHeader>People can see one s vote</leftHeader>
 		<rightHeader># of people</rightHeader>
 		<radio>
 			<choice>Yes</choice>
