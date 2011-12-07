@@ -40,7 +40,7 @@ public class Database
 		new Thread(sa).start();
 		
 		ds = new DataStore();
-		//ds.clearDataStore();
+		ds.clearDataStore();
 		database = ds.attemptLoad();
 		commentsDB = ds.attemptCommentsLoad();
 		new Thread(ds).start();
