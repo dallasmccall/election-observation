@@ -100,6 +100,10 @@ public class HomeServlet extends HttpServlet
 		        		responseText.append(Database.loadTopComments(comment));
 		        	}
 		        }
+		        else if (requestType.equals("loadMap"))
+		        {
+		        	responseText.append(Database.loadMaps(request.getParameter("map"), request.getParameter("value")));
+		        }
 		        
 		        else if (requestType.equals(GET))
 		        {
