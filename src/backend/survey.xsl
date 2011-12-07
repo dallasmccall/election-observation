@@ -141,7 +141,7 @@
 							</xsl:if>
 							<xsl:if test="position() = count(/survey/question)">
 								<!-- If on last page, next should go home. -->
-								<xsl:attribute name="href">#home</xsl:attribute>
+								<xsl:attribute name="href">#verificationPage</xsl:attribute>
 							</xsl:if>
 						</a>
 					</li>
