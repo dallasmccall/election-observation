@@ -375,7 +375,7 @@ Home.handleLoadedResult = function(response)
         	}
         	else
         	{
-        		aItem.setAttribute("onclick", "Home.loadMap('" + results.question + "');");
+        		aItem.setAttribute("onclick", "Home.loadMap('" + results.question + "', '" + results.statistics[idx].item + "');");
         		aItem.setAttribute("href", "#" + results.question + "MapPage");
         		aItem.setAttribute("data-rel", "dialog");
         		aItem.setAttribute("data-transition", "fade");
@@ -481,8 +481,13 @@ Home.handleLoadedResult = function(response)
     }
 };
 
-Home.loadMap = function(mapName)
+Home.loadMap = function(mapName, value)
 {
+	var url = "../servlet/Home?" + "type=loadMap" + "&map=" + mapName + "&value=" + value;
+	
+	var onResponse = Home.handleLoadMap;
+	Request.sendRequest(url, onResponse);
+	
 	var mapPageId = mapName + "MapPage";
 	
 	
@@ -505,8 +510,57 @@ Home.loadMap = function(mapName)
 		mapPageContent.innerHTML = "<strong>Map Area</strong>";
 
 	}
-	addMap(0, 0, mapPageId + "Content");
 };
+
+Home.handleLoadMap = function(response)
+{
+	if (response.status != 200)
+	{
+		alert("ERROR: Failed to get item");
+		return false;
+	}
+	
+	var results = eval(response.responseText);
+	
+	var position = localStorage.getItem("ElectionObservationLocation");
+	if (null != position)
+	{
+		var coords = position.split(", ");
+		
+	    Home.addMapWithPins(results.map + "MapsMapPageContent", results.locations, coords[0], coords[1]);
+	}
+	else
+	{
+		Home.addMapWithPins(results.map + "MapsMapPageContent", results.locations, 0, 0);
+	}
+	
+};
+
+Home.addMapWithPins = function (divID, locations, lat, lng) {
+	var latlng = new google.maps.LatLng(lat, lng);
+	var myOptions = {
+		zoom: 16,
+		center: latlng,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+	
+	
+	$("#" + divID).height($(document).height()*0.50);
+    map = new google.maps.Map(document.getElementById(divID),myOptions);
+    
+    
+    for (var idx = 0; idx < locations.length; idx++)
+    {
+    	latlng = new google.maps.LatLng(locations[idx].lat, locations[idx].lng);
+    	var marker = new google.maps.Marker({
+            position: latlng,
+            map: map,
+            title:"Responses so far"
+        });
+    }
+    
+    
+}
 
 Home.loadCommentsForPage = function(pageId)
 {
