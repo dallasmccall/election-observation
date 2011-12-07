@@ -199,8 +199,12 @@
   <!-- HOME PAGE -->
   <div id="home" data-role="page">
     <div data-role="header" data-theme="a">
+    
+    
+   
 	  <a href="#pageMyLocation" data-role="button" data-theme="d" data-icon="gear" data-iconpos="notext" data-rel="dialog" data-transition="fade"></a>
-	  <a class="transmitButton ui-disabled" data-role="button"  data-theme="d" data-icon="check" data-iconpos="notext"></a> 
+	  <a class="transmitButton ui-disabled ui-btn-right ui-btn ui-btn-up-d ui-btn-icon-notext ui-btn-corner-all ui-shadow" data-role="button" data-theme="d" data-icon="check" data-iconpos="notext" title=""><span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true"><span class="ui-btn-text"></span><span class="ui-icon ui-icon-check ui-icon-shadow"></span></span></a>
+     
 	  <h1  data-theme="a">Election Observer</h1>	  
 	</div>
 	
