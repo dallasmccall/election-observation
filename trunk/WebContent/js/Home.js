@@ -507,7 +507,7 @@ Home.loadMap = function(mapName, value)
 		
 		var mapPageContent = document.getElementById(mapPageId + "Content");
 		
-		mapPageContent.innerHTML = "<strong>Map Area</strong>";
+		mapPageContent.innerHTML = "<stron>Load Map</strong>";
 
 	}
 };
