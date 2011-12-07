@@ -8,6 +8,10 @@ import java.util.Map;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.*;
 
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+
 import backend.*;
 
 /**
@@ -105,6 +109,11 @@ public class HomeServlet extends HttpServlet
 		        else if (requestType.equals("loadMap"))
 		        {
 		        	responseText.append(Database.loadMaps(request.getParameter("map"), request.getParameter("value")));
+		        }
+		        
+		        else if (requestType.equals("shareLink"))
+		        {
+		        	sendEmailToFriends(request.getParameter("friends"));
 		        }
 		        
 		        else if (requestType.equals(GET))
@@ -239,4 +248,37 @@ public class HomeServlet extends HttpServlet
 	        }
 		}
 	}
+    
+    private void sendEmailToFriends(String friendsList)
+    {
+    	try
+    	{
+    		Properties fMailServerConfig = new Properties();
+    		
+    		String[] listOfFriends = friendsList.split(" ");
+    		
+    		Session session = Session.getDefaultInstance( fMailServerConfig, null );
+    	    MimeMessage message = new MimeMessage( session );
+    	    try {
+    	      message.setFrom( new InternetAddress("dallas@gatech.edu") );
+    	    	for(String friend : listOfFriends)
+    	    	{
+    	    		message.addRecipient(
+    	        	        Message.RecipientType.TO, new InternetAddress(friend)
+    	        	      );
+    	    	}
+    	      
+    	      message.setSubject( "Try Election Observer" );
+    	      message.setText( "Hello, a friend of yours suggested you try out this cool election observer webapp: http://143.215.103.185:9001/ElectionObservation/jsp/index.jsp" );
+    	      Transport.send( message );
+    	    }
+    	    catch (Exception ex){
+    	      System.err.println("Cannot send email. " + ex);
+    	    }
+    	}
+    	catch (Exception e)
+    	{
+    		
+    	}
+    }
 }

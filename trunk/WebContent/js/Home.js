@@ -512,6 +512,16 @@ Home.loadMap = function(mapName, value)
 	}
 };
 
+Home.shareWithFriends = function()
+{
+	var elementValue = document.getElementById("sharePageTextArea").value;
+	
+	var url = "../servlet/Home?" + "type=shareLink" + "&friends=" + elementValue;
+	
+	var onResponse = Home.handlePutResponse;
+	Request.sendRequest(url, onResponse);
+};
+
 Home.handleLoadMap = function(response)
 {
 	if (response.status != 200)

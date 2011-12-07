@@ -186,6 +186,15 @@
 	}
 	
 	
+	function verifyPage()
+	{
+		localStorage.removeItem("ElectionObservationResponseCache");
+		localStorage.removeItem("sessionID");
+	}
+	
+	$('[data-role=dialog]div[id="sharePage"]').live('pagecreate', function (event) {
+	     $("a[data-icon='delete']").hide();
+	});
 	
 	</script>
 
@@ -265,10 +274,23 @@
   </div>
   
   <div id="verificationPage" data-role="page">
-		<div data-role="header"><h1>Verify Submission</h1></div>
-		<div id="verificationPageContents" data-role="content"> 
-			<p>Click submit ot verify your results<br>If you wish to change anything, do so before pressing submit</p>
-			<a href="#home" data-role="button" onclick="verifyPage();" data-transition="fade">Submit</a>
+		<div data-role="header"><h1>Finalize Submission</h1></div>
+		<div id="verificationPageContents" data-role="content">
+			<h1>Thank You</h1>
+			<p>You have completed the survey. To change a response, close this window. To finalize your submission, press Submit.</p>
+			<a href="#sharePage" data-role="button" onclick="verifyPage();" data-rel="dialog" data-transition="fade">Submit</a>
+		</div>
+  </div>
+  
+  <div id="sharePage" data-role="page">
+		<div data-role="header"><h1>Finalize Submission</h1></div>
+		<div id="sharePageContents" data-role="content">
+			<h1>Share with friends</h1>
+			<p>If you would like to share this with your friends, enter their email addresses below:</p>
+			
+			<textarea id="sharePageTextArea"></textarea>
+			<a href="#home" data-role="button" onclick="Home.shareWithFriends();" data-transition="fade">Share</a>
+			<a href="#home" data-role="button" data-transition="fade">No Thanks</a>
 		</div>
   </div>
   
