@@ -6,7 +6,9 @@
 	<%@ page import="java.util.UUID" %>
 
 	<link rel="stylesheet" href="../css/jquery.mobile-1.0.css">
-	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 	<script src="../js/jquery-1.7.1.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../js/underscore-min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../js/backbone-min.js" type="text/javascript" charset="utf-8"></script>
@@ -270,17 +272,11 @@
 
 			<input type="search" name="findAddress" id="findAddress" value="Enter Address" />
 
-			<div class="ui-grid-a">
-				<div class="ui-block-a">
-					<div data-role="controlgroup" data-type="horizontal">
-						<a data-role="button">Address</a>
-						<a data-role="button">Detect</a>
-					</div>
-				</div>
-				<div class="ui-block-b">
-					<a data-role="button">Use New Location</a>
-				</div>
+			<div data-role="controlgroup" data-type="horizontal">
+				<a data-role="button">Address</a>
+				<a data-role="button">Detect</a>
 			</div>
+			<a data-role="button">Use New Location</a>
 			
 		</div>
 	</div>

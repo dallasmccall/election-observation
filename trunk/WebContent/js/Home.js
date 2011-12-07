@@ -501,7 +501,7 @@ Home.loadMap = function(mapName, value)
 	
 	if (!doesPageExist)
 	{
-		var mapPage = $("<div data-role=page id=" + mapPageId + "><div data-role=header><h1>Respond</h1></div><div data-role=content id=" + mapPageId +"Content>Page Content</div></div");
+		var mapPage = $("<div data-role=page id=" + mapPageId + "><div data-role=header><h1>Response Locations</h1></div><div data-role=content><div id=" + mapPageId + "Content></div></div></div");
 		mapPage.appendTo($.mobile.pageContainer);
 		
 		
@@ -545,7 +545,7 @@ Home.addMapWithPins = function (divID, locations, lat, lng) {
     };
 	
 	
-	$("#" + divID).height($(document).height()*0.50);
+	$("#" + divID).height($(document).height() * .7);
     map = new google.maps.Map(document.getElementById(divID),myOptions);
     
     

@@ -599,6 +599,14 @@ public class Database
 							PUT(id, caption, choice);
 						}
 					}
+					double baseLat = 33.775867;
+					double baseLong = -84.39733;
+					
+					double latOffset = (rand.nextDouble() * .01) - .005;
+					double longOffset = (rand.nextDouble() * .01) - .005;
+					
+					String label = "userLocation";
+					
 					if (count > maxDBSize)
 					{
 						Thread.sleep(5000);
