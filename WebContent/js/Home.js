@@ -539,7 +539,7 @@ Home.handleLoadMap = function(response)
 	}
 	else
 	{
-		Home.addMapWithPins(results.map + "MapsMapPageContent", results.locations, 0, 0);
+		Home.addMapWithPins(results.map + "MapsMapPageContent", results.locations, 33.7784626, -84.3988806);
 	}
 	
 };
@@ -582,6 +582,33 @@ Home.shareWithFriends = function()
 
 
 
+Home.startSurvey = function()
+{
+
+	var sessionIDJSON = localStorage.getItem("sessionID");
+	
+	
+	if (sessionIDJSON != null)
+	{
+		
+		$.mobile.changePage("#page1");
+
+		
+	}else{
+
+		localStorage.setItem("sessionID", "<%=UUID.randomUUID().toString()%>");
+		
+		$.mobile.changePage( "#mapCurrentLocationSettings", { transition: "fade"} );
+		
+		
+		$("#applyNewUserLocation").attr("href", "#page1");
+		$("#applyNewUserLocation").removeAttr("data-rel");
+		
+		$("#startSurveyButton .ui-btn-text").text("Continue Survey");
+	}
+};
+
+
 Home.loadUserLocationMap = function()
 {
 
@@ -590,21 +617,22 @@ Home.loadUserLocationMap = function()
 
 	var position = localStorage.getItem("ElectionObservationLocation");
 
-	if($("#mapCurrentLocation").hasClass("hasMap")){
-		$("#mapCurrentLocation").width("100%");
-	}else{
+
 		if (null != position)
 		{
-			var coords = position.split(", ");
+			if("" != position){
+				var coords = position.split(", ");
 			
-		    Home.addMapWithPin("mapCurrentLocation", coords[0], coords[1]);
+		    	Home.addMapWithPin("mapCurrentLocation", coords[0], coords[1]);
+			}else{
+				Home.addMapWithPin("mapCurrentLocation", 33.7784626, -84.3988806);
+			}
 		}
 		else
 		{
 			Home.addMapWithPin("mapCurrentLocation", 33.7784626, -84.3988806);
 		}
 
-	}
 };
 
 Home.addMapWithPin = function (divID, lat, lng) {
@@ -686,6 +714,9 @@ Home.addMapWithPin = function (divID, lat, lng) {
 		Home.geolocate();
 
 	});
+	
+	
+	
 	
 	
 	

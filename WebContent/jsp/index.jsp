@@ -27,34 +27,28 @@
 
 	
 	<script type="text/javascript">
-	if (null === localStorage.getItem("sessionID"))
-	{
-		localStorage.setItem("sessionID", "<%=UUID.randomUUID().toString()%>");
-	}
+
 	
 	$(window).bind("load", function() {
 		Home.loadResultsList();		
 		Home.initializeIndex();
-		var position = localStorage.getItem("ElectionObservationLocation");
-		if (null != position)
-		{
-			updateLocationMessage(position);
-		}
-		else
-		{
-			navigator.geolocation.getCurrentPosition(showLocation, showError, {enableHighAccuracy:true,maximumAge:600000});
-		}
 		
 		
-	 	
-	 	
-		$("#mapCurrentLocationSettings").bind("updatelayout", function() {
+		if (localStorage.getItem("sessionID") != null)
+		{
 
-			isCollapsed = $("#mapCurrentLocationSettings").hasClass("ui-collapsible-collapsed");
+			$("#startSurveyButton .ui-btn-text").text("Continue Survey");
+
+		}
+		
+	 	
+		$("#mapCurrentLocationSettings").bind("pageshow", function() {
+
+			$("#applyNewUserLocation").attr("href", "#");
+			$("#applyNewUserLocation").attr("data-rel", "back");
 			
-			if(!isCollapsed){
-				Home.loadUserLocationMap();  
-			}
+			Home.loadUserLocationMap();
+
 	
 		});
         
@@ -103,7 +97,11 @@ alert("could not detect location");
 		
 		$(".myLocationButton span.ui-icon").addClass("ui-icon-gear").removeClass("ui-icon-alert");
 		
-		$("#currentUserLocationCoords").text("(" + message + ")");
+		if(message != ""){
+			$(".currentUserLocationCoords").text("(" + message + ")");
+		}else{
+			$(".currentUserLocationCoords").text("Unknown");
+		}
 		
 		formCache += "&userLocation=" + message;
 		
@@ -157,7 +155,7 @@ alert("could not detect location");
 		</div>	
 		
 		<div data-role="controlgroup">
-		<a href="#page1" data-role="button"  data-transition="fade" data-theme="b">Start Survey</a>
+		<a id="startSurveyButton" href="#" onclick="Home.startSurvey();" data-role="button"  data-transition="fade" data-theme="b">Start Survey</a>
 		</div>
 	</div>
 	</div>
@@ -198,13 +196,29 @@ alert("could not detect location");
 	   </ul>
 		
 		
-		<p>Current Saved Location: <span id="currentUserLocationCoords">Unkown</span></p>
+		<p>Current Saved Location: <span class="currentUserLocationCoords">Unkown</span></p>
 	
-	 <!-- User Location -->
-	<div id="mapCurrentLocationSettings" data-role="collapsible" data-theme="b" data-content-theme="c">
-   		<h3>Update/Set Your Location</h3>
+		<a href="#mapCurrentLocationSettings" data-role="button"  data-rel="dialog" data-transition="fade"> Update/Set Your Location </a>
 
-			
+		</div>
+	</div>
+  
+  
+  
+      <!-- CHANGE LOCATION -->
+  <div id="mapCurrentLocationSettings"  data-role="dialog" data-transition="fade">
+    <div data-role="header">
+	  <h1> Update/Set Your Location </h1>
+	</div>
+  
+  	<div data-role="content">
+
+				<p>Current Saved Location: <span class="currentUserLocationCoords">Unkown</span></p>
+				
+				<a data-role="button" onclick="updateLocationMessage('');" data-icon="delete">Clear Your Location</a>
+				
+				
+				
 				<div id="mapCurrentLocation" style="width:100%; height:100px; text-align:left">Loading map...</div>
 				
 	
@@ -215,21 +229,23 @@ alert("could not detect location");
 					<a id="detectLocationButton" data-role="button">Detect</a>
 				</div>
 				
-				<div class="ui-grid-a">
-					<div class="ui-block-a">
-						<a data-role="button" data-rel="back">Cancel</a>
-					</div>
-					<div class="ui-block-b">
-						<a id="applyNewUserLocation" data-role="button">Apply</a>
-					</div>
-				</div><!-- /grid-a -->
+
 				
 
 
-		
+				<div class="ui-grid-a">
+					<div class="ui-block-a">
+						<a href="#page1" id="cancelNewUserLocation" data-role="button">Cancel</a>
+					</div>
+					<div class="ui-block-b">
+						<a href="#page1" id="applyNewUserLocation" data-role="button">Save Location</a>
+					</div>
+				</div><!-- /grid-a -->
 		</div>
-		</div>
-	</div>
+  
+  </div>
+  
+  
   
   
     <!-- SYNC INDICATOR HELP -->
