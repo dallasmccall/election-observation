@@ -81,6 +81,9 @@ function hideButtonDescriptions(){
 }
 
 
+$("#infoPage").live( 'pageinit',function(event, ui){
+	hideButtonDescriptions();
+});
 
 
 $(window).resize(function() {

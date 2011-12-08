@@ -110,15 +110,16 @@
 				<ul>
 					<!-- BACK BUTTON -->
 					<li>
-						<a href="#home" data-role="button" data-icon="arrow-l"  data-transition="slide" data-direction="reverse">
+						<a href="#home" data-role="button" data-icon="arrow-l"  data-direction="reverse">
 							<!-- If not on first page, back should go to previous page. -->
 							<xsl:if test="position() &gt; 1">
-								<xsl:attribute name="href">#page<xsl:value-of select="position()-1"/>
-								</xsl:attribute>
+								<xsl:attribute name="href">#page<xsl:value-of select="position()-1"/></xsl:attribute>
+								<xsl:attribute name="data-transition">slide</xsl:attribute>
 							</xsl:if>
 							<!-- If on first page, back should go home. -->
 							<xsl:if test="position() = 1">
 								<xsl:attribute name="href">#home</xsl:attribute>
+								<xsl:attribute name="data-transition">fade</xsl:attribute>
 							</xsl:if>
 						</a>
 					</li>

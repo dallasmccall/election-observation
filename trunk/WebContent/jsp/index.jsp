@@ -231,7 +231,7 @@
 		</div>	
 		
 		<div data-role="controlgroup">
-		<a href="#page1" data-role="button"  data-transition="slide" data-direction="forward" data-theme="b">Start Survey</a>
+		<a href="#page1" data-role="button"  data-transition="fade" data-theme="b">Start Survey</a>
 		</div>
 	</div>
 	</div>
@@ -343,14 +343,7 @@
 	<div data-role="content"   >
 
 
-
-
-
-
-
-		<p>Use the buttons on the bottom to navigate. The button in the middle brings up a menu.</p>
-		<p>Your answers are automatically submited as you take the survey. If you are offline, your answers will automatically be submited when you go back online.</p>
-		<p>Press a button below for more information.</p>
+	<p>Press a button below for more information. Information is shown in the <strong style="color:#3385FF;">blue box</strong> below.</p>
 	  
 	  
 <div style="border:2px solid black;">
@@ -375,9 +368,9 @@
 	  <p>The election observation question will be here.</p>
 	  
 	  <ul>
-		  <li>As soon as you answer the question the answer will be submited.</li>
-		  <li>Changing your answer will replace your old submitted answer.</li>
-		  <li>If you are offline, all answers that have not already been submitted will automatically be submitted when you are online again.</li>
+		  <li>Your answers are automatically synchronized with our database as you take the survey.</li>
+		  <li>Changing your answer will replace your old answer in our database.</li>
+		  <li>If you are offline, all answers that have not already been sent to the server will automatically be sent when you are online again.</li>
 	  </ul>
 	  
 	  
@@ -386,13 +379,8 @@
 	  <img src="../imgs/PressMeDown.png" alt="Press Me!"/>
 		<div data-role="navbar" style="background-color:black;">
 			<ul>
+			<li><a class="descriptionButton" onclick="selectButtonDescription(this,'buttonDescriptionHelp');" data-icon="info" data-role="button" data-theme="a">Help</a></li>			
 			<li><a class="descriptionButton" onclick="selectButtonDescription(this,'buttonDescriptionHome');" data-icon="home"  data-role="button" data-theme="a">Home</a></li>
-			<li><a class="descriptionButton" onclick="selectButtonDescription(this,'buttonDescriptionSponsors');" data-icon="check"data-role="button" data-theme="a">Sponsors</a></li>
-			<li><a class="descriptionButton" onclick="selectButtonDescription(this,'buttonDescriptionMap');" data-icon="star" data-role="button" data-theme="a">Map</a></li>
-			</ul>
-			<ul>
-			<li><a class="descriptionButton" onclick="selectButtonDescription(this,'buttonDescriptionMySurvey');" data-icon="gear" data-role="button" data-theme="a">My Survey</a></li>
-			<li><a class="descriptionButton" onclick="selectButtonDescription(this,'buttonDescriptionResults');" data-icon="arrow-u" data-role="button" data-theme="a">Results</a></li>
 			<li><a class="descriptionButton" onclick="selectButtonDescription(this,'buttonDescriptionRestart');" data-icon="back" data-role="button" data-theme="a">Restart</a></li>
 			</ul>
 			<ul>
@@ -403,20 +391,17 @@
 		</div><!-- /navbar -->			
 </div>
 	
-		<div id="buttonDescriptions" style="border:2px solid gray; padding:0px 10px 0px 10px;">
-			<p id="buttonDescriptionLocationIndicator">Shows my location.</p>
+		<div id="buttonDescriptions" style="border:2px solid #3385FF; padding:0px 10px 0px 10px;">
+			<p id="buttonDescriptionLocationIndicator">Shows the currently used location.</p>
 			<p id="buttonDescriptionSynchedIndicator">Indicates whether synched with server.</p>
 			
 			<p id="buttonDescriptionHome">Goes to the home page.</p>
-			<p id="buttonDescriptionSponsors">Shows our sponsors, and the prizes they offer for completing a form.</p>
-			<p id="buttonDescriptionMap">Shows the survey results map.</p>
-		
-			<p id="buttonDescriptionMySurvey">Shows the answers to the survey that you took.</p>
-			<p id="buttonDescriptionResults">Shows the latest results from other contributers.</p>
-			<p id="buttonDescriptionRestart">Restart</p>
-		
+			<p id="buttonDescriptionHelp">Shows this page.</p>
+			<p id="buttonDescriptionRestart">Goes to the first page in the survey.</p>
+			
+					
 			<p id="buttonDescriptionBack">Goes to the previous page in the survey. On the Home page, this brings up this How-To page.</p>
-			<p id="buttonDescriptionMenu">Opens the menu. Includes the Home, Sponsors, Map, My Survey, Results, and Restart buttons seen above.</p>
+			<p id="buttonDescriptionMenu">Opens the menu. Includes the Help, Home, and Restart buttons seen above.</p>
 			<p id="buttonDescriptionNext">Goes to the next page in the survey. On the Home page, this starts the survey.</p>
 		</div>
 
