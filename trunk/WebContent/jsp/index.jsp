@@ -44,6 +44,19 @@
 		{
 			navigator.geolocation.getCurrentPosition(showLocation, showError, {enableHighAccuracy:true,maximumAge:600000});
 		}
+		
+		
+	 	
+	 	
+		$("#mapCurrentLocationSettings").bind("updatelayout", function() {
+
+			isCollapsed = $("#mapCurrentLocationSettings").hasClass("ui-collapsible-collapsed");
+			
+			if(!isCollapsed){
+				Home.loadUserLocationMap();  
+			}
+	
+		});
         
 	});
 	
@@ -62,6 +75,8 @@
 //		message = message.replace("Determining Location", "Using Location");	
 //        
 //        locationBox.innerHTML = "No Location";
+alert("could not detect location");
+		$(".myLocationButton span.ui-icon").addClass("ui-icon-alert").removeClass("ui-icon-gear");
 	}
 	
 	function showLocation(position) 
@@ -72,7 +87,6 @@
 		//position.coords.longitude + "&zoom=18&size=300x400&markers=color:blue|label:S|" +  
 		//position.coords.latitude + ',' + position.coords.longitude + "/></h1>";
 	    var message = position.coords.latitude + ", " + position.coords.longitude;
-	    
 		
 		updateLocationMessage(message);
 	}
@@ -86,6 +100,8 @@
 			formCache = "";
 		}
 		
+		$(".myLocationButton span.ui-icon").addClass("ui-icon-gear").removeClass("ui-icon-alert");
+		
 		formCache += "&userLocation=" + message;
 		
 		localStorage.setItem("ElectionObservationLocation", message);
@@ -95,95 +111,6 @@
 	</script>
 	
 	<script>
-	
-	 var geocoder;
- 	 var map;
- 	 var newMarker;
- 	// When map page opens get location and display map
-	$("#pageMyLocation").live("pageinit", function() {
-		
-		
-		
-	    $('#findAddress').keypress(function(e)
-	    	    {
-	    	        code= (e.keyCode ? e.keyCode : e.which);
-	    	        if (code == 13) {
-	    	        	
-	    	        	
-	    	        	
-	    	    	    var address = $("#findAddress").val();
-	    	    	    
-	    	    	    geocoder.geocode( { 'address': address}, function(results, status) {
-	    	    	      if (status == google.maps.GeocoderStatus.OK) {
-	    	    	        map.setCenter(results[0].geometry.location);
-	    	    	        newMarker = new google.maps.Marker({
-	    	    	            map: map,
-	    	    	            position: results[0].geometry.location,
-	    	    	            title:"New Location",
-	    	    	            draggable:true
-	    	    	        });
-	    	    	      } else {
-	    	    	        alert("Geocode was not successful for the following reason: " + status);
-	    	    	      }
-	    	    	    });
-	    	        	
-	    	        	
-	    	        	
-	    	        	e.preventDefault();
-	    	        }
-	    	        
-	   });
-		
-		
-		
-		geocoder = new google.maps.Geocoder();
-		var position = localStorage.getItem("ElectionObservationLocation");
-		if (null != position)
-		{
-			updateLocationMessage(position);
-			var coords = position.split(", ");
-			
-		    addMap(coords[0], coords[1], "map_canvas");
-		}
-		else
-		{
-			navigator.geolocation.getCurrentPosition(showLocation, showError, {enableHighAccuracy:true,maximumAge:600000});
-		}
-
-	    
-	});
-	
- 	
- 	
-
- 	
-	
-	
-	function addMap(lat,lng,divID) {
-		var latlng = new google.maps.LatLng(lat, lng);
-		var myOptions = {
-			zoom: 16,
-			center: latlng,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-	    };
-		
-		
-		$("#" + divID).height($(document).height()*0.50);
-	    map = new google.maps.Map(document.getElementById(divID),myOptions);
-	    
-	    
-	    
-
-	    
-	    
-	    
-	    
-	    var marker = new google.maps.Marker({
-	        position: latlng,
-	        map: map,
-	        title:"Currently Used Location"
-	    });
-	}
 	
 	
 	function verifyPage()
@@ -209,12 +136,8 @@
   <div id="home" data-role="page">
     <div data-role="header" data-theme="a">
     
-    
-   
-	  <a href="#pageMyLocation" data-role="button" data-theme="d" data-icon="gear" data-iconpos="notext" data-rel="dialog" data-transition="fade"></a>
-	  <a class="transmitButton ui-disabled ui-btn-right ui-btn ui-btn-up-d ui-btn-icon-notext ui-btn-corner-all ui-shadow" data-role="button" data-theme="d" data-icon="check" data-iconpos="notext" title=""><span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true"><span class="ui-btn-text"></span><span class="ui-icon ui-icon-check ui-icon-shadow"></span></span></a>
-     
 	  <h1  data-theme="a">Election Observer</h1>	  
+	      
 	</div>
 	
 	<div data-role="content" style="width:100%; height:100%; padding:0;">
@@ -258,25 +181,68 @@
 		</div>
   </div>
   
+  
+   <!-- LOCATION INDICATOR HELP/SETTINGS -->
   	<div id="pageMyLocation" data-role="page">
-		<div data-role="header"><h1>Map View</h1></div>
-		<div id="pageMyLcationContent" data-role="content"> 
-			<div id="map_canvas" style="width:100%; height:100px; text-align:left">
-				<!-- map loads here... -->
-			</div>
-			
+		<div data-role="header"><h1>Location Indicator</h1></div>
+		
+		
+		<div id="pageMyLcationContent" data-role="content">
+		<ul>
+		  <li>Indicates whether or not you have given a valid location.</li>
+		  <li>Will be an "alert" symbol if we do <strong>not</strong> have a valid location.</li>
+		  <li>Will be a "check" symbol if we have a valid location.</li>
+	   </ul>
+		
+	
+	 <!-- User Location -->
+	<div id="mapCurrentLocationSettings" data-role="collapsible" data-theme="b" data-content-theme="c">
+   		<h3>Update/Set Your Location</h3>
 
-			<input type="search" name="findAddress" id="findAddress" value="Enter Address" />
-
-			<div data-role="controlgroup" data-type="horizontal">
-				<a data-role="button">Address</a>
-				<a data-role="button">Detect</a>
-			</div>
-			<a data-role="button">Use New Location</a>
 			
+				<div id="mapCurrentLocation" style="width:100%; height:100px; text-align:left">Loading map...</div>
+				
+	
+				<input type="search" name="searchAddressLocation" id="searchAddressLocation" value="Enter Address" />
+	
+				<div data-role="controlgroup">
+					<a id="searchAddressLocationButton" data-role="button">Search</a>
+					<a id="detectLocationButton" data-role="button">Detect</a>
+				</div>
+				
+				<div class="ui-grid-a">
+					<div class="ui-block-a">
+						<a data-role="button" data-rel="back">Cancel</a>
+					</div>
+					<div class="ui-block-b">
+						<a id="applyNewUserLocation" data-role="button">Apply</a>
+					</div>
+				</div><!-- /grid-a -->
+				
+
+
+		
+		</div>
 		</div>
 	</div>
   
+  
+    <!-- SYNC INDICATOR HELP -->
+  <div id="pageSyncIndicatorHelp" data-role="page">
+    <div data-role="header">
+	  <h1> Database Sync Indicator </h1>
+	</div>
+	
+    <div data-role="content">	
+	  <ul>
+		  <li>Indicates whether or not your latest answers are synchronized with the database.</li>
+		  <li>Will be an "alert" symbol if <strong>not</strong> fully synchronized.</li>
+		  <li>Will be a "check" symbol if fully synchronized.</li>
+	  </ul>
+	  
+    </div>
+  	
+  </div>
   
   
   
@@ -305,32 +271,6 @@
   </div>
 
 
-    <!-- SPONSORS -->
-
-  <div id="sponsorsPage" data-role="page">
-    <div data-role="header">
-	  <h1> Sponsors </h1>
-	</div>
-
-<div data-role="content">
-	<div data-role="collapsible" data-theme="b" data-content-theme="d">
-	   <h3>Sponsor 1</h3>
-	   <p>Information about Sponsor 1.</p>
-	</div>
-	<div data-role="collapsible" data-theme="b" data-content-theme="d">
-	   <h3>Sponsor 2</h3>
-	   <p>Information about Sponsor 2.</p>
-	</div>
-	<div data-role="collapsible" data-theme="b" data-content-theme="d">
-	   <h3>Sponsor 3</h3>
-	   <p>Information about Sponsor 3.</p>
-	</div>
-		<div data-role="collapsible" data-theme="b" data-content-theme="d">
-	   <h3>Sponsor 4</h3>
-	   <p>Information about Sponsor 4.</p>
-	</div>
-</div>
-  </div>
 
     <!-- INFO PAGE -->
   <div id="infoPage" data-role="page">
@@ -392,17 +332,52 @@
 </div>
 	
 		<div id="buttonDescriptions" style="border:2px solid #3385FF; padding:0px 10px 0px 10px;">
-			<p id="buttonDescriptionLocationIndicator">Shows the currently used location.</p>
-			<p id="buttonDescriptionSynchedIndicator">Indicates whether synched with server.</p>
-			
-			<p id="buttonDescriptionHome">Goes to the home page.</p>
-			<p id="buttonDescriptionHelp">Shows this page.</p>
-			<p id="buttonDescriptionRestart">Goes to the first page in the survey.</p>
-			
-					
-			<p id="buttonDescriptionBack">Goes to the previous page in the survey. On the Home page, this brings up this How-To page.</p>
-			<p id="buttonDescriptionMenu">Opens the menu. Includes the Help, Home, and Restart buttons seen above.</p>
-			<p id="buttonDescriptionNext">Goes to the next page in the survey. On the Home page, this starts the survey.</p>
+			<div id="buttonDescriptionLocationIndicator">
+				<ul>
+				  <li>Indicates whether or not you have given a valid location.</li>
+				  <li>Will be an "alert" symbol if we do <strong>not</strong> have a valid location.</li>
+				  <li>Will be a "check" symbol if we have a valid location.</li>
+				  <li>Pressing it will bring up a window allowing you to either detect a new location, or enter an address to set your location.</li>
+				  <li>You may also drag and drop the pin on the map and set the dropped location as your new location.</li>
+			   </ul>
+			</div>
+			<div id="buttonDescriptionSynchedIndicator">
+			  <ul>
+				  <li>Indicates whether or not your latest answers are synchronized with the database.</li>
+				  <li>Will be an "alert" symbol if <strong>not</strong> fully synchronized.</li>
+				  <li>Will be a "check" symbol if fully synchronized.</li>
+			  </ul>
+			</div>
+			<div id="buttonDescriptionHome">
+				<ul>
+				  <li>Goes to the home page.</li>
+			   </ul>
+			</div>
+			<div id="buttonDescriptionHelp">
+				<ul>
+				  <li>Shows this page.</li>
+			   </ul>
+			</div>
+			<div id="buttonDescriptionRestart">
+				<ul>
+				  <li>Goes to the first page in the survey.</li>
+			   </ul>
+			</div>
+			<div id="buttonDescriptionBack">
+				<ul>
+				  <li>Goes to the previous page in the survey. On the Home page, this brings up this How-To page.</li>
+			   </ul>
+			</div>
+			<div id="buttonDescriptionMenu">
+				<ul>
+				  <li>Opens the menu. Includes the Help, Home, and Restart buttons seen above.</li>
+			   </ul>
+			</div>
+			<div id="buttonDescriptionNext">
+				<ul>
+				  <li>Goes to the next page in the survey. On the Home page, this starts the survey.</li>
+			   </ul>
+			</div>
 		</div>
 
 
