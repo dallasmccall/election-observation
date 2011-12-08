@@ -99,14 +99,9 @@
 			<div class="navbarMenu">
 				<div data-role="navbar" data-position="fixed">
 					<ul>
-					<li><a data-icon="home" href="#home" data-role="button" data-transition="fade">Home</a></li>
-					<li><a data-icon="check" href="#sponsorsPage" data-role="button" data-rel="dialog" data-transition="fade">Sponsors</a></li>
-					<li><a data-icon="star" href="#mapPage" data-role="button" data-transition="fade" data-rel="dialog">Map</a></li>
-					</ul>
-					<ul>
-					<li><a data-icon="gear" href="#mySurveyPage" data-role="button" data-transition="fade">My Survey</a></li>
-					<li><a data-icon="arrow-u" href="#globalResults" onclick="Home.loadResults();" data-role="button"  data-rel="dialog" data-transition="fade">Results</a></li>
 					<li><a data-icon="back" onclick="hideMenu();"  href="#page1" data-role="button" data-transition="fade">Restart</a></li>
+					<li><a data-icon="home" href="#home" data-role="button" data-transition="fade">Home</a></li>
+					<li><a href="#infoPage" data-role="button" onclick="hideButtonDescriptions();" data-rel="dialog" data-transition="fade" data-icon="info">Help</a></li>
 					</ul>
 				</div><!-- /navbar -->				
 			</div>		
