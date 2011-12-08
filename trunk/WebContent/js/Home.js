@@ -589,7 +589,7 @@ Home.loadUserLocationMap = function()
 	mapPageContent.innerHTML = "<strong>Loading Map...</strong>";
 
 	var position = localStorage.getItem("ElectionObservationLocation");
-	
+
 	if($("#mapCurrentLocation").hasClass("hasMap")){
 		$("#mapCurrentLocation").width("100%");
 	}else{
@@ -603,6 +603,7 @@ Home.loadUserLocationMap = function()
 		{
 			Home.addMapWithPin("mapCurrentLocation", 33.7784626, -84.3988806);
 		}
+
 	}
 };
 
@@ -644,12 +645,7 @@ Home.addMapWithPin = function (divID, lat, lng) {
 	
 	$("#searchAddressLocation").bind("click", marker, function(e) {
 
-		var marker = e.data;
-		var position = marker.getPosition();
-		
-	    var message = position.lat() + ", " + position.lng();
-		
-		updateLocationMessage(message);
+		Home.geolocate();
 
 
 	});
@@ -722,6 +718,7 @@ Home.addMapWithPin = function (divID, lat, lng) {
 	$("#pageMyLocation").bind("pageshow", marker, function(e) {
 
 		var position = localStorage.getItem("ElectionObservationLocation");
+
 		if (null != position)
 		{
 			var coords = position.split(", ");
@@ -736,7 +733,10 @@ Home.addMapWithPin = function (divID, lat, lng) {
 			
 			var map = marker.getMap();
 			map.setCenter(latlng);
+
 		}
+		
+
 
 	});
     
