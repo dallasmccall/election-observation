@@ -29,6 +29,36 @@
 	<script type="text/javascript">
 
 	
+	
+	
+	
+	startSurvey = function()
+	{
+
+		var sessionIDJSON = localStorage.getItem("sessionID");
+		
+		
+		if (sessionIDJSON != null)
+		{
+			
+			$.mobile.changePage("#page1");
+
+			
+		}else{
+
+			localStorage.setItem("sessionID", "<%=UUID.randomUUID().toString()%>");
+			
+			$.mobile.changePage( "#mapCurrentLocationSettings", { transition: "fade"} );
+			
+			
+			$("#applyNewUserLocation").attr("href", "#page1");
+			$("#applyNewUserLocation").removeAttr("data-rel");
+			
+			$("#startSurveyButton .ui-btn-text").text("Continue Survey");
+		}
+	};
+	
+	
 	$(window).bind("load", function() {
 		Home.loadResultsList();		
 		Home.initializeIndex();
@@ -44,9 +74,11 @@
 	 	
 		$("#mapCurrentLocationSettings").bind("pageshow", function() {
 
-			$("#applyNewUserLocation").attr("href", "#");
-			$("#applyNewUserLocation").attr("data-rel", "back");
-			
+			if($("#startSurveyButton .ui-btn-text").text() == "Continue Survey"){
+				$("#applyNewUserLocation").attr("href", "#");
+				$("#applyNewUserLocation").attr("data-rel", "back");
+			}
+		
 			Home.loadUserLocationMap();
 
 	
@@ -155,7 +187,7 @@ alert("could not detect location");
 		</div>	
 		
 		<div data-role="controlgroup">
-		<a id="startSurveyButton" href="#" onclick="Home.startSurvey();" data-role="button"  data-transition="fade" data-theme="b">Start Survey</a>
+		<a id="startSurveyButton" href="#" onclick="startSurvey();" data-role="button"  data-transition="fade" data-theme="b">Start Survey</a>
 		</div>
 	</div>
 	</div>
