@@ -171,7 +171,6 @@ Home.handleFormChange = function(item)
 		Home.addResponseToCache(item.name, item.id, "textbox", item.value);
 	}
 
-	$( ".transmitButton" ).removeClass("ui-disabled");
 	$(".transmitButton span.ui-icon").addClass("ui-icon-alert").removeClass("ui-icon-check");
 	localStorage.setItem("ElectionObservationSendCache", formCache);
 	return true;
@@ -195,8 +194,7 @@ Home.handleTransmitResponse = function(response)
 	}
 	else
 	{
-		
-		$( ".transmitButton" ).addClass("ui-disabled");
+
 		$(".transmitButton span.ui-icon").addClass("ui-icon-check").removeClass("ui-icon-alert");
 		localStorage.setItem("ElectionObservationSendCache", "");
 	}
@@ -507,7 +505,7 @@ Home.loadMap = function(mapName, value)
 		
 		var mapPageContent = document.getElementById(mapPageId + "Content");
 		
-		mapPageContent.innerHTML = "<stron>Load Map</strong>";
+		mapPageContent.innerHTML = "<strong>Load Map</strong>";
 
 	}
 };
@@ -568,9 +566,227 @@ Home.addMapWithPins = function (divID, locations, lat, lng) {
             title:"Responses so far"
         });
     }
+ 
+};
+
+
+Home.shareWithFriends = function()
+{
+	var elementValue = document.getElementById("sharePageTextArea").value;
+	
+	var url = "../servlet/Home?" + "type=shareLink" + "&friends=" + elementValue;
+	
+	var onResponse = Home.handlePutResponse;
+	Request.sendRequest(url, onResponse);
+};
+
+
+
+Home.loadUserLocationMap = function()
+{
+
+	var mapPageContent = "mapCurrentLocation";
+	mapPageContent.innerHTML = "<strong>Loading Map...</strong>";
+
+	var position = localStorage.getItem("ElectionObservationLocation");
+	
+	if($("#mapCurrentLocation").hasClass("hasMap")){
+		$("#mapCurrentLocation").width("100%");
+	}else{
+		if (null != position)
+		{
+			var coords = position.split(", ");
+			
+		    Home.addMapWithPin("mapCurrentLocation", coords[0], coords[1]);
+		}
+		else
+		{
+			Home.addMapWithPin("mapCurrentLocation", 33.7784626, -84.3988806);
+		}
+	}
+};
+
+Home.addMapWithPin = function (divID, lat, lng) {
+	var latlng = new google.maps.LatLng(lat, lng);
+	var myOptions = {
+		zoom: 14,
+		center: latlng,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+	
+	$("#" + divID).height($(document).height() * .5);
+	$("#" + divID).addClass("hasMap");
+    map = new google.maps.Map(document.getElementById(divID),myOptions);
+
+
+	var latlng = new google.maps.LatLng(lat, lng);
+	var marker = new google.maps.Marker({
+        position: latlng,
+        map: map,
+        title:"Your Location",
+    	draggable: true
+    });
+	
+	
+	
+	$("#applyNewUserLocation").bind("click", marker, function(event) {
+
+		var marker = event.data;
+		var position = marker.getPosition();
+		
+	    var message = position.lat() + ", " + position.lng();
+
+		updateLocationMessage(message);
+
+
+	});
+	
+	
+	$("#searchAddressLocation").bind("click", marker, function(e) {
+
+		var marker = e.data;
+		var position = marker.getPosition();
+		
+	    var message = position.lat() + ", " + position.lng();
+		
+		updateLocationMessage(message);
+
+
+	});
+	
+	
+	
+	$('#searchAddressLocation').bind('locationFound', marker, function(e, ltlng) {
+		
+		
+		
+		var marker = e.data;
+		marker.setPosition(ltlng);
+		
+		
+		var map = marker.getMap();
+		map.setCenter(ltlng);
+
+	});
+	
+	
+    $('#searchAddressLocation').keypress(function(e){
+    	        code= (e.keyCode ? e.keyCode : e.which);
+    	        
+    	        
+    	        if (code == 13) {
+    	        	
+
+    	        	Home.geolocate();
+    	        	
+    	        	
+    	        	e.preventDefault();
+    		}
+
+	});
+	
+	$("#searchAddressLocationButton").bind("click", function(event) {
+
+		Home.geolocate();
+
+	});
+	
+	
+	
+	$("#detectLocationButton").bind("click", function(e) {
+
+		
+		navigator.geolocation.getCurrentPosition(Home.handleDetectedLocation, showError, {enableHighAccuracy:true,maximumAge:600000});
+
+
+	});
+	
+	
+	
+	
+	
+	
+	$('#detectLocationButton').bind('locationDetected', marker, function(e, ltlng) {
+
+		var marker = e.data;
+		marker.setPosition(ltlng);
+		
+		
+		var map = marker.getMap();
+		map.setCenter(ltlng);
+
+	});
+	
+
+	
+	$("#pageMyLocation").bind("pageshow", marker, function(e) {
+
+		var position = localStorage.getItem("ElectionObservationLocation");
+		if (null != position)
+		{
+			var coords = position.split(", ");
+		    var lat = coords[0];
+		    var lng = coords[1];
+		    
+		    var latlng = new google.maps.LatLng(lat, lng);
+			
+			var marker = e.data;
+			marker.setPosition(latlng);
+			
+			
+			var map = marker.getMap();
+			map.setCenter(latlng);
+		}
+
+	});
     
     
-}
+	
+};
+
+
+
+Home.handleDetectedLocation = function(position){
+    var lat = position.coords.latitude;
+    var lng = position.coords.longitude;
+    
+    var latlng = new google.maps.LatLng(lat, lng);
+    
+	
+    $('#detectLocationButton').trigger('locationDetected', latlng);
+	
+};
+
+
+Home.geolocate = function(){
+
+	var address = $("#searchAddressLocation").val();
+	var geocoder = new google.maps.Geocoder();    	    	    
+	geocoder.geocode( { 'address': address}, function(results, status) {
+	  if (status == google.maps.GeocoderStatus.OK) {
+		
+		  /*
+	    map.setCenter(results[0].geometry.location);
+	    
+	    marker.setOptions({
+	        position: results[0].geometry.location
+	    });
+	    */
+		  
+		  var ltlng = results[0].geometry.location;
+		
+	    $('#searchAddressLocation').trigger('locationFound', ltlng);
+	    
+	    
+	  } else {
+	    alert("Geocode was not successful for the following reason: " + status);
+	  }
+	});
+
+};
+
+
+
 
 Home.loadCommentsForPage = function(pageId)
 {
@@ -613,7 +829,7 @@ Home.handleLoadComments = function(response)
 	for (var idx = 0; idx < results.topComments.length; idx++)
 	{
 		element.innerHTML += results.topComments[idx].item + "<br><br>";
-	}
+	};
 };
 
 Home.handleLoadResultsList = function(response)
@@ -668,7 +884,7 @@ Home.handleLoadResultsList = function(response)
 	{
 		var name = "#" + results.questions[idx].question.split(' ').join('') + "Maps";
 		$(name).bind('expand', Home.loadResult);
-	}
+	};
 };
 
 Home.handleGetQuestionResponse = function(response)
