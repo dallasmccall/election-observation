@@ -269,7 +269,7 @@ public class HomeServlet extends HttpServlet
     	    	}
     	      
     	      message.setSubject( "Try Election Observer" );
-    	      message.setText( "Hello, a friend of yours suggested you try out this cool election observer webapp: http://143.215.103.185:9001/ElectionObservation/jsp/index.jsp" );
+    	      message.setText( "Hello, a friend of yours suggested you try out this cool election observer webapp: http://143.215.103.185:8080/ElectionObservation/jsp/index.jsp" );
     	      Transport.send( message );
     	    }
     	    catch (Exception ex){
