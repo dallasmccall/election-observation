@@ -87,7 +87,8 @@ alert("could not detect location");
 		//position.coords.longitude + "&zoom=18&size=300x400&markers=color:blue|label:S|" +  
 		//position.coords.latitude + ',' + position.coords.longitude + "/></h1>";
 	    var message = position.coords.latitude + ", " + position.coords.longitude;
-		
+	    
+
 		updateLocationMessage(message);
 	}
 	
@@ -101,6 +102,8 @@ alert("could not detect location");
 		}
 		
 		$(".myLocationButton span.ui-icon").addClass("ui-icon-gear").removeClass("ui-icon-alert");
+		
+		$("#currentUserLocationCoords").text("(" + message + ")");
 		
 		formCache += "&userLocation=" + message;
 		
@@ -194,6 +197,8 @@ alert("could not detect location");
 		  <li>Will be a "check" symbol if we have a valid location.</li>
 	   </ul>
 		
+		
+		<p>Current Saved Location: <span id="currentUserLocationCoords">Unkown</span></p>
 	
 	 <!-- User Location -->
 	<div id="mapCurrentLocationSettings" data-role="collapsible" data-theme="b" data-content-theme="c">
