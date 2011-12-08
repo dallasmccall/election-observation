@@ -393,11 +393,11 @@
 	  
 	<fieldset class="ui-grid-b ui-bar-a" style="padding:3px 3px 3px 3px;">
 		<div class="ui-block-a">
-			<a data-role="button" data-theme="d" data-icon="gear" data-iconpos="notext" style="margin-left:8px; margin-right:auto;"></a>
+			<a class="descriptionButton" onclick="selectButtonDescription(this,'buttonDescriptionLocationIndicator');" data-role="button" data-theme="d" data-icon="gear" data-iconpos="notext" style="margin-left:8px; margin-right:auto;"></a>
 		</div>
 		<div class="ui-block-b"><p style="margin-top:10px; margin-bottom:auto; text-align:center; align:center;">Page 1/10</p></div>
 		<div class="ui-block-c">
-			<a data-role="button" data-theme="d" data-icon="check" data-iconpos="notext" style="margin-left:auto; margin-right:8px;"></a>
+			<a class="descriptionButton" onclick="selectButtonDescription(this,'buttonDescriptionSynchedIndicator');" data-role="button" data-theme="d" data-icon="check" data-iconpos="notext" style="margin-left:auto; margin-right:8px;"></a>
 		</div>	   
 	</fieldset>
 
@@ -419,27 +419,30 @@
 	  
 	  </div>
 	  
-	  
+	  <img src="../imgs/PressMeDown.png" alt="Press Me!"/>
 		<div data-role="navbar" style="background-color:black;">
 			<ul>
-			<li><a onclick="selectButtonDescription('buttonDescriptionHome');" data-icon="home"  data-role="button" data-theme="a">Home</a></li>
-			<li><a onclick="selectButtonDescription('buttonDescriptionSponsors');" data-icon="check"data-role="button" data-theme="a">Sponsors</a></li>
-			<li><a onclick="selectButtonDescription('buttonDescriptionMap');" data-icon="star" data-role="button" data-theme="a">Map</a></li>
+			<li><a class="descriptionButton" onclick="selectButtonDescription(this,'buttonDescriptionHome');" data-icon="home"  data-role="button" data-theme="a">Home</a></li>
+			<li><a class="descriptionButton" onclick="selectButtonDescription(this,'buttonDescriptionSponsors');" data-icon="check"data-role="button" data-theme="a">Sponsors</a></li>
+			<li><a class="descriptionButton" onclick="selectButtonDescription(this,'buttonDescriptionMap');" data-icon="star" data-role="button" data-theme="a">Map</a></li>
 			</ul>
 			<ul>
-			<li><a onclick="selectButtonDescription('buttonDescriptionMySurvey');" data-icon="gear" data-role="button" data-theme="a">My Survey</a></li>
-			<li><a onclick="selectButtonDescription('buttonDescriptionResults');" data-icon="arrow-u" data-role="button" data-theme="a">Results</a></li>
-			<li><a onclick="selectButtonDescription('buttonDescriptionRestart');" data-icon="back" data-role="button" data-theme="a">Restart</a></li>
+			<li><a class="descriptionButton" onclick="selectButtonDescription(this,'buttonDescriptionMySurvey');" data-icon="gear" data-role="button" data-theme="a">My Survey</a></li>
+			<li><a class="descriptionButton" onclick="selectButtonDescription(this,'buttonDescriptionResults');" data-icon="arrow-u" data-role="button" data-theme="a">Results</a></li>
+			<li><a class="descriptionButton" onclick="selectButtonDescription(this,'buttonDescriptionRestart');" data-icon="back" data-role="button" data-theme="a">Restart</a></li>
 			</ul>
 			<ul>
-			<li><a onclick="selectButtonDescription('buttonDescriptionBack');" data-role="button" data-icon="arrow-l" data-theme="a"></a></li>
-			<li><a id="buttonDescriptionButtonMenu" onclick="selectButtonDescription('buttonDescriptionMenu');" data-role="button" data-icon="grid" data-theme="a"></a></li>
-			<li><a onclick="selectButtonDescription('buttonDescriptionNext');" data-role="button" data-icon="arrow-r" data-theme="a"></a></li>		
+			<li><a class="descriptionButton" onclick="selectButtonDescription(this,'buttonDescriptionBack');" data-role="button" data-icon="arrow-l" data-theme="a"></a></li>
+			<li><a class="descriptionButton" id="buttonDescriptionButtonMenu" onclick="selectButtonDescription(this,'buttonDescriptionMenu');" data-role="button" data-icon="grid" data-theme="a"></a></li>
+			<li><a class="descriptionButton" onclick="selectButtonDescription(this,'buttonDescriptionNext');" data-role="button" data-icon="arrow-r" data-theme="a"></a></li>		
 			</ul>
 		</div><!-- /navbar -->			
 </div>
 	
 		<div id="buttonDescriptions" style="border:2px solid gray; padding:0px 10px 0px 10px;">
+			<p id="buttonDescriptionLocationIndicator">Shows my location.</p>
+			<p id="buttonDescriptionSynchedIndicator">Indicates whether synched with server.</p>
+			
 			<p id="buttonDescriptionHome">Goes to the home page.</p>
 			<p id="buttonDescriptionSponsors">Shows our sponsors, and the prizes they offer for completing a form.</p>
 			<p id="buttonDescriptionMap">Shows the survey results map.</p>
