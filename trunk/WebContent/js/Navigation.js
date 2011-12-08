@@ -69,8 +69,10 @@ $( "#globalResults" ).live( 'pageshow',function(event, ui){
 });
 
 
-function selectButtonDescription(id){
+function selectButtonDescription(me,id){
 	$("#" + id).show().siblings().hide();
+	$(".descriptionButton").removeClass("ui-btn-active");
+	$(me).addClass("ui-btn-active");
 }
 
 function hideButtonDescriptions(){
