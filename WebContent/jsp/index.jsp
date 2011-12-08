@@ -244,12 +244,48 @@ alert("could not detect location");
   	
   </div>
   
+
+  
+    <!-- MAPS PAGE HELP -->
+  <div id="pageMapResultsHelp" data-role="page">
+    <div data-role="header">
+	  <h1> Mapped Results </h1>
+	</div>
+	
+    <div data-role="content">	
+	  <ul>
+		  <li>Press on a blue button to view the potential answers to that question.</li>
+		  <li>Then, press on one of the potential answers to view a map with pins at every location that someone gave that answer.</li>
+	  </ul>
+	  
+    </div>
+  	
+  </div>
+  
+
+    <!-- STATS PAGE HELP -->
+  <div id="pageStatResultsHelp" data-role="page">
+    <div data-role="header">
+	  <h1> Statistical Results </h1>
+	</div>
+	
+    <div data-role="content">	
+	  <ul>
+		  <li>Press on a blue button to view the potential answers to that question, and a pie chart showing the percent of each answer.</li>
+		  <li>Then, press on one of the potential answers to pop out that segment of the pie chart.</li>
+	  </ul>
+	  
+    </div>
+  	
+  </div>
+
   
   
   <!-- GLOBAL RESULTS -->
   <div id="globalResults" data-role="page">
     <div data-role="header">
 	  <h1> Results </h1>
+	  <a href="#pageStatResultsHelp" data-role="button" data-rel="dialog" data-transition="fade" data-theme="a" data-icon="info" data-iconpos="notext"></a>
 	</div>
 	
     <div data-role="content">	
@@ -262,6 +298,8 @@ alert("could not detect location");
   <div id="mapPage" data-role="page">
     <div data-role="header">
 	  <h1> Maps </h1>
+	  <a href="#pageMapResultsHelp" data-role="button" data-rel="dialog" data-transition="fade" data-theme="a" data-icon="info" data-iconpos="notext"></a>
+	  
 	</div>
 	
     <div data-role="content">	
@@ -290,11 +328,11 @@ alert("could not detect location");
 	  
 	<fieldset class="ui-grid-b ui-bar-a" style="padding:3px 3px 3px 3px;">
 		<div class="ui-block-a">
-			<a class="descriptionButton" onclick="selectButtonDescription(this,'buttonDescriptionLocationIndicator');" data-role="button" data-theme="d" data-icon="gear" data-iconpos="notext" style="margin-left:8px; margin-right:auto;"></a>
+			<a class="descriptionButton" onclick="selectButtonDescription(this,'buttonDescriptionLocationIndicator');" data-role="button" data-theme="a" data-icon="gear" data-iconpos="notext" style="margin-left:8px; margin-right:auto;"></a>
 		</div>
 		<div class="ui-block-b"><p style="margin-top:10px; margin-bottom:auto; text-align:center; align:center;">Page 1/10</p></div>
 		<div class="ui-block-c">
-			<a class="descriptionButton" onclick="selectButtonDescription(this,'buttonDescriptionSynchedIndicator');" data-role="button" data-theme="d" data-icon="check" data-iconpos="notext" style="margin-left:auto; margin-right:8px;"></a>
+			<a class="descriptionButton" onclick="selectButtonDescription(this,'buttonDescriptionSynchedIndicator');" data-role="button" data-theme="a" data-icon="check" data-iconpos="notext" style="margin-left:auto; margin-right:8px;"></a>
 		</div>	   
 	</fieldset>
 

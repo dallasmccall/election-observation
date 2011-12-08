@@ -14,9 +14,9 @@
 
 		<!-- PAGE HEADER -->
 		<div data-role="header" data-position="fixed" >
-			<a href="#pageMyLocation" data-role="button" data-theme="d" data-icon="alert" data-iconpos="notext" data-rel="dialog" data-transition="fade" class="myLocationButton ui-btn-left ui-btn ui-btn-icon-notext ui-btn-corner-all ui-shadow ui-btn-up-d" title=""><span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true"><span class="ui-btn-text"></span><span class="ui-icon ui-icon-alert ui-icon-shadow"></span></span></a>
+			<a href="#pageMyLocation" data-role="button" data-theme="a" data-icon="alert" data-iconpos="notext" data-rel="dialog" data-transition="fade" class="myLocationButton ui-btn-left ui-btn ui-btn-icon-notext ui-btn-corner-all ui-shadow ui-btn-up-a" title=""><span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true"><span class="ui-btn-text"></span><span class="ui-icon ui-icon-alert ui-icon-shadow"></span></span></a>
 			<h1>Question <xsl:number count="question" level="any" />/<xsl:value-of select="count(/survey/question)"/></h1>
-			<a href="#pageSyncIndicatorHelp" class="transmitButton ui-btn-right ui-btn ui-btn-up-d ui-btn-icon-notext ui-btn-corner-all ui-shadow" data-rel="dialog" data-transition="fade" data-role="button" data-theme="d" data-icon="check" data-iconpos="notext" title=""><span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true"><span class="ui-btn-text"></span><span class="ui-icon ui-icon-check ui-icon-shadow"></span></span></a>
+			<a href="#pageSyncIndicatorHelp" class="transmitButton ui-btn-right ui-btn ui-btn-up-a ui-btn-icon-notext ui-btn-corner-all ui-shadow" data-rel="dialog" data-transition="fade" data-role="button" data-theme="a" data-icon="check" data-iconpos="notext" title=""><span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true"><span class="ui-btn-text"></span><span class="ui-icon ui-icon-check ui-icon-shadow"></span></span></a>
     	</div>
 		
 		<!-- QUESTION/CONTENT -->
