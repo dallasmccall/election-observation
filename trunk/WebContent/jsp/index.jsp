@@ -219,58 +219,22 @@
 	
 	<div data-role="content" style="width:100%; height:100%; padding:0;">
 
-	<h4>Welcome to the Election Observation Tool!</h4>
-	<p>Press the arrow button at the bottom right to start the survey, or press the info on the bottom left button for help on using the tool.</p>
-	<p>Be sure to check out our sponsors, they have offered some cool rewards for completing a survey. And don't forget to tell your friends!</p>
+	<h3><center>Welcome to the Election Observation Tool!</center></h3>
+	<div style="margin:10px 10px 10px 10px;">
+		<div data-role="controlgroup">
+		<a href="#infoPage" data-role="button" data-rel="dialog" data-transition="fade" data-theme="d">Learn about Observer</a>
+		</div>
 		
+		<div data-role="controlgroup">
+			<a href="#mapPage" data-role="button" data-transition="fade" data-rel="dialog" data-theme="c">View Map of Results</a>
+			<a href="#globalResults" data-role="button" data-rel="dialog" data-transition="fade" data-theme="c">View Graph of Results</a>
+		</div>	
 		
+		<div data-role="controlgroup">
+		<a href="#page1" data-role="button"  data-transition="slide" data-direction="forward" data-theme="b">Start Survey</a>
+		</div>
 	</div>
-	
-	
-	
-	
-	
-			<!-- FOOTER AND NAVBAR -->
-		<div data-role="footer"  data-position="fixed" data-id="global-nav-bar">
-					
-			<div class="navbarMenu">
-				<div data-role="navbar" data-position="fixed">
-					<ul>
-					<li><a data-icon="home"  href="#home" data-role="button" data-transition="fade">Home</a></li>
-					<li><a data-icon="check" href="#sponsorsPage" data-role="button" data-rel="dialog" data-transition="fade">Sponsors</a></li>
-					<li><a data-icon="star"  href="#mapPage" data-role="button" data-transition="fade" data-rel="dialog">Map</a></li>
-					</ul>
-					<ul>
-					<li><a data-icon="gear" href="#mySurveyPage" data-role="button" data-transition="fade">My Survey</a></li>
-					<li><a data-icon="arrow-u"  href="#globalResults" data-role="button" data-rel="dialog" data-transition="fade">Results</a></li>
-					<li><a data-icon="back"  href="#page1" data-role="button" data-transition="fade">Restart</a></li>
-					</ul>
-				</div><!-- /navbar -->				
-			</div>
-			
-		
-			<!-- FOOTER AND NAVBAR -->
-			<div data-role="navbar" data-position="fixed">
-				
-				<ul>
-					<!-- INFO BUTTON -->
-					<li>
-						<a href="#infoPage" data-role="button" onclick="hideButtonDescriptions();" data-rel="dialog" data-transition="fade" data-icon="info"></a>
-					</li>
-					
-					<!-- MENU BUTTON -->
-					<li><a href="Javascript:toggleMenu()" data-role="button" data-icon="grid" ></a></li>
-					
-					<!-- NEXT BUTTON -->
-					<li>
-						<a href="#page1" data-role="button" data-icon="arrow-r"  data-transition="slide" data-direction="forward"></a>
-					</li>
-					
-					
-					
-				</ul>
-			</div><!-- /navbar -->
-		</div><!-- /footer -->	
+	</div>
   </div>
   
   <div id="verificationPage" data-role="page">
